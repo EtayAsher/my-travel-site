@@ -127,6 +127,43 @@
             padding: 20px;
         }
 
+        /* הוספת עיצוב לכותרת החדשה */
+        .typing-title {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            color: white;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: .15em solid white;
+            animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        /* אנימציית הקלדה */
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        /* אנימציית קו אנכי */
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: white;
+            }
+        }
+
         @media (max-width: 768px) {
             .form-container {
                 padding: 1rem;
@@ -140,6 +177,7 @@
 </head>
 
 <body>
+    <h1 class="typing-title">If you've come here! You want your dream vacation!</h1>
     <div class="slideshow-container">
         <div class="slide active"
             style="background-image: url('https://images.unsplash.com/photo-1485871983421-0a9b3d42d2a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
@@ -198,7 +236,6 @@
     <div class="content-below">
         <!-- תוכן נוסף כאן - ניתן להוסיף תוכן שגוללים -->
     </div>
-
     <script>
         const slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
