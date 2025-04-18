@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            min-height: 200vh; /* גובה מינימלי לגלילה */
+            min-height: 200vh;
         }
 
         .slideshow-container {
@@ -52,14 +52,63 @@
             max-width: 400px;
         }
 
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 1.2rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
         .fixed-message {
-            position: fixed;
-            top: 20px;
-            left: 20px;
+            position: absolute;
+            top: 120%; /* מתחת לטופס */
+            left: 50%;
+            transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.8);
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            opacity: 0; /* מסתירים את ההודעה בהתחלה */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .fixed-message.show {
+            opacity: 1; /* מציגים את ההודעה כשהיא מופיעה */
         }
 
         .content-below {
@@ -95,10 +144,12 @@
         <h2>רוצים לתכנן את החופשה המושלמת שלכם בעזרת בינה מלאכותית ועוד כלים נוספים?</h2>
         <form>
             <div class="form-group">
-                <input type="email" placeholder="אימייל" required>
+                <label for="email">אימייל:</label>
+                <input type="email" id="email" placeholder="הכנס אימייל" required>
             </div>
             <div class="form-group">
-                <input type="password" placeholder="סיסמה" required>
+                <label for="password">סיסמה:</label>
+                <input type="password" id="password" placeholder="הכנס סיסמה" required>
             </div>
             <button type="submit">הירשם עכשיו</button>
         </form>
@@ -123,6 +174,16 @@
         }
 
         setInterval(nextSlide, 4000);
+
+        const fixedMessage = document.querySelector('.fixed-message');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > window.innerHeight / 2) {
+                fixedMessage.classList.add('show');
+            } else {
+                fixedMessage.classList.remove('show');
+            }
+        });
     </script>
 </body>
 </html>
