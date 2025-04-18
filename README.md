@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>תכנון חופשה עם AI</title>
     <style>
+        /* Reset CSS */
         * {
             margin: 0;
             padding: 0;
@@ -38,6 +39,8 @@
 
         .slide.active {
             opacity: 1;
+            /* מוודא שהתמונה הראשונה גלויה מיידית */
+            animation: none;
         }
 
         /* כדי שהרקע יופיע מייד */
@@ -130,54 +133,6 @@
             position: relative;
             top: 100vh;
             padding: 20px;
-        }
-
-        /* הסרת עיצוב לכותרת החדשה */
-        /* הוספת עיצוב לכותרת החדשה */
-        .typing-title {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 1.5rem;
-            color: white;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: .15em solid white;
-            animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
-        }
-
-        /* אנימציית הקלדה */
-        @keyframes typing {
-            from {
-                width: 0
-            }
-
-            to {
-                width: 100%
-            }
-        }
-
-        /* אנימציית קו אנכי */
-        @keyframes blink-caret {
-
-            from,
-            to {
-                border-color: transparent
-            }
-
-            50% {
-                border-color: white;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .form-container {
-                padding: 1rem;
-            }
-
-            .fixed-message {
-                width: 90%;
-            }
         }
     </style>
 </head>
