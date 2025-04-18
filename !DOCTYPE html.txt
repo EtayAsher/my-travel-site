@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>חופשה עם AI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      animation: changeBg 20s infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: sans-serif;
+    }
+
+    @keyframes changeBg {
+      0% { background-image: url('https://source.unsplash.com/1600x900/?paris'); }
+      33% { background-image: url('https://source.unsplash.com/1600x900/?newyork'); }
+      66% { background-image: url('https://source.unsplash.com/1600x900/?rome'); }
+      100% { background-image: url('https://source.unsplash.com/1600x900/?tokyo'); }
+    }
+
+    .login-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    p {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>תכנן את החופשה שלך עם AI 🤖</h2>
+    <p>הכניסו מייל וסיסמה ונמצא לכם את החופשה הכי טובה והכי זולה בעולם!</p>
+    <input type="email" placeholder="האימייל שלך" />
+    <input type="password" placeholder="סיסמה" />
+    <button onclick="startChat()">התחבר</button>
+  </div>
+
+  <script>
+    function startChat() {
+      alert("ברוך הבא! עכשיו נעבור לשלב שבו הבוט ישאל אותך שאלות 🎉");
+      // כאן תוכל בהמשך להעביר לעמוד אחר או להפעיל בוט
+    }
+  </script>
+</body>
+</html>
