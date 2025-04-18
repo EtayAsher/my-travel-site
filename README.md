@@ -96,19 +96,32 @@
 
         .fixed-message {
             position: absolute;
-            top: 120%; /* מתחת לטופס */
+            top: 120%;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.8);
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            opacity: 0; /* מסתירים את ההודעה בהתחלה */
+            opacity: 0;
             transition: opacity 0.5s ease-in-out;
         }
 
         .fixed-message.show {
-            opacity: 1; /* מציגים את ההודעה כשהיא מופיעה */
+            opacity: 1;
+        }
+
+        .airplane {
+            position: fixed;
+            top: 50%;
+            left: -100px; /* מתחיל מחוץ למסך */
+            width: 100px;
+            transition: left 2s linear;
+            z-index: 10; /* מעל שאר האלמנטים */
+        }
+
+        .airplane.fly {
+            left: 100%; /* עף עד הקצה השני של המסך */
         }
 
         .content-below {
@@ -134,7 +147,6 @@
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1524820197278-540916411e20?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
-        <!-- תמונות נוספות -->
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85660d58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
@@ -159,6 +171,8 @@
         היי! רוצים לתכנן את החופשה המשולמת שלכם אבל לא יודעים מאיפה להתחיל? נמאס לשבור את הכיס על מלונות? הירשמו ונעזור לכם למצוא בדיוק את מה שאתם רוצים!
     </div>
 
+    <img class="airplane" src="https://i.imgur.com/QrKdCSe.png" alt="מטוס">
+
     <div class="content-below">
         <!-- תוכן נוסף כאן - ניתן להוסיף תוכן שגוללים -->
     </div>
@@ -176,6 +190,7 @@
         setInterval(nextSlide, 4000);
 
         const fixedMessage = document.querySelector('.fixed-message');
+        const airplane = document.querySelector('.airplane');
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > window.innerHeight / 2) {
@@ -183,9 +198,12 @@
             } else {
                 fixedMessage.classList.remove('show');
             }
+
+            airplane.classList.remove('fly'); // הסרה של המחלקה לפני הפעלת האנימציה
+            void airplane.offsetWidth; // טריגר לריסט של האנימציה
+            airplane.classList.add('fly'); // הפעלת האנימציה
         });
     </script>
 </body>
 </html>
-
 
