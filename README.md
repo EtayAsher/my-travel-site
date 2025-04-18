@@ -113,10 +113,10 @@
 
         .airplane {
             position: fixed;
-            top: 50%;
-            left: -100px; /* מתחיל מחוץ למסך */
-            width: 100px;
-            transition: left 2s linear;
+            top: 10%;
+            left: -300px; /* מתחיל מחוץ למסך */
+            width: 300px; /* גודל המטוס */
+            transition: left 5s linear; /* מהירות האנימציה */
             z-index: 10; /* מעל שאר האלמנטים */
         }
 
@@ -199,11 +199,12 @@
                 fixedMessage.classList.remove('show');
             }
 
-            airplane.classList.remove('fly'); // הסרה של המחלקה לפני הפעלת האנימציה
-            void airplane.offsetWidth; // טריגר לריסט של האנימציה
-            airplane.classList.add('fly'); // הפעלת האנימציה
+            airplane.classList.remove('fly');
+            void airplane.offsetWidth;
+            airplane.classList.add('fly');
         });
     </script>
 </body>
 </html>
+
 
