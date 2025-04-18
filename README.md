@@ -182,7 +182,9 @@
 </head>
 
 <body>
+    <!-- הכותרת החדשה עם אפקט הקלדה -->
     <h1 class="typing-title">If you've come here! You want your dream vacation!</h1>
+
     <div class="slideshow-container">
         <div class="slide active"
             style="background-image: url('https://images.unsplash.com/photo-1485871983421-0a9b3d42d2a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
