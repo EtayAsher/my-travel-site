@@ -13,8 +13,7 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            min-height: 100vh; /* גובה מינימלי - אין צורך בגלילה */
-            overflow-x: hidden; /* מניעת גלילה אופקית */
+            min-height: 200vh; /* גובה מינימלי לגלילה */
         }
 
         .slideshow-container {
@@ -22,7 +21,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: -1;
         }
 
@@ -50,38 +49,23 @@
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             width: 90%;
-            max-width: 500px; /* הגדלת הריבוע הלבן */
-            text-align: center;
+            max-width: 400px;
         }
 
-        .form-title {
-            margin-bottom: 1.5rem;
-            color: #333;
-            font-size: 1.3rem; /* הקטנת הפונט */
-            line-height: 1.4;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
+        .fixed-message {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
             border-radius: 5px;
-            margin-bottom: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
-        button {
-            width: 100%;
-            padding: 1rem;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
+        .content-below {
+            position: relative;
+            top: 100vh;
+            padding: 20px;
         }
 
         @media (max-width: 768px) {
@@ -101,10 +85,14 @@
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1524820197278-540916411e20?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
+        <!-- תמונות נוספות -->
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85660d58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
     </div>
 
     <div class="form-container">
-        <h2 class="form-title">היי! רוצים לתכנן את החופשה המשולמת שלכם אבל לא יודעים מאיפה להתחיל? נמאס לשבור את הכיס על מלונות? הירשמו ונעזור לכם למצוא בדיוק את מה שאתם רוצים!</h2>
+        <h2>רוצים לתכנן את החופשה המושלמת שלכם בעזרת בינה מלאכותית ועוד כלים נוספים?</h2>
         <form>
             <div class="form-group">
                 <input type="email" placeholder="אימייל" required>
@@ -114,6 +102,14 @@
             </div>
             <button type="submit">הירשם עכשיו</button>
         </form>
+    </div>
+
+    <div class="fixed-message">
+        היי! רוצים לתכנן את החופשה המשולמת שלכם אבל לא יודעים מאיפה להתחיל? נמאס לשבור את הכיס על מלונות? הירשמו ונעזור לכם למצוא בדיוק את מה שאתם רוצים!
+    </div>
+
+    <div class="content-below">
+        <!-- תוכן נוסף כאן - ניתן להוסיף תוכן שגוללים -->
     </div>
 
     <script>
