@@ -1,133 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Travel Site</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תכנון חופשה עם AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    html, body {
-      height: 100%;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
+        body {
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-    .background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-size: cover;
-      background-position: center;
-      transition: background-image 1s ease-in-out;
-      z-index: -1;
-    }
+        .slideshow {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
 
-    .form-container {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
 
-    .form-box {
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 30px 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.3);
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-    }
+        .slide.active {
+            opacity: 1;
+        }
 
-    .form-box h2 {
-      margin-bottom: 20px;
-      font-size: 22px;
-      color: #333;
-    }
+        .form-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+        }
 
-    .form-box input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
+        .form-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-size: 1.5rem;
+        }
 
-    .form-box button {
-      width: 100%;
-      padding: 10px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
+        .form-group {
+            margin-bottom: 1rem;
+        }
 
-    .form-box button:hover {
-      background-color: #0056b3;
-    }
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
 
-    .form-box p {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #666;
-    }
-  </style>
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <div class="background" id="background"></div>
-
-  <div class="form-container">
-    <div class="form-box">
-      <h2>הכניסו אימייל כדי שנמצא לכם את החופשה המושלמת!</h2>
-      <input type="email" placeholder="כתובת אימייל">
-      <button>הצטרפו עכשיו</button>
-      <p>הרשמו כדי לקבל הצעות לחופשות זולות ומדהימות!</p>
+    <div class="slideshow">
+        <div class="slide active" style="background-image: url('https://example.com/new-york.jpg')"></div>
+        <div class="slide" style="background-image: url('https://example.com/rome.jpg')"></div>
+        <div class="slide" style="background-image: url('https://example.com/madrid.jpg')"></div>
+        <!-- הוסף כאן את שאר התמונות -->
     </div>
-  </div>
 
-  <script>
-    const images = [
-      'https://source.unsplash.com/1600x900/?new-york',
-      'https://source.unsplash.com/1600x900/?rome',
-      'https://source.unsplash.com/1600x900/?madrid',
-      'https://source.unsplash.com/1600x900/?berlin',
-      'https://source.unsplash.com/1600x900/?japan',
-      'https://source.unsplash.com/1600x900/?china',
-      'https://source.unsplash.com/1600x900/?thailand',
-      'https://source.unsplash.com/1600x900/?africa',
-      'https://source.unsplash.com/1600x900/?iceland',
-      'https://source.unsplash.com/1600x900/?paris'
-    ];
+    <div class="form-container">
+        <h2 class="form-title">רוצים לתכנן את החופשה המושלמת שלכם בעזרת בינה מלאכותית ועוד כלים נוספים?</h2>
+        <form>
+            <div class="form-group">
+                <input type="email" placeholder="אימייל" required>
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="סיסמה" required>
+            </div>
+            <button type="submit">הירשם עכשיו</button>
+        </form>
+    </div>
 
-    let current = 0;
-    const background = document.getElementById('background');
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
 
-    function changeBackground() {
-      background.style.backgroundImage = `url('${images[current]}')`;
-      current = (current + 1) % images.length;
-    }
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
 
-    // Show first background immediately
-    changeBackground();
-
-    // Change every 6 seconds
-    setInterval(changeBackground, 6000);
-  </script>
-
+        // החלפת תמונה כל 5 שניות
+        setInterval(nextSlide, 5000);
+    </script>
 </body>
 </html>
-
 
 
 
