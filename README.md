@@ -99,24 +99,24 @@
             position: absolute;
             top: 120%;
             left: -50%;
-            /* מתחיל מצד שמאל */
             transform: translateX(0);
-            background: rgba(255, 255, 255, 0.8);
+            background: linear-gradient(to right, #4CAF50, #8BC34A);
+            color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             opacity: 0;
             transition: all 1s ease-in-out;
             width: 60%;
-            /* רוחב גדול יותר */
             max-width: 600px;
-            /* רוחב מקסימלי */
             text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
         }
 
         .fixed-message.show {
             left: 50%;
-            /* מגיע למרכז */
             transform: translateX(-50%);
             opacity: 1;
         }
@@ -134,7 +134,6 @@
 
             .fixed-message {
                 width: 90%;
-                /* רוחב מותאם למסכים קטנים */
             }
         }
     </style>
