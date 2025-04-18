@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My Travel Site</title>
   <style>
     * {
@@ -10,85 +11,126 @@
       box-sizing: border-box;
     }
 
-    body, html {
+    html, body {
       height: 100%;
       font-family: Arial, sans-serif;
+      overflow: hidden;
     }
 
     .background {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
       height: 100%;
+      width: 100%;
       background-size: cover;
       background-position: center;
-      animation: slideShow 20s infinite;
+      transition: background-image 1s ease-in-out;
       z-index: -1;
     }
 
-    @keyframes slideShow {
-      0%   { background-image: url('https://source.unsplash.com/1600x900/?paris'); }
-      25%  { background-image: url('https://source.unsplash.com/1600x900/?newyork'); }
-      50%  { background-image: url('https://source.unsplash.com/1600x900/?rome'); }
-      75%  { background-image: url('https://source.unsplash.com/1600x900/?tokyo'); }
-      100% { background-image: url('https://source.unsplash.com/1600x900/?london'); }
+    .form-container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .login-box {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.9);
-      padding: 40px;
-      border-radius: 10px;
+    .form-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
       text-align: center;
+      max-width: 400px;
+      width: 90%;
     }
 
-    .login-box h2 {
+    .form-box h2 {
       margin-bottom: 20px;
+      font-size: 22px;
+      color: #333;
     }
 
-    .login-box input {
-      display: block;
+    .form-box input {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 5px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
     }
 
-    .login-box button {
-      padding: 10px 20px;
-      background-color: #2196F3;
-      border: none;
+    .form-box button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
       color: white;
-      border-radius: 5px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
     }
 
-    .login-box p {
-      margin-top: 10px;
+    .form-box button:hover {
+      background-color: #0056b3;
+    }
+
+    .form-box p {
+      margin-top: 15px;
       font-size: 14px;
-      color: #333;
+      color: #666;
     }
   </style>
 </head>
 <body>
 
-<div class="background"></div>
+  <div class="background" id="background"></div>
 
-<div class="login-box">
-  <h2>ברוכים הבאים</h2>
-  <p>הכניסו את המייל והסיסמה שלכם כדי למצוא את החופשה הכי טובה וזולה עם בינה מלאכותית!</p>
-  <input type="email" placeholder="אימייל">
-  <input type="password" placeholder="סיסמה">
-  <button>התחבר</button>
-</div>
+  <div class="form-container">
+    <div class="form-box">
+      <h2>הכניסו אימייל כדי שנמצא לכם את החופשה המושלמת!</h2>
+      <input type="email" placeholder="כתובת אימייל">
+      <button>הצטרפו עכשיו</button>
+      <p>הרשמו כדי לקבל הצעות לחופשות זולות ומדהימות!</p>
+    </div>
+  </div>
+
+  <script>
+    const images = [
+      'https://source.unsplash.com/1600x900/?new-york',
+      'https://source.unsplash.com/1600x900/?rome',
+      'https://source.unsplash.com/1600x900/?madrid',
+      'https://source.unsplash.com/1600x900/?berlin',
+      'https://source.unsplash.com/1600x900/?japan',
+      'https://source.unsplash.com/1600x900/?china',
+      'https://source.unsplash.com/1600x900/?thailand',
+      'https://source.unsplash.com/1600x900/?africa',
+      'https://source.unsplash.com/1600x900/?iceland',
+      'https://source.unsplash.com/1600x900/?paris'
+    ];
+
+    let current = 0;
+    const background = document.getElementById('background');
+
+    function changeBackground() {
+      background.style.backgroundImage = `url('${images[current]}')`;
+      current = (current + 1) % images.length;
+    }
+
+    // Show first background immediately
+    changeBackground();
+
+    // Change every 6 seconds
+    setInterval(changeBackground, 6000);
+  </script>
 
 </body>
 </html>
+
+
+
+
 
 
 
