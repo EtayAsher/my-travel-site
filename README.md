@@ -13,7 +13,8 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            min-height: 200vh;
+            min-height: 100vh; /* גובה מינימלי - אין צורך בגלילה */
+            overflow-x: hidden; /* מניעת גלילה אופקית */
         }
 
         .slideshow-container {
@@ -21,7 +22,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100%;
             z-index: -1;
         }
 
@@ -49,23 +50,15 @@
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             width: 90%;
-            max-width: 400px;
-        }
-
-        .content-below {
-            position: relative;
-            top: 100vh;
-            min-height: 100vh;
-            background: white;
-            padding: 2rem;
-            z-index: 1;
+            max-width: 500px; /* הגדלת הריבוע הלבן */
+            text-align: center;
         }
 
         .form-title {
-            text-align: center;
             margin-bottom: 1.5rem;
             color: #333;
-            font-size: 1.5rem;
+            font-size: 1.3rem; /* הקטנת הפונט */
+            line-height: 1.4;
         }
 
         .form-group {
@@ -111,7 +104,7 @@
     </div>
 
     <div class="form-container">
-        <h2 class="form-title">רוצים לתכנן את החופשה המושלמת שלכם בעזרת בינה מלאכותית ועוד כלים נוספים?</h2>
+        <h2 class="form-title">היי! רוצים לתכנן את החופשה המשולמת שלכם אבל לא יודעים מאיפה להתחיל? נמאס לשבור את הכיס על מלונות? הירשמו ונעזור לכם למצוא בדיוק את מה שאתם רוצים!</h2>
         <form>
             <div class="form-group">
                 <input type="email" placeholder="אימייל" required>
@@ -121,10 +114,6 @@
             </div>
             <button type="submit">הירשם עכשיו</button>
         </form>
-    </div>
-
-    <div class="content-below">
-        <!-- תוכן נוסף יופיע כאן -->
     </div>
 
     <script>
