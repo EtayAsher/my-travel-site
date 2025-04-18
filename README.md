@@ -13,15 +13,16 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            min-height: 200vh; /* גובה מינימלי כדי לאפשר גלילה */
-            overflow-x: hidden; /* חוסם גלילה אופקית */
+            min-height: 200vh;
         }
 
-        .slideshow {
-            position: fixed; /* הרקע נשאר קבוע */
+        .slideshow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100vh;
-            z-index: -1; /* שולח את הרקע לאחור */
+            z-index: -1;
         }
 
         .slide {
@@ -40,29 +41,26 @@
 
         .form-container {
             position: absolute;
-            top: 100vh; /* מתחיל מתחת לגובה המסך */
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             background: rgba(255, 255, 255, 0.9);
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             width: 90%;
             max-width: 400px;
-            margin: 2rem 0; /* מרווח גלילה */
         }
 
-        /* הוספתי תוכן לדוגמה כדי ליצור גלילה */
-        .content {
-            padding: 120vh 1rem 2rem; /* מרווח גדול מעל התוכן */
-            max-width: 800px;
-            margin: 0 auto;
+        .content-below {
+            position: relative;
+            top: 100vh;
+            min-height: 100vh;
             background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            padding: 2rem;
+            z-index: 1;
         }
 
-        /* שאר העיצובים נשארים כמו מקודם */
         .form-title {
             text-align: center;
             margin-bottom: 1.5rem;
@@ -101,8 +99,7 @@
     </style>
 </head>
 <body>
-    <div class="slideshow">
-        <!-- תמונות הרקע עם הלינקים האמיתיים -->
+    <div class="slideshow-container">
         <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1485871983421-0a9b3d42d2a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
         <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
@@ -126,12 +123,8 @@
         </form>
     </div>
 
-    <!-- תוכן לדוגמה שיוצר גלילה -->
-    <div class="content">
-        <h2>מידע נוסף על השירות שלנו</h2>
-        <p>כאן יופיע תוכן נוסף שאתה רוצה שיגללו אליו...</p>
-        <p>ניתן להוסיף תמונות, טקסטים, קישורים וכל אלמנט אחר</p>
-        <p>גובה הדיב הזה יוצר גלילה אוטומטית במסך</p>
+    <div class="content-below">
+        <!-- תוכן נוסף יופיע כאן -->
     </div>
 
     <script>
@@ -148,6 +141,5 @@
     </script>
 </body>
 </html>
-
 
 
