@@ -1,90 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>My Travel Site</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
       font-family: Arial, sans-serif;
     }
 
-    body {
-      height: 100vh;
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background-size: cover;
       background-position: center;
-      animation: backgroundFade 30s infinite;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      color: white;
+      animation: slideShow 20s infinite;
+      z-index: -1;
     }
 
-    @keyframes backgroundFade {
-      0% { background-image: url('https://source.unsplash.com/1600x900/?rome'); }
-      25% { background-image: url('https://source.unsplash.com/1600x900/?new-york'); }
-      50% { background-image: url('https://source.unsplash.com/1600x900/?paris'); }
-      75% { background-image: url('https://source.unsplash.com/1600x900/?london'); }
-      100% { background-image: url('https://source.unsplash.com/1600x900/?rome'); }
+    @keyframes slideShow {
+      0%   { background-image: url('https://source.unsplash.com/1600x900/?paris'); }
+      25%  { background-image: url('https://source.unsplash.com/1600x900/?newyork'); }
+      50%  { background-image: url('https://source.unsplash.com/1600x900/?rome'); }
+      75%  { background-image: url('https://source.unsplash.com/1600x900/?tokyo'); }
+      100% { background-image: url('https://source.unsplash.com/1600x900/?london'); }
     }
 
-    .container {
-      background-color: rgba(0, 0, 0, 0.6);
+    .login-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.9);
       padding: 40px;
-      border-radius: 15px;
+      border-radius: 10px;
       text-align: center;
-      width: 300px;
     }
 
-    h1 {
-      font-size: 26px;
-      margin-bottom: 15px;
-    }
-
-    p {
-      font-size: 14px;
+    .login-box h2 {
       margin-bottom: 20px;
     }
 
-    input {
+    .login-box input {
+      display: block;
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
+      margin-bottom: 15px;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
     }
 
-    button {
+    .login-box button {
       padding: 10px 20px;
+      background-color: #2196F3;
       border: none;
-      border-radius: 8px;
-      background-color: #00bcd4;
       color: white;
-      font-weight: bold;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s;
     }
 
-    button:hover {
-      background-color: #0097a7;
+    .login-box p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #333;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>✈️ תכננו את החופשה המושלמת שלכם!</h1>
-    <p>הכניסו אימייל וסיסמה כדי שה-AI שלנו ימצא לכם את החופשה הכי טובה והכי זולה 🌍</p>
-    <form>
-      <input type="email" placeholder="כתובת אימייל" required />
-      <input type="password" placeholder="סיסמה" required />
-      <button type="submit">התחברות</button>
-    </form>
-  </div>
+
+<div class="background"></div>
+
+<div class="login-box">
+  <h2>ברוכים הבאים</h2>
+  <p>הכניסו את המייל והסיסמה שלכם כדי למצוא את החופשה הכי טובה וזולה עם בינה מלאכותית!</p>
+  <input type="email" placeholder="אימייל">
+  <input type="password" placeholder="סיסמה">
+  <button>התחבר</button>
+</div>
+
 </body>
 </html>
+
 
 
