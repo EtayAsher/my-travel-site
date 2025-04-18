@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>תכנון חופשה עם AI</title>
     <style>
+        /* Reset CSS */
         * {
             margin: 0;
             padding: 0;
@@ -24,6 +25,8 @@
             width: 100%;
             height: 100vh;
             z-index: -1;
+            /* הוספת הרקע ישירות כאן כדי להבטיח שהוא נטען מיד */
+            background: url('https://images.unsplash.com/photo-1485871983421-0a9b3d42d2a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
         }
 
         .slide {
@@ -37,11 +40,6 @@
         }
 
         .slide.active {
-            opacity: 1;
-        }
-
-        /* כדי שהרקע יופיע מייד */
-        .slide:first-child {
             opacity: 1;
         }
 
@@ -186,39 +184,7 @@
     <h1 class="typing-title">If you've come here! You want your dream vacation!</h1>
 
     <div class="slideshow-container">
-        <div class="slide active"
-            style="background-image: url('https://images.unsplash.com/photo-1485871983421-0a9b3d42d2a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1492571351370-481d0a0a4a6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1524820197278-540916411e20?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85660d58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
+        <!-- הסרת שאר השקופיות מכיוון שהרקע כבר מוגדר -->
     </div>
 
     <div class="form-container">
@@ -243,26 +209,7 @@
     <div class="content-below">
         <!-- תוכן נוסף כאן - ניתן להוסיף תוכן שגוללים -->
     </div>
-    <script>
-        const slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
-
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-
-        setInterval(nextSlide, 4000);
-
-        const fixedMessage = document.querySelector('.fixed-message');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > window.innerHeight / 2) {
-                fixedMessage.classList.add('show');
-            } else {
-                fixedMessage.classList.remove('show');
-            }
-        });
-    </script>
+    <!-- הסרת הסקריפט של השקופיות מכיוון שהוא כבר לא נחוץ -->
 </body>
+
+</html>
