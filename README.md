@@ -40,6 +40,11 @@
             opacity: 1;
         }
 
+        /* כדי שהרקע יופיע מייד */
+        .slide:first-child {
+            opacity: 1;
+        }
+
         .form-container {
             position: absolute;
             top: 50%;
