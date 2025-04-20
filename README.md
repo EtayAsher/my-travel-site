@@ -143,6 +143,9 @@
       const promo = document.getElementById('promoBox');
       if (window.scrollY > 100) {
         promo.classList.add('show');
+        console.log("Promo box is now visible."); // בדיקה אם הקוד עובד
+      } else {
+        console.log("Scroll detected, but not enough."); // הודעת דיבוג
       }
     });
   </script>
