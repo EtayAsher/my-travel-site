@@ -1,156 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Travel Site</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>החופשה שלך מתחילה כאן</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            direction: rtl;
+        }
 
-    body {
-      position: relative;
-    }
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
 
-    .background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background-size: cover;
-      background-position: center;
-      animation: fadein 1s ease-in-out;
-    }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+            z-index: -1;
+        }
 
-    @keyframes fadein {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+        .content {
+            position: relative;
+            min-height: 200vh; /* מאפשר גלילה למטה */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    .overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.3);
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-    }
+        .email-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
 
-    .overlay h2 {
-      margin-bottom: 15px;
-      font-size: 24px;
-    }
+        .email-box h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-    .overlay input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
+        .email-box input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+        }
 
-    .overlay button {
-      padding: 12px 25px;
-      border: none;
-      background-color: #28a745;
-      color: white;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+        .email-box button {
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-    .overlay button:hover {
-      background-color: #218838;
-    }
+        .popup {
+            position: fixed;
+            bottom: 50px;
+            right: -400px;
+            background-color: #28a745;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 300px;
+            transition: right 1s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            font-size: 18px;
+        }
 
-    .slideup-box {
-      position: fixed;
-      left: 0;
-      bottom: -200px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      animation: slideUp 1s 2s forwards;
-      z-index: 2;
-    }
-
-    .slideup-content {
-      background-color: #4CAF50;
-      padding: 20px;
-      color: white;
-      border-radius: 16px;
-      max-width: 500px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      font-size: 18px;
-      text-align: center;
-    }
-
-    @keyframes slideUp {
-      to {
-        bottom: 50px;
-      }
-    }
-  </style>
+        .popup.show {
+            right: 50%;
+            transform: translateX(50%);
+        }
+    </style>
 </head>
+
 <body>
-  <div class="background" id="background"></div>
+    <div class="background" id="background"></div>
 
-  <div class="overlay">
-    <h2>תכננו את החופשה שלכם</h2>
-    <input type="email" placeholder="האימייל שלך">
-    <input type="password" placeholder="סיסמה">
-    <button>הרשמה</button>
-  </div>
-
-  <div class="slideup-box">
-    <div class="slideup-content">
-      היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונעזור לכם למצוא את החופשה הכי טובה וזולה בשבילכם
+    <div class="content">
+        <div class="email-box">
+            <h1>התחילו לתכנן את החופשה שלכם</h1>
+            <input type="email" placeholder="הכניסו את האימייל שלכם">
+            <button>הרשמה</button>
+        </div>
     </div>
-  </div>
 
-  <script>
-    const backgrounds = [
-      "https://images.unsplash.com/photo-1505761671935-60b3a7427bad", // ניו יורק
-      "https://images.unsplash.com/photo-1584043720379-99dedc0e4d29", // רומא
-      "https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1", // טוקיו
-      "https://images.unsplash.com/photo-1532767153582-b1a0e5145001", // מדריד
-      "https://images.unsplash.com/photo-1528297506728-c51c7a19d5f8", // לונדון
-      "https://images.unsplash.com/photo-1600683121800-5e09806f894d", // תאילנד
-      "https://images.unsplash.com/photo-1582719478181-d048a1f397f1", // איסלנד
-      "https://images.unsplash.com/photo-1573495612937-040b232f9f5c"  // ברלין
-    ];
+    <div class="popup" id="popup">
+        היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונעזור לכם למצוא את החופשה הכי טובה וזולה בשבילכם
+    </div>
 
-    let index = 0;
-    const background = document.getElementById("background");
-    background.style.backgroundImage = `url(${backgrounds[0]})`;
+    <script>
+        const backgrounds = [
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e", // חוף
+            "https://images.unsplash.com/photo-1533106418989-88406c7cc8c3", // ניו יורק
+            "https://images.unsplash.com/photo-1578898886410-48c894e741e4", // פריז
+            "https://images.unsplash.com/photo-1587397845856-d372dfd00f76", // רומא
+            "https://images.unsplash.com/photo-1526483360782-42c61f2762f8", // תאילנד
+            "https://images.unsplash.com/photo-1570732369289-0b66e4a5dc99", // יפן
+            "https://images.unsplash.com/photo-1504674900247-0877df9cc836", // איסלנד
+            "https://images.unsplash.com/photo-1582719478170-2b3a84b5b6df", // ברלין
+            "https://images.unsplash.com/photo-1590490360183-76c6dba248b4"  // אפריקה
+        ];
 
-    setInterval(() => {
-      index = (index + 1) % backgrounds.length;
-      const img = new Image();
-      img.src = backgrounds[index];
-      img.onload = () => {
-        background.style.backgroundImage = `url(${img.src})`;
-      };
-    }, 5000);
-  </script>
+        const bgDiv = document.getElementById("background");
+        let current = 0;
+
+        function preloadImages(urls) {
+            for (let i = 0; i < urls.length; i++) {
+                const img = new Image();
+                img.src = urls[i];
+            }
+        }
+
+        function changeBackground() {
+            bgDiv.style.backgroundImage = `url('${backgrounds[current]}')`;
+            current = (current + 1) % backgrounds.length;
+        }
+
+        // טען את התמונות מראש
+        preloadImages(backgrounds);
+
+        // הצג מיד רקע ראשון
+        bgDiv.style.backgroundImage = `url('${backgrounds[0]}')`;
+
+        // החלפת רקעים כל 6 שניות
+        setInterval(changeBackground, 6000);
+
+        // הצגת הריבוע הירוק כשגוללים למטה
+        const popup = document.getElementById("popup");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > window.innerHeight / 2) {
+                popup.classList.add("show");
+            }
+        });
+    </script>
 </body>
+
 </html>
+
 
 
