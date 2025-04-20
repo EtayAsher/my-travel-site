@@ -1,163 +1,135 @@
 <!DOCTYPE html>
 <html lang="he">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>החופשה שלך מתחילה כאן</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            direction: rtl;
-        }
-
-        body, html {
-            height: 100%;
-            font-family: Arial, sans-serif;
-            overflow-x: hidden;
-        }
-
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: background-image 1s ease-in-out;
-            z-index: -1;
-        }
-
-        .content {
-            position: relative;
-            min-height: 200vh; /* מאפשר גלילה למטה */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .email-box {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        .email-box h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .email-box input[type="email"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-
-        .email-box button {
-            padding: 12px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .popup {
-            position: fixed;
-            bottom: 50px;
-            right: -400px;
-            background-color: #28a745;
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            max-width: 300px;
-            transition: right 1s ease-in-out;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            font-size: 18px;
-        }
-
-        .popup.show {
-            right: 50%;
-            transform: translateX(50%);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Travel Site</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+      z-index: -1;
+    }
+    .email-box {
+      position: relative;
+      top: 30vh;
+      margin: auto;
+      width: 90%;
+      max-width: 400px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .email-box h2 {
+      margin-bottom: 15px;
+      font-size: 22px;
+    }
+    .email-box input {
+      width: 80%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .email-box button {
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .popup {
+      position: fixed;
+      left: -400px;
+      bottom: 20px;
+      width: 300px;
+      background: #4CAF50;
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      transition: left 1s ease-in-out;
+      z-index: 10;
+    }
+    .popup.active {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .spacer {
+      height: 150vh;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="background" id="background"></div>
+  <div class="background" id="background"></div>
 
-    <div class="content">
-        <div class="email-box">
-            <h1>התחילו לתכנן את החופשה שלכם</h1>
-            <input type="email" placeholder="הכניסו את האימייל שלכם">
-            <button>הרשמה</button>
-        </div>
-    </div>
+  <div class="email-box">
+    <h2>הכניסו את כתובת האימייל שלכם:</h2>
+    <input type="email" placeholder="example@email.com" />
+    <br />
+    <button>הירשמו</button>
+  </div>
 
-    <div class="popup" id="popup">
-        היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונעזור לכם למצוא את החופשה הכי טובה וזולה בשבילכם
-    </div>
+  <div class="spacer"></div>
 
-    <script>
-        const backgrounds = [
-            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e", // חוף
-            "https://images.unsplash.com/photo-1533106418989-88406c7cc8c3", // ניו יורק
-            "https://images.unsplash.com/photo-1578898886410-48c894e741e4", // פריז
-            "https://images.unsplash.com/photo-1587397845856-d372dfd00f76", // רומא
-            "https://images.unsplash.com/photo-1526483360782-42c61f2762f8", // תאילנד
-            "https://images.unsplash.com/photo-1570732369289-0b66e4a5dc99", // יפן
-            "https://images.unsplash.com/photo-1504674900247-0877df9cc836", // איסלנד
-            "https://images.unsplash.com/photo-1582719478170-2b3a84b5b6df", // ברלין
-            "https://images.unsplash.com/photo-1590490360183-76c6dba248b4"  // אפריקה
-        ];
+  <div class="popup" id="popup">
+    היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונעזור לכם למצוא את החופשה הכי טובה וזולה בשבילכם.
+  </div>
 
-        const bgDiv = document.getElementById("background");
-        let current = 0;
+  <script>
+    const images = [
+      'https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba',
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
+      'https://images.unsplash.com/photo-1549887534-4f09a761ab78',
+      'https://images.unsplash.com/photo-1493558103817-58b2924bce98',
+      'https://images.unsplash.com/photo-1607746882042-944635dfe10e',
+      'https://images.unsplash.com/photo-1526772662000-3f88f10405ff',
+      'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05',
+      'https://images.unsplash.com/photo-1535914254981-b5012eebbd15'
+    ];
 
-        function preloadImages(urls) {
-            for (let i = 0; i < urls.length; i++) {
-                const img = new Image();
-                img.src = urls[i];
-            }
-        }
+    const bg = document.getElementById('background');
+    let currentIndex = 0;
 
-        function changeBackground() {
-            bgDiv.style.backgroundImage = `url('${backgrounds[current]}')`;
-            current = (current + 1) % backgrounds.length;
-        }
+    function changeBackground() {
+      bg.style.backgroundImage = `url(${images[currentIndex]}?auto=compress&dpr=2&h=750&w=1260)`;
+      currentIndex = (currentIndex + 1) % images.length;
+    }
 
-        // טען את התמונות מראש
-        preloadImages(backgrounds);
+    window.addEventListener('load', () => {
+      changeBackground();
+      setInterval(changeBackground, 5000);
+    });
 
-        // הצג מיד רקע ראשון
-        bgDiv.style.backgroundImage = `url('${backgrounds[0]}')`;
-
-        // החלפת רקעים כל 6 שניות
-        setInterval(changeBackground, 6000);
-
-        // הצגת הריבוע הירוק כשגוללים למטה
-        const popup = document.getElementById("popup");
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > window.innerHeight / 2) {
-                popup.classList.add("show");
-            }
-        });
-    </script>
+    window.addEventListener('scroll', () => {
+      const popup = document.getElementById('popup');
+      const scrollY = window.scrollY;
+      if (scrollY > 200) {
+        popup.classList.add('active');
+      }
+    });
+  </script>
 </body>
-
 </html>
+
 
 
 
