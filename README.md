@@ -16,7 +16,7 @@
       font-family: Arial, sans-serif;
     }
 
-    .background {
+    #background {
       position: fixed;
       top: 0;
       left: 0;
@@ -24,26 +24,21 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      z-index: -1;
       transition: background-image 1s ease-in-out;
-    }
-
-    .overlay {
-      position: relative;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      z-index: -1;
     }
 
     .login-box {
-      background-color: rgba(255, 255, 255, 0.85);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.9);
       padding: 30px;
       border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 300px;
       text-align: center;
-      max-width: 400px;
-      width: 80%;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
 
     .login-box h2 {
@@ -51,20 +46,18 @@
     }
 
     .login-box input {
-      width: 100%;
-      padding: 12px;
+      width: 90%;
+      padding: 10px;
       margin: 10px 0;
-      border: none;
+      border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 16px;
     }
 
     .login-box button {
-      padding: 12px 20px;
-      font-size: 16px;
-      border: none;
+      padding: 10px 20px;
       background-color: #007bff;
       color: white;
+      border: none;
       border-radius: 8px;
       cursor: pointer;
     }
@@ -76,42 +69,40 @@
 </head>
 <body>
 
-  <div class="background" id="background"></div>
+<div id="background"></div>
 
-  <div class="overlay">
-    <div class="login-box">
-      <h2>מצא את החופשה המושלמת עם AI 🌍</h2>
-      <input type="email" placeholder="הכנס כתובת אימייל" />
-      <input type="password" placeholder="סיסמה" />
-      <button>התחבר</button>
-    </div>
-  </div>
+<div class="login-box">
+  <h2>הכניסו את המייל והסיסמה</h2>
+  <p>כדי שנוכל למצוא לכם את החופשה הכי טובה והכי זולה עם AI!</p>
+  <input type="email" placeholder="אימייל" required />
+  <input type="password" placeholder="סיסמה" required />
+  <br />
+  <button>התחברות</button>
+</div>
 
-  <script>
-    const background = document.getElementById('background');
+<script>
+  const background = document.getElementById('background');
 
-    // תמונת ברירת מחדל שתופיע ישר
-    background.style.backgroundImage = "url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1400&q=80')";
+  // תמונת רקע ראשונה (מופיעה מיד)
+  background.style.backgroundImage = "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80')";
 
-    // מערך של תמונות ערים בעולם
-    const images = [
-      "https://images.unsplash.com/photo-1505765050516-f72dcac9c60b?auto=format&fit=crop&w=1400&q=80", // ניו יורק
-      "https://images.unsplash.com/photo-1604147706288-84b9cd36f977?auto=format&fit=crop&w=1400&q=80", // רומא
-      "https://images.unsplash.com/photo-1587049352846-e969fa03b1a7?auto=format&fit=crop&w=1400&q=80", // טוקיו
-      "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1400&q=80", // לונדון
-      "https://images.unsplash.com/photo-1551854838-9b190edc5b53?auto=format&fit=crop&w=1400&q=80", // ברלין
-      "https://images.unsplash.com/photo-1612488627497-6f08e4973e99?auto=format&fit=crop&w=1400&q=80", // איסלנד
-      "https://images.unsplash.com/photo-1588459461920-8c07b2cfaad1?auto=format&fit=crop&w=1400&q=80"  // אפריקה
-    ];
+  // כל שאר התמונות
+  const images = [
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80", // Beach
+    "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1400&q=80", // New York
+    "https://images.unsplash.com/photo-1587502536263-9298d7a1c1e1?auto=format&fit=crop&w=1400&q=80", // Rome
+    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1400&q=80", // Thailand
+    "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1400&q=80", // Japan
+    "https://images.unsplash.com/photo-1571501679680-de32f1e7aad4?auto=format&fit=crop&w=1400&q=80", // Iceland
+    "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=80"  // Africa
+  ];
 
-    let current = 0;
-
-    // כל 5 שניות מחליפים רקע
-    setInterval(() => {
-      background.style.backgroundImage = `url('${images[current]}')`;
-      current = (current + 1) % images.length;
-    }, 5000);
-  </script>
+  let index = 0;
+  setInterval(() => {
+    index = (index + 1) % images.length;
+    background.style.backgroundImage = `url('${images[index]}')`;
+  }, 5000); // כל 5 שניות
+</script>
 
 </body>
 </html>
