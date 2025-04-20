@@ -62,7 +62,7 @@
       border-radius: 8px;
       cursor: pointer;
     }
-    /* עיצוב הריבוע הירוק - מודרני ורחב יותר */
+    /* עיצוב הריבוע הירוק - מודרני וחדשני */
     .promo-box {
       position: fixed;
       top: 30%;
@@ -70,31 +70,31 @@
       transform: translateY(-50%);
       background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
       color: #fff;
-      padding: 30px 40px; /* יותר מרווח */
+      padding: 30px 40px;
       border-radius: 15px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.2);
       font-size: 1.2rem;
       font-weight: bold;
       z-index: 2;
       transition: left 0.7s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.4s;
-      width: 500px; /* יותר רחב */
+      width: 500px;
       max-width: 90%;
       text-align: center;
       letter-spacing: 1px;
     }
     .promo-box.show {
-      left: calc(50% - 250px); /* ממרכז בהתאם לרוחב החדש */
+      left: calc(50% - 250px); /* ממרכז אותו */
       box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
     }
     @media (max-width: 600px) {
       .promo-box {
-        width: 90%; /* תופס 90% מהמסך */
+        width: 90%;
         left: -100%;
         padding: 20px;
         font-size: 1rem;
       }
       .promo-box.show {
-        left: 5%; /* מוצג עם שוליים בצדדים */
+        left: 5%;
         transform: translateY(-50%);
       }
     }
@@ -113,7 +113,7 @@
   </div>
 
   <div class="promo-box" id="promoBox">
-    <p>היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונעזור לכם למצוא את החופשה הכי טובה וזולה בשבילכם</p>
+    <p>היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונמצא עבורכם את החופשה הכי טובה וזולה עבורכם!</p>
   </div>
 
   <script>
@@ -148,5 +148,7 @@
   </script>
 </body>
 </html>
+
+
 
 
