@@ -62,20 +62,41 @@
       border-radius: 8px;
       cursor: pointer;
     }
+    /* עיצוב הריבוע הירוק - מודרני ורחב יותר */
     .promo-box {
       position: fixed;
-      left: -500px;
-      top: 200px;
-      background: #4CAF50;
-      color: white;
-      padding: 20px;
-      border-radius: 12px;
-      width: 300px;
-      transition: left 1s ease;
+      top: 30%;
+      left: -600px; /* מתחבא בצד שמאל */
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+      color: #fff;
+      padding: 30px 40px; /* יותר מרווח */
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      font-size: 1.2rem;
+      font-weight: bold;
       z-index: 2;
+      transition: left 0.7s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.4s;
+      width: 500px; /* יותר רחב */
+      max-width: 90%;
+      text-align: center;
+      letter-spacing: 1px;
     }
     .promo-box.show {
-      left: calc(50% - 150px);
+      left: calc(50% - 250px); /* ממרכז בהתאם לרוחב החדש */
+      box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
+    }
+    @media (max-width: 600px) {
+      .promo-box {
+        width: 90%; /* תופס 90% מהמסך */
+        left: -100%;
+        padding: 20px;
+        font-size: 1rem;
+      }
+      .promo-box.show {
+        left: 5%; /* מוצג עם שוליים בצדדים */
+        transform: translateY(-50%);
+      }
     }
   </style>
 </head>
@@ -127,8 +148,5 @@
   </script>
 </body>
 </html>
-
-
-
 
 
