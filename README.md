@@ -1,229 +1,118 @@
 <!DOCTYPE html>
-<html lang="he">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>תכנון חופשה עם AI</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Travel Site</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <!-- הוספת preload לתמונת הרקע הראשונה -->
-    <link rel="preload" as="image"
-        href="https://images.unsplash.com/photo-1485871983421-0a9b3d42d2a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      transition: background-image 1s ease-in-out;
+    }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            min-height: 200vh;
-        }
+    .overlay {
+      position: relative;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .slideshow-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: -1;
-        }
+    .login-box {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 400px;
+      width: 80%;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
 
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            background-size: cover;
-            background-position: center;
-        }
+    .login-box h2 {
+      margin-bottom: 15px;
+    }
 
-        .slide.active {
-            opacity: 1;
-        }
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
 
-        /* כדי שהרקע יופיע מייד */
-        .slide:first-child {
-            opacity: 1;
-        }
+    .login-box button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
 
-        .form-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-            width: 90%;
-            max-width: 400px;
-        }
-
-        .form-container h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: #333;
-            font-size: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #555;
-        }
-
-        input {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        button {
-            width: 100%;
-            padding: 1.2rem;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .fixed-message {
-            position: absolute;
-            top: 120%;
-            left: -50%;
-            transform: translateX(0);
-            background: linear-gradient(to right, #4CAF50, #8BC34A);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transition: all 1s ease-in-out;
-            width: 60%;
-            max-width: 600px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        .fixed-message.show {
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 1;
-        }
-
-        .content-below {
-            position: relative;
-            top: 100vh;
-            padding: 20px;
-        }
-    </style>
+    .login-box button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
-
 <body>
-    <!-- הוספת תגית IMG נסתרת כטריק להוריד את התמונה מוקדם יותר -->
-    <img src="https://images.unsplash.com/photo-1485871983421-0a9b3d42d2a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-        style="display:none" alt="">
 
-    <div class="slideshow-container">
-        <div class="slide active"
-            style="background-image: url('https://images.unsplash.com/photo-1485871983421-0a9b3d42d2a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1492571351370-481d0a0a4a6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1524820197278-540916411e20?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
-        <div class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85660d58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        </div>
+  <div class="background" id="background"></div>
+
+  <div class="overlay">
+    <div class="login-box">
+      <h2>מצא את החופשה המושלמת עם AI 🌍</h2>
+      <input type="email" placeholder="הכנס כתובת אימייל" />
+      <input type="password" placeholder="סיסמה" />
+      <button>התחבר</button>
     </div>
+  </div>
 
-    <div class="form-container">
-        <h2>רוצים לתכנן את החופשה המושלמת שלכם בעזרת בינה מלאכותית ועוד כלים נוספים?</h2>
-        <form>
-            <div class="form-group">
-                <label for="email">אימייל:</label>
-                <input type="email" id="email" placeholder="הכנס אימייל" required>
-            </div>
-            <div class="form-group">
-                <label for="password">סיסמה:</label>
-                <input type="password" id="password" placeholder="הכנס סיסמה" required>
-            </div>
-            <button type="submit">הירשם עכשיו</button>
-        </form>
-    </div>
+  <script>
+    const background = document.getElementById('background');
 
-    <div class="fixed-message">
-        היי! רוצים לתכנן את החופשה המשולמת שלכם אבל לא יודעים מאיפה להתחיל? נמאס לשבור את הכיס על מלונות? הירשמו ונעזור לכם למצוא בדיוק את מה שאתם רוצים!
-    </div>
+    // תמונת ברירת מחדל שתופיע ישר
+    background.style.backgroundImage = "url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1400&q=80')";
 
-    <div class="content-below">
-        <!-- תוכן נוסף כאן - ניתן להוסיף תוכן שגוללים -->
-    </div>
-    <script>
-        const slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
+    // מערך של תמונות ערים בעולם
+    const images = [
+      "https://images.unsplash.com/photo-1505765050516-f72dcac9c60b?auto=format&fit=crop&w=1400&q=80", // ניו יורק
+      "https://images.unsplash.com/photo-1604147706288-84b9cd36f977?auto=format&fit=crop&w=1400&q=80", // רומא
+      "https://images.unsplash.com/photo-1587049352846-e969fa03b1a7?auto=format&fit=crop&w=1400&q=80", // טוקיו
+      "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1400&q=80", // לונדון
+      "https://images.unsplash.com/photo-1551854838-9b190edc5b53?auto=format&fit=crop&w=1400&q=80", // ברלין
+      "https://images.unsplash.com/photo-1612488627497-6f08e4973e99?auto=format&fit=crop&w=1400&q=80", // איסלנד
+      "https://images.unsplash.com/photo-1588459461920-8c07b2cfaad1?auto=format&fit=crop&w=1400&q=80"  // אפריקה
+    ];
 
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
+    let current = 0;
 
-        setInterval(nextSlide, 4000);
+    // כל 5 שניות מחליפים רקע
+    setInterval(() => {
+      background.style.backgroundImage = `url('${images[current]}')`;
+      current = (current + 1) % images.length;
+    }, 5000);
+  </script>
 
-        const fixedMessage = document.querySelector('.fixed-message');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > window.innerHeight / 2) {
-                fixedMessage.classList.add('show');
-            } else {
-                fixedMessage.classList.remove('show');
-            }
-        });
-    </script>
 </body>
-
 </html>
+
