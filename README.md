@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>תכנון חופשה עם AI</title>
+  <title>ריבועים אנכיים בגלילה</title>
   <style>
     * {
       margin: 0;
@@ -12,7 +12,7 @@
     }
 
     body, html {
-      height: 100%;
+      height: 200vh; /* כדי שנוכל לגלול */
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
@@ -23,97 +23,25 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-size: cover;
-      background-position: center;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover;
       z-index: -1;
-      transition: background-image 1s ease-in-out;
     }
 
-    .content {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding-top: 80px;
-      min-height: 100vh;
-    }
-
-    .email-box {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-    }
-
-    .email-box input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-
-    .email-box button {
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .promo-box {
-      position: fixed;
-      top: 30%;
-      left: -600px;
-      transform: translateY(-50%);
-      background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
-      color: #fff;
-      padding: 30px 40px;
-      border-radius: 15px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      font-size: 1.2rem;
-      font-weight: bold;
-      z-index: 2;
-      transition: left 0.7s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.4s;
-      width: 500px;
-      max-width: 90%;
-      text-align: center;
-      letter-spacing: 1px;
-    }
-
-    .promo-box.show {
-      left: calc(50% - 250px);
-      box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
-    }
-
-    /* עיצוב הריבועים האנכיים - גרסה סופית */
+    /* עיצוב הריבועים האנכיים */
     .vertical-boxes-container {
       position: fixed;
-      right: -300px;
+      right: -300px; /* התחלה מחוץ למסך */
       top: 50%;
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
       gap: 15px;
       z-index: 1000;
-      padding: 20px;
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(10px);
-      border-radius: 25px;
-      transition: right 0.5s cubic-bezier(.68,-0.55,.27,1.55);
-      border: 1px solid rgba(255,255,255,0.3);
+      transition: right 0.7s cubic-bezier(.68,-0.55,.27,1.55);
     }
 
     .vertical-boxes-container.show {
-      right: 30px;
+      right: 30px; /* מיקום סופי */
     }
 
     .vertical-box {
@@ -124,8 +52,8 @@
       width: 220px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.2);
       text-align: center;
-      transform: translateX(20px);
       opacity: 0;
+      transform: translateX(20px);
       transition: all 0.6s ease-out;
     }
 
@@ -134,25 +62,25 @@
       transform: translateX(0);
     }
 
-    .vertical-box:nth-child(1) { transition-delay: 0.1s; }
-    .vertical-box:nth-child(2) { transition-delay: 0.3s; }
-    .vertical-box:nth-child(3) { transition-delay: 0.5s; }
-    .vertical-box:nth-child(4) { transition-delay: 0.7s; }
-
     .vertical-arrow {
       color: white;
       font-size: 28px;
+      text-align: center;
+      margin: 5px 0;
       opacity: 0;
       transition: opacity 0.4s;
-      margin: 5px 0;
-      text-align: center;
     }
 
     .vertical-boxes-container.show .vertical-arrow {
       opacity: 0.7;
     }
 
-    @media (max-width: 1000px) {
+    .vertical-box:nth-child(1) { transition-delay: 0.1s; }
+    .vertical-box:nth-child(2) { transition-delay: 0.3s; }
+    .vertical-box:nth-child(3) { transition-delay: 0.5s; }
+    .vertical-box:nth-child(4) { transition-delay: 0.7s; }
+
+    @media (max-width: 768px) {
       .vertical-boxes-container {
         flex-direction: row;
         bottom: 20px;
@@ -162,44 +90,23 @@
         transform: translateX(-50%);
         width: 90%;
         overflow-x: auto;
-        padding: 15px;
       }
-      
-      .vertical-box {
-        min-width: 200px;
-      }
-      
       .vertical-arrow {
         transform: rotate(90deg);
         margin: 0 10px;
       }
     }
-
-    .content-below {
-      position: relative;
-      top: 100vh;
-      padding: 20px;
-      height: 200vh;
-    }
   </style>
 </head>
 <body>
-  <div class="background" id="background"></div>
+  <div class="background"></div>
 
-  <div class="content">
-    <div class="email-box">
-      <h2>תכננו את החופשה שלכם</h2>
-      <input type="email" placeholder="כתובת אימייל">
-      <input type="password" placeholder="סיסמה">
-      <button>הרשמה</button>
-    </div>
+  <!-- תוכן דמה -->
+  <div style="height: 200vh; padding: 50px;">
+    <h1 style="color: white; text-align: center;">גלול מטה כדי לראות את הריבועים</h1>
   </div>
 
-  <div class="promo-box" id="promoBox">
-    <p>היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונמצא עבורכם את החופשה הכי טובה וזולה עבורכם!</p>
-  </div>
-
-  <!-- 4 הריבועים האנכיים -->
+  <!-- הריבועים האנכיים -->
   <div class="vertical-boxes-container" id="verticalBoxes">
     <div class="vertical-box">
       <h3>טיפ #1</h3>
@@ -225,65 +132,28 @@
     </div>
   </div>
 
-  <div class="content-below"></div>
-
   <script>
-    // רקע מתחלף
-    const images = [
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-      'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-      'https://images.unsplash.com/photo-1493558103817-58b2924bce98?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
-    ];
-
-    const background = document.getElementById('background');
-    let current = 0;
-    
-    function preloadImages() {
-      images.forEach(img => {
-        const image = new Image();
-        image.src = img;
-      });
-    }
-
-    preloadImages();
-    background.style.backgroundImage = `url('${images[current]}')`;
-
-    setInterval(() => {
-      current = (current + 1) % images.length;
-      background.style.backgroundImage = `url('${images[current]}')`;
-    }, 5000);
-
-    // ריבוע ירוק
-    const promo = document.getElementById('promoBox');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
-        promo.classList.add('show');
-      }
-    });
-
-    // 4 הריבועים האנכיים - גרסה סופית
     const verticalBoxes = document.getElementById('verticalBoxes');
-    const vBoxes = document.querySelectorAll('.vertical-box');
-    const vArrows = document.querySelectorAll('.vertical-arrow');
+    const boxes = document.querySelectorAll('.vertical-box');
+    const arrows = document.querySelectorAll('.vertical-arrow');
     let lastScroll = 0;
 
     window.addEventListener('scroll', () => {
       const currentScroll = window.scrollY;
       
+      // גלילה מטה
       if (currentScroll > lastScroll) {
-        // גלילה מטה
-        if (currentScroll > 50) {
+        if (currentScroll > 100) {
           verticalBoxes.classList.add('show');
-          vBoxes.forEach(box => box.classList.add('show'));
-          vArrows.forEach(arrow => arrow.style.opacity = '0.7');
+          boxes.forEach(box => box.classList.add('show'));
+          arrows.forEach(arrow => arrow.style.opacity = '0.7');
         }
-      } else {
-        // גלילה מעלה
+      } 
+      // גלילה מעלה
+      else {
         verticalBoxes.classList.remove('show');
-        vBoxes.forEach(box => box.classList.remove('show'));
-        vArrows.forEach(arrow => arrow.style.opacity = '0');
+        boxes.forEach(box => box.classList.remove('show'));
+        arrows.forEach(arrow => arrow.style.opacity = '0');
       }
       
       lastScroll = currentScroll;
@@ -291,5 +161,4 @@
   </script>
 </body>
 </html>
-
 
