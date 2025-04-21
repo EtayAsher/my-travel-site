@@ -1,141 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DreamTrip AI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Travel Site</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
-
-    body,
-    html {
+    body, html {
       height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
     }
-
     .background {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       background-size: cover;
       background-position: center;
       z-index: -1;
-      animation: backgroundFade 20s infinite;
+      animation: backgroundChange 40s infinite;
     }
 
-    @keyframes backgroundFade {
-      0% {
-        background-image: url('https://source.unsplash.com/1600x900/?beach');
-      }
-      25% {
-        background-image: url('https://source.unsplash.com/1600x900/?paris');
-      }
-      50% {
-        background-image: url('https://source.unsplash.com/1600x900/?mountains');
-      }
-      75% {
-        background-image: url('https://source.unsplash.com/1600x900/?newyork');
-      }
-      100% {
-        background-image: url('https://source.unsplash.com/1600x900/?travel');
-      }
-    }
-
-    .content {
-      padding: 50px 20px;
-      text-align: center;
-      color: white;
-      min-height: 120vh;
-      background: rgba(0, 0, 0, 0.5);
-    }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 0.5em;
-    }
-
-    p {
-      font-size: 1.2em;
-      max-width: 800px;
-      margin: auto;
+    @keyframes backgroundChange {
+      0% { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e'); }
+      25% { background-image: url('https://images.unsplash.com/photo-1549924231-f129b911e442'); }
+      50% { background-image: url('https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba'); }
+      75% { background-image: url('https://images.unsplash.com/photo-1505761671935-60b3a7427bad'); }
+      100% { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e'); }
     }
 
     .email-box {
-      margin-top: 40px;
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 300px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     }
 
-    input[type="email"] {
+    .email-box h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .email-box input {
+      width: 90%;
       padding: 10px;
-      width: 250px;
-      font-size: 1em;
+      margin: 10px 0;
       border-radius: 5px;
-      border: none;
+      border: 1px solid #ccc;
     }
 
-    input[type="submit"] {
+    .email-box button {
       padding: 10px 20px;
-      font-size: 1em;
-      background-color: green;
+      background-color: #28a745;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      margin-left: 10px;
     }
 
-    .popup-box {
+    .flyer {
       position: fixed;
-      bottom: 50px;
-      left: -300px;
-      background-color: #28a745;
+      bottom: 30px;
+      right: 30px;
+      background-color: #4CAF50;
       color: white;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      font-size: 18px;
-      transition: left 1s ease-in-out;
+      font-weight: bold;
+      animation: flyIn 1.5s ease-in-out forwards;
+      display: none;
     }
 
-    .popup-box.show {
-      left: calc(50% - 150px);
+    @keyframes flyIn {
+      from { transform: translateX(200%); }
+      to { transform: translateX(0); }
+    }
+
+    .section {
+      padding: 100px 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .card {
+      width: 200px;
+      height: 250px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .icon {
+      font-size: 30px;
+      margin-top: 20px;
+      animation: floatIcon 2s infinite ease-in-out;
+    }
+
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
   </style>
-</head>
-
-<body>
-  <div class="background"></div>
-  <div class="content">
-    <h1>Plan Your Dream Trip with AI</h1>
-    <p>Our smart assistant helps you create your perfect vacation in seconds. Just answer a few questions and get a tailored travel package – instantly. Flights, hotels, and activities based on your preferences and budget.</p>
-
-    <div class="email-box">
-      <input type="email" placeholder="Enter your email" />
-      <input type="submit" value="Get Started" />
-    </div>
-  </div>
-
-  <div class="popup-box" id="popup">
-    Hey! Want help planning your perfect trip but not sure how?
-  </div>
-
   <script>
-    // Popup animation
-    window.addEventListener("scroll", function () {
-      const popup = document.getElementById("popup");
-      if (window.scrollY > 150) {
-        popup.classList.add("show");
+    window.addEventListener('scroll', () => {
+      const flyer = document.querySelector('.flyer');
+      if (window.scrollY > 100) {
+        flyer.style.display = 'block';
       }
     });
   </script>
-</body>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="email-box">
+    <h2>Plan Your Dream Vacation!</h2>
+    <input type="email" placeholder="Enter your email">
+    <br>
+    <input type="password" placeholder="Enter password">
+    <br>
+    <button>Join Now</button>
+  </div>
 
+  <div class="flyer">
+    Hey! Need help planning your perfect vacation?
+  </div>
+
+  <div class="section">
+    <h1>Explore the World With Us!</h1>
+    <div class="icon">✈️</div>
+    <p>From sunny beaches to iconic cities, we help you plan the ultimate getaway.</p>
+
+    <div class="cards">
+      <div class="card">
+        <img src="https://source.unsplash.com/200x150/?newyork" alt="New York">
+        <h3>New York</h3>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/200x150/?paris" alt="Paris">
+        <h3>Paris</h3>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/200x150/?tokyo" alt="Tokyo">
+        <h3>Tokyo</h3>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/200x150/?venice" alt="Venice">
+        <h3>Venice</h3>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/200x150/?australia" alt="Australia">
+        <h3>Australia</h3>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/200x150/?egypt" alt="Egypt">
+        <h3>Egypt</h3>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
 
 
