@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>תכנון חופשה עם AI</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DreamTrip AI</title>
   <style>
     * {
       margin: 0;
@@ -11,10 +12,10 @@
       box-sizing: border-box;
     }
 
-    body, html {
+    body,
+    html {
       height: 100%;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .background {
@@ -26,199 +27,115 @@
       background-size: cover;
       background-position: center;
       z-index: -1;
-      transition: background-image 1s ease-in-out;
+      animation: backgroundFade 20s infinite;
+    }
+
+    @keyframes backgroundFade {
+      0% {
+        background-image: url('https://source.unsplash.com/1600x900/?beach');
+      }
+      25% {
+        background-image: url('https://source.unsplash.com/1600x900/?paris');
+      }
+      50% {
+        background-image: url('https://source.unsplash.com/1600x900/?mountains');
+      }
+      75% {
+        background-image: url('https://source.unsplash.com/1600x900/?newyork');
+      }
+      100% {
+        background-image: url('https://source.unsplash.com/1600x900/?travel');
+      }
     }
 
     .content {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding-top: 80px;
-      min-height: 100vh;
+      padding: 50px 20px;
+      text-align: center;
+      color: white;
+      min-height: 120vh;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      font-size: 1.2em;
+      max-width: 800px;
+      margin: auto;
     }
 
     .email-box {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
+      margin-top: 40px;
     }
 
-    .email-box input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
+    input[type="email"] {
+      padding: 10px;
+      width: 250px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: none;
     }
 
-    .email-box button {
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #4CAF50;
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: green;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
       cursor: pointer;
+      margin-left: 10px;
     }
 
-    /* סגנון הריבועים האנכיים */
-    .vertical-boxes-container {
+    .popup-box {
       position: fixed;
-      bottom: -400px; /* התחלה מחוץ למסך */
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      z-index: 1000;
-      padding: 20px;
-      transition: bottom 0.7s cubic-bezier(.68,-0.55,.27,1.55);
-    }
-
-    .vertical-boxes-container.show {
-      bottom: 30px; /* מיקום סופי */
-    }
-
-    .vertical-box {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      bottom: 50px;
+      left: -300px;
+      background-color: #28a745;
       color: white;
-      padding: 25px;
-      border-radius: 12px;
-      width: 220px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      text-align: center;
-      transform: translateY(20px);
-      opacity: 0;
-      transition: all 0.6s ease-out;
-    }
-
-    .vertical-box.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .vertical-arrow {
-      color: white;
-      font-size: 28px;
-      text-align: center;
-      margin: 5px 0;
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-
-    .vertical-boxes-container.show .vertical-arrow {
-      opacity: 0.7;
-    }
-
-    .vertical-box:nth-child(1) { transition-delay: 0.1s; }
-    .vertical-box:nth-child(2) { transition-delay: 0.3s; }
-    .vertical-box:nth-child(3) { transition-delay: 0.5s; }
-    .vertical-box:nth-child(4) { transition-delay: 0.7s; }
-
-    .content-below {
-      position: relative;
-      top: 100vh;
       padding: 20px;
-      height: 200vh;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      font-size: 18px;
+      transition: left 1s ease-in-out;
+    }
+
+    .popup-box.show {
+      left: calc(50% - 150px);
     }
   </style>
 </head>
+
 <body>
-  <div class="background" id="background"></div>
-
+  <div class="background"></div>
   <div class="content">
+    <h1>Plan Your Dream Trip with AI</h1>
+    <p>Our smart assistant helps you create your perfect vacation in seconds. Just answer a few questions and get a tailored travel package – instantly. Flights, hotels, and activities based on your preferences and budget.</p>
+
     <div class="email-box">
-      <h2>תכננו את החופשה שלכם</h2>
-      <input type="email" placeholder="כתובת אימייל">
-      <input type="password" placeholder="סיסמה">
-      <button>הרשמה</button>
+      <input type="email" placeholder="Enter your email" />
+      <input type="submit" value="Get Started" />
     </div>
   </div>
 
-  <!-- 4 הריבועים האנכיים -->
-  <div class="vertical-boxes-container" id="verticalBoxes">
-    <div class="vertical-box">
-      <h3>טיפ #1</h3>
-      <p>מציאת מלונות במחירים משתלמים</p>
-    </div>
-    <div class="vertical-arrow">↓</div>
-    
-    <div class="vertical-box">
-      <h3>טיפ #2</h3>
-      <p>המלצות מותאמות אישית</p>
-    </div>
-    <div class="vertical-arrow">↓</div>
-    
-    <div class="vertical-box">
-      <h3>טיפ #3</h3>
-      <p>השוואת מחירים חכמה</p>
-    </div>
-    <div class="vertical-arrow">↓</div>
-    
-    <div class="vertical-box">
-      <h3>טיפ #4</h3>
-      <p>הנחות בלעדיות</p>
-    </div>
+  <div class="popup-box" id="popup">
+    Hey! Want help planning your perfect trip but not sure how?
   </div>
-
-  <div class="content-below"></div>
 
   <script>
-    // רקע מתחלף
-    const images = [
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
-      'https://images.unsplash.com/photo-1505761671935-60b3a7427bad',
-      'https://images.unsplash.com/photo-1493558103817-58b2924bce98'
-    ];
-
-    const background = document.getElementById('background');
-    let current = 0;
-    background.style.backgroundImage = `url('${images[current]}')`;
-
-    setInterval(() => {
-      current = (current + 1) % images.length;
-      background.style.backgroundImage = `url('${images[current]}')`;
-    }, 5000);
-
-    // ניהול גלילה
-    const verticalBoxes = document.getElementById('verticalBoxes');
-    const boxes = document.querySelectorAll('.vertical-box');
-    const arrows = document.querySelectorAll('.vertical-arrow');
-    let lastScroll = 0;
-
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.scrollY;
-      
-      // גלילה מטה
-      if (currentScroll > lastScroll) {
-        if (currentScroll > 100) {
-          verticalBoxes.classList.add('show');
-          boxes.forEach(box => box.classList.add('show'));
-          arrows.forEach(arrow => arrow.style.opacity = '0.7');
-        }
-      } 
-      // גלילה מעלה
-      else {
-        if (currentScroll < 50) {
-          verticalBoxes.classList.remove('show');
-          boxes.forEach(box => box.classList.remove('show'));
-          arrows.forEach(arrow => arrow.style.opacity = '0');
-        }
+    // Popup animation
+    window.addEventListener("scroll", function () {
+      const popup = document.getElementById("popup");
+      if (window.scrollY > 150) {
+        popup.classList.add("show");
       }
-      
-      lastScroll = currentScroll;
     });
   </script>
 </body>
+
 </html>
 
 
