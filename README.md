@@ -94,21 +94,26 @@
       box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
     }
 
-    /* העיצוב החדש ל-4 הריבועים האופקיים */
+    /* סגנון הריבועים האופקיים - גרסה מתוקנת */
     .horizontal-boxes-container {
       position: fixed;
-      bottom: -200px;
+      bottom: 20px; /* שיניתי מ-bottom: -200px */
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       gap: 15px;
       align-items: center;
-      transition: bottom 0.8s cubic-bezier(.68,-0.55,.27,1.55);
       z-index: 1000;
       padding: 20px;
       background: rgba(255,255,255,0.2);
       backdrop-filter: blur(10px);
       border-radius: 25px;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .horizontal-boxes-container.show {
+      opacity: 1;
     }
 
     .horizontal-box {
@@ -119,24 +124,20 @@
       width: 220px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       text-align: center;
+      transform: translateY(20px);
       opacity: 0;
-      transform: translateY(50px);
       transition: all 0.6s ease-out;
-    }
-
-    .horizontal-box:nth-child(1) { transition-delay: 0.1s; }
-    .horizontal-box:nth-child(2) { transition-delay: 0.3s; }
-    .horizontal-box:nth-child(3) { transition-delay: 0.5s; }
-    .horizontal-box:nth-child(4) { transition-delay: 0.7s; }
-
-    .horizontal-boxes-container.show {
-      bottom: 50px;
     }
 
     .horizontal-box.show {
       opacity: 1;
       transform: translateY(0);
     }
+
+    .horizontal-box:nth-child(1) { transition-delay: 0.1s; }
+    .horizontal-box:nth-child(2) { transition-delay: 0.3s; }
+    .horizontal-box:nth-child(3) { transition-delay: 0.5s; }
+    .horizontal-box:nth-child(4) { transition-delay: 0.7s; }
 
     .horizontal-arrow {
       color: white;
@@ -185,7 +186,7 @@
     <p>היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונמצא עבורכם את החופשה הכי טובה וזולה עבורכם!</p>
   </div>
 
-  <!-- 4 הריבועים האופקיים החדשים -->
+  <!-- 4 הריבועים האופקיים -->
   <div class="horizontal-boxes-container" id="horizontalBoxes">
     <div class="horizontal-box">
       <h3>טיפ #1</h3>
@@ -245,17 +246,26 @@
       }
     });
 
-    // 4 הריבועים האופקיים
+    // 4 הריבועים האופקיים - גרסה מתוקנת
     const horizontalBoxes = document.getElementById('horizontalBoxes');
     const hBoxes = document.querySelectorAll('.horizontal-box');
-    
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > window.innerHeight * 0.3) {
+    const hArrows = document.querySelectorAll('.horizontal-arrow');
+
+    // הצגת הריבועים אוטומטית
+    window.addEventListener('load', () => {
+      setTimeout(() => {
         horizontalBoxes.classList.add('show');
         hBoxes.forEach(box => box.classList.add('show'));
-      } else {
-        horizontalBoxes.classList.remove('show');
-        hBoxes.forEach(box => box.classList.remove('show'));
+        hArrows.forEach(arrow => arrow.style.opacity = '0.7');
+      }, 1000);
+    });
+
+    // גלילה (אופציונלי)
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) { // יופעל בכל גלילה
+        horizontalBoxes.classList.add('show');
+        hBoxes.forEach(box => box.classList.add('show'));
+        hArrows.forEach(arrow => arrow.style.opacity = '0.7');
       }
     });
   </script>
