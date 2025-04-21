@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ריבועים אנכיים בגלילה</title>
+  <title>תכנון חופשה עם AI</title>
   <style>
     * {
       margin: 0;
@@ -12,7 +12,7 @@
     }
 
     body, html {
-      height: 200vh; /* כדי שנוכל לגלול */
+      height: 100%;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
@@ -25,23 +25,91 @@
       height: 100vh;
       background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover;
       z-index: -1;
+      transition: background-image 1s ease-in-out;
     }
 
-    /* עיצוב הריבועים האנכיים */
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 80px;
+      min-height: 100vh;
+    }
+
+    /* תיבת האימייל המעודכנת */
+    .email-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      margin: 20px;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+
+    .email-box:hover {
+      transform: scale(1);
+    }
+
+    .email-box input {
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      transition: box-shadow 0.3s;
+    }
+
+    .email-box input:focus {
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+      outline: none;
+    }
+
+    .email-box button {
+      padding: 14px 28px;
+      font-size: 16px;
+      background: linear-gradient(90deg, #4CAF50 0%, #2E7D32 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .email-box button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(46, 125, 50, 0.4);
+    }
+
+    /* הריבועים האנכיים במרכז */
     .vertical-boxes-container {
       position: fixed;
-      right: -300px; /* התחלה מחוץ למסך */
-      top: 50%;
-      transform: translateY(-50%);
+      bottom: -300px; /* התחלה מחוץ למסך */
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       gap: 15px;
       z-index: 1000;
-      transition: right 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+      transition: bottom 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.3);
     }
 
     .vertical-boxes-container.show {
-      right: 30px; /* מיקום סופי */
+      bottom: 30px; /* מיקום סופי */
     }
 
     .vertical-box {
@@ -53,13 +121,13 @@
       box-shadow: 0 8px 25px rgba(0,0,0,0.2);
       text-align: center;
       opacity: 0;
-      transform: translateX(20px);
+      transform: translateY(20px);
       transition: all 0.6s ease-out;
     }
 
     .vertical-box.show {
       opacity: 1;
-      transform: translateX(0);
+      transform: translateY(0);
     }
 
     .vertical-arrow {
@@ -83,14 +151,15 @@
     @media (max-width: 768px) {
       .vertical-boxes-container {
         flex-direction: row;
-        bottom: 20px;
-        top: unset;
-        right: unset;
-        left: 50%;
-        transform: translateX(-50%);
         width: 90%;
         overflow-x: auto;
+        padding: 15px;
       }
+      
+      .vertical-box {
+        min-width: 200px;
+      }
+      
       .vertical-arrow {
         transform: rotate(90deg);
         margin: 0 10px;
@@ -101,9 +170,13 @@
 <body>
   <div class="background"></div>
 
-  <!-- תוכן דמה -->
-  <div style="height: 200vh; padding: 50px;">
-    <h1 style="color: white; text-align: center;">גלול מטה כדי לראות את הריבועים</h1>
+  <div class="content">
+    <div class="email-box">
+      <h2>תכננו את החופשה שלכם</h2>
+      <input type="email" placeholder="כתובת אימייל">
+      <input type="password" placeholder="סיסמה">
+      <button>הרשמה</button>
+    </div>
   </div>
 
   <!-- הריבועים האנכיים -->
@@ -151,9 +224,11 @@
       } 
       // גלילה מעלה
       else {
-        verticalBoxes.classList.remove('show');
-        boxes.forEach(box => box.classList.remove('show'));
-        arrows.forEach(arrow => arrow.style.opacity = '0');
+        if (currentScroll < 50) {
+          verticalBoxes.classList.remove('show');
+          boxes.forEach(box => box.classList.remove('show'));
+          arrows.forEach(arrow => arrow.style.opacity = '0');
+        }
       }
       
       lastScroll = currentScroll;
