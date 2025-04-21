@@ -1,60 +1,273 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #000000, #1a1a1a);
-  color: white;
-}
+ <!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>תכנון חופשה עם AI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-.email-box {
-  background-color: #2ecc71;
-  color: white;
-  padding: 30px;
-  max-width: 400px;
-  margin: 50px auto;
-  border-radius: 15px;
-  text-align: center;
-}
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
 
-.email-box input {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-}
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      transition: background-image 1s ease-in-out;
+    }
 
-.email-box button {
-  background-color: #27ae60;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 80px;
+      min-height: 100vh;
+    }
 
-.info-section {
-  text-align: center;
-  margin: 60px 20px;
-}
+    .email-box {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
 
-.features {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 40px 10px;
-}
+    .email-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
 
-.feature {
-  background-color: #333;
-  border-radius: 15px;
-  padding: 20px;
-  margin: 10px;
-  width: 250px;
-  text-align: center;
-}
+    .email-box button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
 
-.feature .icon {
-  font-size: 40px;
-  margin-bottom: 10px;
-}
+    .promo-box {
+      position: fixed;
+      top: 30%;
+      left: -600px;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+      color: #fff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      font-size: 1.2rem;
+      font-weight: bold;
+      z-index: 2;
+      transition: left 0.7s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.4s;
+      width: 500px;
+      max-width: 90%;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .promo-box.show {
+      left: calc(50% - 250px);
+      box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
+    }
+
+    /* סגנון הריבועים האופקיים - גרסה מתוקנת */
+    .horizontal-boxes-container {
+      position: fixed;
+      bottom: 20px; /* שיניתי מ-bottom: -200px */
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .horizontal-boxes-container.show {
+      opacity: 1;
+    }
+
+    .horizontal-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 220px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.6s ease-out;
+    }
+
+    .horizontal-box.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .horizontal-box:nth-child(1) { transition-delay: 0.1s; }
+    .horizontal-box:nth-child(2) { transition-delay: 0.3s; }
+    .horizontal-box:nth-child(3) { transition-delay: 0.5s; }
+    .horizontal-box:nth-child(4) { transition-delay: 0.7s; }
+
+    .horizontal-arrow {
+      color: white;
+      font-size: 28px;
+      opacity: 0;
+      transition: opacity 0.4s;
+      margin: 0 -10px;
+    }
+
+    .horizontal-boxes-container.show .horizontal-arrow {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 1000px) {
+      .horizontal-boxes-container {
+        width: 90%;
+        overflow-x: auto;
+        padding-bottom: 15px;
+      }
+      .horizontal-box {
+        min-width: 200px;
+      }
+    }
+
+    .content-below {
+      position: relative;
+      top: 100vh;
+      padding: 20px;
+      height: 200vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="background" id="background"></div>
+
+  <div class="content">
+    <div class="email-box">
+      <h2>תכננו את החופשה שלכם</h2>
+      <input type="email" placeholder="כתובת אימייל">
+      <input type="password" placeholder="סיסמה">
+      <button>הרשמה</button>
+    </div>
+  </div>
+
+  <div class="promo-box" id="promoBox">
+    <p>היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונמצא עבורכם את החופשה הכי טובה וזולה עבורכם!</p>
+  </div>
+
+  <!-- 4 הריבועים האופקיים -->
+  <div class="horizontal-boxes-container" id="horizontalBoxes">
+    <div class="horizontal-box">
+      <h3>טיפ #1</h3>
+      <p>מציאת מלונות במחירים משתלמים</p>
+    </div>
+    <div class="horizontal-arrow">→</div>
+    
+    <div class="horizontal-box">
+      <h3>טיפ #2</h3>
+      <p>המלצות מותאמות אישית</p>
+    </div>
+    <div class="horizontal-arrow">→</div>
+    
+    <div class="horizontal-box">
+      <h3>טיפ #3</h3>
+      <p>השוואת מחירים חכמה</p>
+    </div>
+    <div class="horizontal-arrow">→</div>
+    
+    <div class="horizontal-box">
+      <h3>טיפ #4</h3>
+      <p>הנחות בלעדיות</p>
+    </div>
+  </div>
+
+  <div class="content-below"></div>
+
+  <script>
+    // רקע מתחלף
+    const images = [
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+      'https://images.unsplash.com/photo-1505761671935-60b3a7427bad',
+      'https://images.unsplash.com/photo-1493558103817-58b2924bce98',
+      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
+      'https://images.unsplash.com/photo-1469474968028-56623f02e42e',
+      'https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef',
+      'https://images.unsplash.com/photo-1482192596544-9eb780fc7f66',
+      'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d',
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee'
+    ];
+
+    const background = document.getElementById('background');
+    let current = 0;
+    background.style.backgroundImage = `url('${images[current]}')`;
+
+    setInterval(() => {
+      current = (current + 1) % images.length;
+      background.style.backgroundImage = `url('${images[current]}')`;
+    }, 5000);
+
+    // ריבוע ירוק
+    const promo = document.getElementById('promoBox');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        promo.classList.add('show');
+      }
+    });
+
+    // 4 הריבועים האופקיים - גרסה מתוקנת
+    const horizontalBoxes = document.getElementById('horizontalBoxes');
+    const hBoxes = document.querySelectorAll('.horizontal-box');
+    const hArrows = document.querySelectorAll('.horizontal-arrow');
+
+    // הצגת הריבועים אוטומטית
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        horizontalBoxes.classList.add('show');
+        hBoxes.forEach(box => box.classList.add('show'));
+        hArrows.forEach(arrow => arrow.style.opacity = '0.7');
+      }, 1000);
+    });
+
+    // גלילה (אופציונלי)
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) { // יופעל בכל גלילה
+        horizontalBoxes.classList.add('show');
+        hBoxes.forEach(box => box.classList.add('show'));
+        hArrows.forEach(arrow => arrow.style.opacity = '0.7');
+      }
+    });
+  </script>
+</body>
+</html>
