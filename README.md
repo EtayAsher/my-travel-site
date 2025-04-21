@@ -98,7 +98,7 @@
       }
     }
 
-    /* עיצוב הריבועים האנכיים החדש */
+    /* עיצוב הריבועים האנכיים - גרסה סופית */
     .vertical-boxes-container {
       position: fixed;
       right: -300px;
@@ -109,11 +109,11 @@
       gap: 15px;
       z-index: 1000;
       padding: 20px;
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.2);
       backdrop-filter: blur(10px);
       border-radius: 25px;
-      border: 1px solid rgba(255,255,255,0.2);
       transition: right 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+      border: 1px solid rgba(255,255,255,0.3);
     }
 
     .vertical-boxes-container.show {
@@ -126,27 +126,14 @@
       padding: 25px;
       border-radius: 15px;
       width: 220px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
       text-align: center;
-      border: 1px solid rgba(255,255,255,0.3);
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .vertical-box:hover {
       transform: translateX(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-    }
-
-    .vertical-box h3 {
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    .vertical-box p {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      opacity: 0.9;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
     }
 
     .vertical-arrow {
@@ -155,7 +142,11 @@
       opacity: 0.7;
       margin: 5px 0;
       text-align: center;
-      transition: all 0.3s;
+      transition: opacity 0.3s;
+    }
+
+    .vertical-arrow:hover {
+      opacity: 1;
     }
 
     @media (max-width: 1000px) {
@@ -260,36 +251,19 @@
       }
     });
 
-    // 4 הריבועים האנכיים
+    // 4 הריבועים האנכיים - גרסה סופית עם תיקונים
     const verticalBoxes = document.getElementById('verticalBoxes');
-    let lastScroll = 0;
     
     window.addEventListener('scroll', () => {
-      const currentScroll = window.scrollY;
-      
-      if (currentScroll > lastScroll) {
-        // גלילה למטה
-        if (currentScroll > 50) {
-          verticalBoxes.classList.add('show');
-        }
+      if (window.scrollY > 50) {
+        verticalBoxes.classList.add('show');
       } else {
-        // גלילה למעלה
         verticalBoxes.classList.remove('show');
       }
-      
-      lastScroll = currentScroll;
     });
 
-    // שמירה על מצב הריבועים בעת גלילה למעלה/מטה
-    window.addEventListener('wheel', (e) => {
-      if (e.deltaY > 0 && window.scrollY > 50) {
-        verticalBoxes.classList.add('show');
-      } else if (e.deltaY < 0) {
-        verticalBoxes.classList.remove('show');
-      }
-    });
+    // אפשרות לבדיקה מיידית (למפתחים)
+    // verticalBoxes.classList.add('show');
   </script>
 </body>
 </html>
-
-
