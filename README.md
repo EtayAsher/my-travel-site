@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Travel Site</title>
+  <title>תכנון חופשה עם AI</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body, html {
       height: 100%;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
+
     .background {
       position: fixed;
       top: 0;
@@ -26,6 +28,7 @@
       z-index: -1;
       transition: background-image 1s ease-in-out;
     }
+
     .content {
       position: relative;
       z-index: 1;
@@ -36,6 +39,7 @@
       padding-top: 80px;
       min-height: 100vh;
     }
+
     .email-box {
       background: rgba(255, 255, 255, 0.9);
       padding: 30px;
@@ -45,6 +49,7 @@
       width: 90%;
       text-align: center;
     }
+
     .email-box input {
       width: 100%;
       padding: 12px;
@@ -53,6 +58,7 @@
       border: 1px solid #ccc;
       font-size: 16px;
     }
+
     .email-box button {
       padding: 12px 24px;
       font-size: 16px;
@@ -62,7 +68,7 @@
       border-radius: 8px;
       cursor: pointer;
     }
-    /* עיצוב הריבוע הירוק - מודרני וחדשני */
+
     .promo-box {
       position: fixed;
       top: 30%;
@@ -82,55 +88,84 @@
       text-align: center;
       letter-spacing: 1px;
     }
+
     .promo-box.show {
       left: calc(50% - 250px);
       box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
     }
-    /* העיצוב החדש של fixed-message מהקוד השני */
-    .fixed-message {
-      position: absolute;
-      top: 120%;
-      left: -50%;
-      transform: translateX(0);
-      background: linear-gradient(to right, #4CAF50, #8BC34A);
-      color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      transition: all 1s ease-in-out;
-      width: 60%;
-      max-width: 600px;
-      text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      z-index: 3;
-    }
-    .fixed-message.show {
+
+    /* העיצוב החדש ל-4 הריבועים האופקיים */
+    .horizontal-boxes-container {
+      position: fixed;
+      bottom: -200px;
       left: 50%;
       transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      transition: bottom 0.8s cubic-bezier(.68,-0.55,.27,1.55);
+      z-index: 1000;
+      padding: 20px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+    }
+
+    .horizontal-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 220px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease-out;
+    }
+
+    .horizontal-box:nth-child(1) { transition-delay: 0.1s; }
+    .horizontal-box:nth-child(2) { transition-delay: 0.3s; }
+    .horizontal-box:nth-child(3) { transition-delay: 0.5s; }
+    .horizontal-box:nth-child(4) { transition-delay: 0.7s; }
+
+    .horizontal-boxes-container.show {
+      bottom: 50px;
+    }
+
+    .horizontal-box.show {
       opacity: 1;
+      transform: translateY(0);
     }
-    @media (max-width: 600px) {
-      .promo-box {
+
+    .horizontal-arrow {
+      color: white;
+      font-size: 28px;
+      opacity: 0;
+      transition: opacity 0.4s;
+      margin: 0 -10px;
+    }
+
+    .horizontal-boxes-container.show .horizontal-arrow {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 1000px) {
+      .horizontal-boxes-container {
         width: 90%;
-        left: -100%;
-        padding: 20px;
-        font-size: 1rem;
+        overflow-x: auto;
+        padding-bottom: 15px;
       }
-      .promo-box.show {
-        left: 5%;
-        transform: translateY(-50%);
-      }
-      .fixed-message {
-        width: 90%;
+      .horizontal-box {
+        min-width: 200px;
       }
     }
+
     .content-below {
       position: relative;
       top: 100vh;
       padding: 20px;
+      height: 200vh;
     }
   </style>
 </head>
@@ -146,22 +181,40 @@
     </div>
   </div>
 
-  <!-- הריבוע הירוק המקורי -->
   <div class="promo-box" id="promoBox">
     <p>היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונמצא עבורכם את החופשה הכי טובה וזולה עבורכם!</p>
   </div>
 
-  <!-- ההודעה הקופצת החדשה מהקוד השני -->
-  <div class="fixed-message">
-    היי! רוצים לתכנן את החופשה המשולמת שלכם אבל לא יודעים מאיפה להתחיל? נמאס לשבור את הכיס על מלונות? הירשמו ונעזור לכם למצוא בדיוק את מה שאתם רוצים!
+  <!-- 4 הריבועים האופקיים החדשים -->
+  <div class="horizontal-boxes-container" id="horizontalBoxes">
+    <div class="horizontal-box">
+      <h3>טיפ #1</h3>
+      <p>מציאת מלונות במחירים משתלמים</p>
+    </div>
+    <div class="horizontal-arrow">→</div>
+    
+    <div class="horizontal-box">
+      <h3>טיפ #2</h3>
+      <p>המלצות מותאמות אישית</p>
+    </div>
+    <div class="horizontal-arrow">→</div>
+    
+    <div class="horizontal-box">
+      <h3>טיפ #3</h3>
+      <p>השוואת מחירים חכמה</p>
+    </div>
+    <div class="horizontal-arrow">→</div>
+    
+    <div class="horizontal-box">
+      <h3>טיפ #4</h3>
+      <p>הנחות בלעדיות</p>
+    </div>
   </div>
 
-  <div class="content-below">
-    <!-- תוכן נוסף כאן - ניתן להוסיף תוכן שגוללים -->
-  </div>
+  <div class="content-below"></div>
 
   <script>
-    // קוד הרקע המתחלף
+    // רקע מתחלף
     const images = [
       'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
       'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
@@ -184,26 +237,29 @@
       background.style.backgroundImage = `url('${images[current]}')`;
     }, 5000);
 
-    // קוד הריבוע הירוק
+    // ריבוע ירוק
     const promo = document.getElementById('promoBox');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 100) {
         promo.classList.add('show');
-        console.log("Promo box is now visible.");
-      } else {
-        console.log("Scroll detected, but not enough.");
       }
     });
 
-    // קוד ההודעה הקופצת החדשה
-    const fixedMessage = document.querySelector('.fixed-message');
+    // 4 הריבועים האופקיים
+    const horizontalBoxes = document.getElementById('horizontalBoxes');
+    const hBoxes = document.querySelectorAll('.horizontal-box');
+    
     window.addEventListener('scroll', () => {
-      if (window.scrollY > window.innerHeight / 2) {
-        fixedMessage.classList.add('show');
+      if (window.scrollY > window.innerHeight * 0.3) {
+        horizontalBoxes.classList.add('show');
+        hBoxes.forEach(box => box.classList.add('show'));
       } else {
-        fixedMessage.classList.remove('show');
+        horizontalBoxes.classList.remove('show');
+        hBoxes.forEach(box => box.classList.remove('show'));
       }
     });
   </script>
 </body>
 </html>
+
+
