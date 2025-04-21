@@ -3,18 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Travel Site</title>
+  <title>תכנון חופשה עם AI</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body, html {
       height: 100%;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
+
     .background {
       position: fixed;
       top: 0;
@@ -26,6 +28,7 @@
       z-index: -1;
       transition: background-image 1s ease-in-out;
     }
+
     .content {
       position: relative;
       z-index: 1;
@@ -36,6 +39,7 @@
       padding-top: 80px;
       min-height: 100vh;
     }
+
     .email-box {
       background: rgba(255, 255, 255, 0.9);
       padding: 30px;
@@ -45,6 +49,7 @@
       width: 90%;
       text-align: center;
     }
+
     .email-box input {
       width: 100%;
       padding: 12px;
@@ -53,6 +58,7 @@
       border: 1px solid #ccc;
       font-size: 16px;
     }
+
     .email-box button {
       padding: 12px 24px;
       font-size: 16px;
@@ -62,6 +68,7 @@
       border-radius: 8px;
       cursor: pointer;
     }
+
     .promo-box {
       position: fixed;
       top: 30%;
@@ -81,21 +88,10 @@
       text-align: center;
       letter-spacing: 1px;
     }
+
     .promo-box.show {
       left: calc(50% - 250px);
       box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
-    }
-    @media (max-width: 600px) {
-      .promo-box {
-        width: 90%;
-        left: -100%;
-        padding: 20px;
-        font-size: 1rem;
-      }
-      .promo-box.show {
-        left: 5%;
-        transform: translateY(-50%);
-      }
     }
 
     /* עיצוב הריבועים האנכיים - גרסה סופית */
@@ -128,25 +124,32 @@
       width: 220px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.2);
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transform: translateX(20px);
+      opacity: 0;
+      transition: all 0.6s ease-out;
     }
 
-    .vertical-box:hover {
-      transform: translateX(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    .vertical-box.show {
+      opacity: 1;
+      transform: translateX(0);
     }
+
+    .vertical-box:nth-child(1) { transition-delay: 0.1s; }
+    .vertical-box:nth-child(2) { transition-delay: 0.3s; }
+    .vertical-box:nth-child(3) { transition-delay: 0.5s; }
+    .vertical-box:nth-child(4) { transition-delay: 0.7s; }
 
     .vertical-arrow {
       color: white;
       font-size: 28px;
-      opacity: 0.7;
+      opacity: 0;
+      transition: opacity 0.4s;
       margin: 5px 0;
       text-align: center;
-      transition: opacity 0.3s;
     }
 
-    .vertical-arrow:hover {
-      opacity: 1;
+    .vertical-boxes-container.show .vertical-arrow {
+      opacity: 0.7;
     }
 
     @media (max-width: 1000px) {
@@ -170,6 +173,13 @@
         transform: rotate(90deg);
         margin: 0 10px;
       }
+    }
+
+    .content-below {
+      position: relative;
+      top: 100vh;
+      padding: 20px;
+      height: 200vh;
     }
   </style>
 </head>
@@ -215,6 +225,8 @@
     </div>
   </div>
 
+  <div class="content-below"></div>
+
   <script>
     // רקע מתחלף
     const images = [
@@ -251,19 +263,33 @@
       }
     });
 
-    // 4 הריבועים האנכיים - גרסה סופית עם תיקונים
+    // 4 הריבועים האנכיים - גרסה סופית
     const verticalBoxes = document.getElementById('verticalBoxes');
-    
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        verticalBoxes.classList.add('show');
-      } else {
-        verticalBoxes.classList.remove('show');
-      }
-    });
+    const vBoxes = document.querySelectorAll('.vertical-box');
+    const vArrows = document.querySelectorAll('.vertical-arrow');
+    let lastScroll = 0;
 
-    // אפשרות לבדיקה מיידית (למפתחים)
-    // verticalBoxes.classList.add('show');
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      
+      if (currentScroll > lastScroll) {
+        // גלילה מטה
+        if (currentScroll > 50) {
+          verticalBoxes.classList.add('show');
+          vBoxes.forEach(box => box.classList.add('show'));
+          vArrows.forEach(arrow => arrow.style.opacity = '0.7');
+        }
+      } else {
+        // גלילה מעלה
+        verticalBoxes.classList.remove('show');
+        vBoxes.forEach(box => box.classList.remove('show'));
+        vArrows.forEach(arrow => arrow.style.opacity = '0');
+      }
+      
+      lastScroll = currentScroll;
+    });
   </script>
 </body>
 </html>
+
+
