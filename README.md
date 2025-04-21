@@ -13,7 +13,7 @@
 
     body, html {
       height: 100%;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow-x: hidden;
     }
 
@@ -41,32 +41,47 @@
     }
 
     .email-box {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
       max-width: 400px;
       width: 90%;
       text-align: center;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .email-box input {
       width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      padding: 14px;
+      margin: 12px 0;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
       font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    .email-box input:focus {
+      border-color: #4CAF50;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
     }
 
     .email-box button {
-      padding: 12px 24px;
+      padding: 14px 28px;
       font-size: 16px;
-      background-color: #4CAF50;
+      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+    }
+
+    .email-box button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
     }
 
     .promo-box {
@@ -77,8 +92,8 @@
       background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
       color: #fff;
       padding: 30px 40px;
-      border-radius: 15px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
       font-size: 1.2rem;
       font-weight: bold;
       z-index: 2;
@@ -87,78 +102,90 @@
       max-width: 90%;
       text-align: center;
       letter-spacing: 1px;
+      backdrop-filter: blur(5px);
     }
 
     .promo-box.show {
       left: calc(50% - 250px);
-      box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
+      box-shadow: 0 15px 45px 0 rgba(0,0,0,0.35);
     }
 
-    /* סגנון הריבועים האופקיים - גרסה מתוקנת */
+    /* עיצוב הריבועים החדש - מודרני ומושך */
     .horizontal-boxes-container {
       position: fixed;
-      bottom: 20px; /* שיניתי מ-bottom: -200px */
+      bottom: -200px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      gap: 15px;
+      gap: 20px;
       align-items: center;
       z-index: 1000;
-      padding: 20px;
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(10px);
+      padding: 25px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
       border-radius: 25px;
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
-
-    .horizontal-boxes-container.show {
-      opacity: 1;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      transition: bottom 0.5s cubic-bezier(.22,.61,.36,1), opacity 0.4s;
     }
 
     .horizontal-box {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
       color: white;
       padding: 25px;
-      border-radius: 12px;
-      width: 220px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      border-radius: 15px;
+      width: 240px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
       text-align: center;
-      transform: translateY(20px);
-      opacity: 0;
-      transition: all 0.6s ease-out;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.4s ease;
     }
 
-    .horizontal-box.show {
-      opacity: 1;
-      transform: translateY(0);
+    .horizontal-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
     }
 
-    .horizontal-box:nth-child(1) { transition-delay: 0.1s; }
-    .horizontal-box:nth-child(2) { transition-delay: 0.3s; }
-    .horizontal-box:nth-child(3) { transition-delay: 0.5s; }
-    .horizontal-box:nth-child(4) { transition-delay: 0.7s; }
+    .horizontal-box h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .horizontal-box p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
 
     .horizontal-arrow {
       color: white;
-      font-size: 28px;
-      opacity: 0;
-      transition: opacity 0.4s;
-      margin: 0 -10px;
+      font-size: 32px;
+      opacity: 0.7;
+      margin: 0 -15px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: all 0.3s;
     }
 
-    .horizontal-boxes-container.show .horizontal-arrow {
-      opacity: 0.7;
+    .horizontal-boxes-container.show {
+      bottom: 30px;
     }
 
     @media (max-width: 1000px) {
       .horizontal-boxes-container {
-        width: 90%;
-        overflow-x: auto;
-        padding-bottom: 15px;
+        width: 95%;
+        gap: 10px;
+        padding: 20px 15px;
       }
+      
       .horizontal-box {
-        min-width: 200px;
+        min-width: 180px;
+        padding: 20px;
+      }
+      
+      .horizontal-arrow {
+        font-size: 24px;
+        margin: 0 -10px;
       }
     }
 
@@ -246,30 +273,7 @@
       }
     });
 
-    // 4 הריבועים האופקיים - גרסה מתוקנת
-    const horizontalBoxes = document.getElementById('horizontalBoxes');
-    const hBoxes = document.querySelectorAll('.horizontal-box');
-    const hArrows = document.querySelectorAll('.horizontal-arrow');
-
-    // הצגת הריבועים אוטומטית
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        horizontalBoxes.classList.add('show');
-        hBoxes.forEach(box => box.classList.add('show'));
-        hArrows.forEach(arrow => arrow.style.opacity = '0.7');
-      }, 1000);
-    });
-
-    // גלילה (אופציונלי)
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) { // יופעל בכל גלילה
-        horizontalBoxes.classList.add('show');
-        hBoxes.forEach(box => box.classList.add('show'));
-        hArrows.forEach(arrow => arrow.style.opacity = '0.7');
-      }
-    });
-  </script>
-</body>
-</html>
+    // 4 הריבועים האופקיים - גרסה סופית
+    const horizontalBoxes = document.getElementById('
 
 
