@@ -13,7 +13,7 @@
 
     body, html {
       height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
 
@@ -41,47 +41,32 @@
     }
 
     .email-box {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.9);
       padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
       max-width: 400px;
       width: 90%;
       text-align: center;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .email-box input {
       width: 100%;
-      padding: 14px;
-      margin: 12px 0;
-      border-radius: 10px;
-      border: 1px solid #e0e0e0;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
       font-size: 16px;
-      transition: all 0.3s;
-    }
-
-    .email-box input:focus {
-      border-color: #4CAF50;
-      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
     }
 
     .email-box button {
-      padding: 14px 28px;
+      padding: 12px 24px;
       font-size: 16px;
-      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+      background-color: #4CAF50;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
-    }
-
-    .email-box button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
     }
 
     .promo-box {
@@ -92,8 +77,8 @@
       background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
       color: #fff;
       padding: 30px 40px;
-      border-radius: 20px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
       font-size: 1.2rem;
       font-weight: bold;
       z-index: 2;
@@ -102,90 +87,60 @@
       max-width: 90%;
       text-align: center;
       letter-spacing: 1px;
-      backdrop-filter: blur(5px);
     }
 
     .promo-box.show {
       left: calc(50% - 250px);
-      box-shadow: 0 15px 45px 0 rgba(0,0,0,0.35);
+      box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
     }
 
-    /* עיצוב הריבועים החדש - מודרני ומושך */
+    /* עיצוב הריבועים לפי ההוראות המדויקות */
     .horizontal-boxes-container {
       position: fixed;
       bottom: -200px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      gap: 20px;
+      gap: 15px;
       align-items: center;
       z-index: 1000;
-      padding: 25px;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(12px);
+      padding: 20px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
       border-radius: 25px;
-      border: 1px solid rgba(255,255,255,0.2);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-      transition: bottom 0.5s cubic-bezier(.22,.61,.36,1), opacity 0.4s;
-    }
-
-    .horizontal-box {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
-      color: white;
-      padding: 25px;
-      border-radius: 15px;
-      width: 240px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.3);
-      transition: all 0.4s ease;
-    }
-
-    .horizontal-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-    }
-
-    .horizontal-box h3 {
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    .horizontal-box p {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      opacity: 0.9;
-    }
-
-    .horizontal-arrow {
-      color: white;
-      font-size: 32px;
-      opacity: 0.7;
-      margin: 0 -15px;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      transition: all 0.3s;
+      transition: bottom 0.5s ease;
     }
 
     .horizontal-boxes-container.show {
       bottom: 30px;
     }
 
+    .horizontal-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 220px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .horizontal-arrow {
+      color: white;
+      font-size: 28px;
+      opacity: 0.7;
+      margin: 0 -10px;
+    }
+
     @media (max-width: 1000px) {
       .horizontal-boxes-container {
-        width: 95%;
-        gap: 10px;
-        padding: 20px 15px;
+        width: 90%;
+        overflow-x: auto;
+        padding-bottom: 15px;
       }
-      
       .horizontal-box {
-        min-width: 180px;
-        padding: 20px;
-      }
-      
-      .horizontal-arrow {
-        font-size: 24px;
-        margin: 0 -10px;
+        min-width: 200px;
       }
     }
 
@@ -242,22 +197,26 @@
   <div class="content-below"></div>
 
   <script>
-    // רקע מתחלף
+    // רקע מתחלף - גרסה מתוקנת
     const images = [
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
-      'https://images.unsplash.com/photo-1505761671935-60b3a7427bad',
-      'https://images.unsplash.com/photo-1493558103817-58b2924bce98',
-      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
-      'https://images.unsplash.com/photo-1469474968028-56623f02e42e',
-      'https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef',
-      'https://images.unsplash.com/photo-1482192596544-9eb780fc7f66',
-      'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d',
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee'
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+      'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+      'https://images.unsplash.com/photo-1493558103817-58b2924bce98?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
     ];
 
     const background = document.getElementById('background');
     let current = 0;
+    
+    function preloadImages() {
+      images.forEach(img => {
+        const image = new Image();
+        image.src = img;
+      });
+    }
+
+    preloadImages();
     background.style.backgroundImage = `url('${images[current]}')`;
 
     setInterval(() => {
@@ -274,6 +233,27 @@
     });
 
     // 4 הריבועים האופקיים - גרסה סופית
-    const horizontalBoxes = document.getElementById('
+    const horizontalBoxes = document.getElementById('horizontalBoxes');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      
+      if (currentScroll > lastScroll) {
+        // גלילה למטה
+        if (currentScroll > 50) {
+          horizontalBoxes.classList.add('show');
+        }
+      } else {
+        // גלילה למעלה
+        horizontalBoxes.classList.remove('show');
+      }
+      
+      lastScroll = currentScroll;
+    });
+  </script>
+</body>
+</html>
+
 
 
