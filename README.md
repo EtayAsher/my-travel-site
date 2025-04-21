@@ -1,153 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Travel Site</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body, html {
-      height: 100%;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-    }
-    .background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-size: cover;
-      background-position: center;
-      z-index: -1;
-      transition: background-image 1s ease-in-out;
-    }
-    .content {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding-top: 80px;
-      min-height: 100vh;
-    }
-    .email-box {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-    }
-    .email-box input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-    .email-box button {
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    /* עיצוב הריבוע הירוק - מודרני וחדשני */
-    .promo-box {
-      position: fixed;
-      top: 30%;
-      left: -600px; /* מתחבא בצד שמאל */
-      transform: translateY(-50%);
-      background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
-      color: #fff;
-      padding: 30px 40px;
-      border-radius: 15px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      font-size: 1.2rem;
-      font-weight: bold;
-      z-index: 2;
-      transition: left 0.7s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.4s;
-      width: 500px;
-      max-width: 90%;
-      text-align: center;
-      letter-spacing: 1px;
-    }
-    .promo-box.show {
-      left: calc(50% - 250px); /* ממרכז אותו */
-      box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
-    }
-    @media (max-width: 600px) {
-      .promo-box {
-        width: 90%;
-        left: -100%;
-        padding: 20px;
-        font-size: 1rem;
-      }
-      .promo-box.show {
-        left: 5%;
-        transform: translateY(-50%);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תכנון חופשה עם AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            min-height: 200vh;
+        }
+
+        .slideshow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .form-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 1.2rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* הריבוע הירוק הקופץ מצד שמאל */
+        .promo-box {
+            position: fixed;
+            top: 30%;
+            left: -600px;
+            transform: translateY(-50%);
+            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+            color: #fff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 2;
+            transition: left 0.7s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.4s;
+            width: 500px;
+            max-width: 90%;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .promo-box.show {
+            left: calc(50% - 250px);
+            box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 600px) {
+            .promo-box {
+                width: 90%;
+                left: -100%;
+                padding: 20px;
+                font-size: 1rem;
+            }
+            .promo-box.show {
+                left: 5%;
+                transform: translateY(-50%);
+            }
+        }
+
+        /* הסרנו את ה-.fixed-message הישן */
+        .content-below {
+            position: relative;
+            top: 100vh;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <div class="background" id="background"></div>
-
-  <div class="content">
-    <div class="email-box">
-      <h2>תכננו את החופשה שלכם</h2>
-      <input type="email" placeholder="כתובת אימייל">
-      <input type="password" placeholder="סיסמה">
-      <button>הרשמה</button>
+    <div class="slideshow-container">
+        <div class="slide active"
+            style="background-image: url('https://images.unsplash.com/photo-1485871983421-0a9b3d42d2a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        </div>
+        <div class="slide"
+            style="background-image: url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        </div>
+        <div class="slide"
+            style="background-image: url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        </div>
+        <div class="slide"
+            style="background-image: url('https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        </div>
+        <div class="slide"
+            style="background-image: url('https://images.unsplash.com/photo-1492571351370-481d0a0a4a6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        </div>
+        <div class="slide"
+            style="background-image: url('https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        </div>
+        <div class="slide"
+            style="background-image: url('https://images.unsplash.com/photo-1524820197278-540916411e20?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        </div>
+        <div class="slide"
+            style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        </div>
+        <div class="slide"
+            style="background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        </div>
+        <div class="slide"
+            style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        </div>
+        <div class="slide"
+            style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85660d58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        </div>
     </div>
-  </div>
 
-  <div class="promo-box" id="promoBox">
-    <p>היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונמצא עבורכם את החופשה הכי טובה וזולה עבורכם!</p>
-  </div>
+    <div class="form-container">
+        <h2>רוצים לתכנן את החופשה המושלמת שלכם בעזרת בינה מלאכותית ועוד כלים נוספים?</h2>
+        <form>
+            <div class="form-group">
+                <label for="email">אימייל:</label>
+                <input type="email" id="email" placeholder="הכנס אימייל" required>
+            </div>
+            <div class="form-group">
+                <label for="password">סיסמה:</label>
+                <input type="password" id="password" placeholder="הכנס סיסמה" required>
+            </div>
+            <button type="submit">הירשם עכשיו</button>
+        </form>
+    </div>
 
-  <script>
-    const images = [
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
-      'https://images.unsplash.com/photo-1505761671935-60b3a7427bad',
-      'https://images.unsplash.com/photo-1493558103817-58b2924bce98',
-      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
-      'https://images.unsplash.com/photo-1469474968028-56623f02e42e',
-      'https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef',
-      'https://images.unsplash.com/photo-1482192596544-9eb780fc7f66',
-      'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d',
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee'
-    ];
+    <!-- הריבוע הירוק החדש -->
+    <div class="promo-box" id="promoBox">
+        היי! רוצים לתכנן את החופשה המשולמת שלכם אבל לא יודעים מאיפה להתחיל? נמאס לשבור את הכיס על מלונות? הירשמו ונעזור לכם למצוא בדיוק את מה שאתם רוצים!
+    </div>
 
-    const background = document.getElementById('background');
-    let current = 0;
-    background.style.backgroundImage = `url('${images[current]}')`;
+    <div class="content-below">
+        <!-- תוכן נוסף כאן - ניתן להוסיף תוכן שגוללים -->
+    </div>
 
-    setInterval(() => {
-      current = (current + 1) % images.length;
-      background.style.backgroundImage = `url('${images[current]}')`;
-    }, 5000);
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
 
-    window.addEventListener('scroll', () => {
-      const promo = document.getElementById('promoBox');
-      if (window.scrollY > 100) {
-        promo.classList.add('show');
-        console.log("Promo box is now visible."); // בדיקה אם הקוד עובד
-      } else {
-        console.log("Scroll detected, but not enough."); // הודעת דיבוג
-      }
-    });
-  </script>
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 4000);
+
+        // קוד חדש לריבוע הירוק
+        window.addEventListener('scroll', () => {
+            const promoBox = document.getElementById('promoBox');
+            if (window.scrollY > 100) {
+                promoBox.classList.add('show');
+            } else {
+                promoBox.classList.remove('show');
+            }
+        });
+    </script>
 </body>
 </html>
+
