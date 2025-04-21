@@ -151,6 +151,53 @@
   </script>
 </body>
 </html>****
+<div class="modern-green-box" id="modernGreenBox">
+  היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונמצא עבורכם את החופשה הכי טובה וזולה עבורכם!
+</div>
 
+<style>
+.modern-green-box {
+  position: fixed;
+  top: 35%;
+  left: -600px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+  color: #fff;
+  padding: 32px 48px;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  font-size: 1.25rem;
+  font-weight: bold;
+  z-index: 9999;
+  width: 520px;
+  max-width: 90vw;
+  text-align: center;
+  letter-spacing: 1px;
+  transition: left 0.8s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.4s;
+}
+.modern-green-box.show {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 12px 40px 0 rgba(0,0,0,0.28);
+}
+@media (max-width: 700px) {
+  .modern-green-box {
+    width: 95vw;
+    font-size: 1rem;
+    padding: 18px 6px;
+  }
+}
+</style>
+
+<script>
+window.addEventListener('scroll', function() {
+  const box = document.getElementById('modernGreenBox');
+  if (window.scrollY > window.innerHeight / 2) {
+    box.classList.add('show');
+  } else {
+    box.classList.remove('show');
+  }
+});
+</script>
 
 
