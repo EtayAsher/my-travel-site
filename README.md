@@ -148,6 +148,37 @@
   </script>
 </body>
 </html>
+ <div class="fixed-message">
+        היי! רוצים לתכנן את החופשה המשולמת שלכם אבל לא יודעים מאיפה להתחיל? נמאס לשבור את הכיס על מלונות? הירשמו ונעזור לכם למצוא בדיוק את מה שאתם רוצים!
+    </div>
 
+    <div class="content-below">
+        <!-- תוכן נוסף כאן - ניתן להוסיף תוכן שגוללים -->
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 4000);
+
+        const fixedMessage = document.querySelector('.fixed-message');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > window.innerHeight / 2) {
+                fixedMessage.classList.add('show');
+            } else {
+                fixedMessage.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
 
 
