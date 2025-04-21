@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>אתר חופשות מתקדם</title>
+  <title>תכנון חופשה עם AI</title>
   <style>
     * {
       margin: 0;
@@ -17,7 +17,6 @@
       overflow-x: hidden;
     }
 
-    /* רקע מתחלף */
     .background {
       position: fixed;
       top: 0;
@@ -30,75 +29,74 @@
       transition: background-image 1s ease-in-out;
     }
 
-    /* תיבת האימייל */
-    .email-box {
+    .content {
       position: relative;
       z-index: 1;
-      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 80px;
+      min-height: 100vh;
+    }
+
+    .email-box {
+      background: rgba(255, 255, 255, 0.9);
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
       max-width: 400px;
       width: 90%;
       text-align: center;
-      margin: 80px auto 0;
-      backdrop-filter: blur(5px);
-      transform: scale(0.98);
-      transition: transform 0.3s ease;
-    }
-
-    .email-box:hover {
-      transform: scale(1);
     }
 
     .email-box input {
       width: 100%;
-      padding: 14px;
-      margin: 12px 0;
-      border-radius: 10px;
-      border: 1px solid #ddd;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
       font-size: 16px;
     }
 
     .email-box button {
-      padding: 14px 28px;
+      padding: 12px 24px;
       font-size: 16px;
-      background: linear-gradient(90deg, #4CAF50 0%, #2E7D32 100%);
+      background-color: #4CAF50;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      margin-top: 10px;
     }
 
-    /* ריבועי הטיפים האנכיים */
+    /* סגנון הריבועים האנכיים */
     .vertical-boxes-container {
       position: fixed;
-      bottom: -400px; /* מחוץ למסך */
+      bottom: -400px; /* התחלה מחוץ למסך */
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       gap: 15px;
       z-index: 1000;
-      transition: bottom 0.7s cubic-bezier(.68,-0.55,.27,1.55);
       padding: 20px;
+      transition: bottom 0.7s cubic-bezier(.68,-0.55,.27,1.55);
     }
 
     .vertical-boxes-container.show {
-      bottom: 30px; /* נכנס לתוך המסך */
+      bottom: 30px; /* מיקום סופי */
     }
 
     .vertical-box {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       padding: 25px;
-      border-radius: 15px;
+      border-radius: 12px;
       width: 220px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       text-align: center;
-      opacity: 0;
       transform: translateY(20px);
+      opacity: 0;
       transition: all 0.6s ease-out;
     }
 
@@ -120,42 +118,29 @@
       opacity: 0.7;
     }
 
-    /* אנימציות לדיליי בין ריבועים */
     .vertical-box:nth-child(1) { transition-delay: 0.1s; }
     .vertical-box:nth-child(2) { transition-delay: 0.3s; }
     .vertical-box:nth-child(3) { transition-delay: 0.5s; }
     .vertical-box:nth-child(4) { transition-delay: 0.7s; }
 
-    /* תוכן דמה לגלילה */
     .content-below {
-      height: 200vh;
       position: relative;
       top: 100vh;
-    }
-
-    @media (max-width: 768px) {
-      .vertical-boxes-container {
-        flex-direction: row;
-        width: 90%;
-        overflow-x: auto;
-        padding: 15px;
-        gap: 10px;
-      }
-      .vertical-arrow {
-        transform: rotate(90deg);
-        margin: 0 10px;
-      }
+      padding: 20px;
+      height: 200vh;
     }
   </style>
 </head>
 <body>
   <div class="background" id="background"></div>
 
-  <div class="email-box">
-    <h2>תכננו את החופשה המושלמת</h2>
-    <input type="email" placeholder="כתובת אימייל">
-    <input type="password" placeholder="סיסמה">
-    <button>הרשמה</button>
+  <div class="content">
+    <div class="email-box">
+      <h2>תכננו את החופשה שלכם</h2>
+      <input type="email" placeholder="כתובת אימייל">
+      <input type="password" placeholder="סיסמה">
+      <button>הרשמה</button>
+    </div>
   </div>
 
   <!-- 4 הריבועים האנכיים -->
@@ -189,10 +174,10 @@
   <script>
     // רקע מתחלף
     const images = [
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-      'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-      'https://images.unsplash.com/photo-1493558103817-58b2924bce98?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+      'https://images.unsplash.com/photo-1505761671935-60b3a7427bad',
+      'https://images.unsplash.com/photo-1493558103817-58b2924bce98'
     ];
 
     const background = document.getElementById('background');
