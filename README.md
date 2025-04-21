@@ -95,7 +95,7 @@
             background-color: #0056b3;
         }
 
-        /* הריבוע הירוק הקופץ מצד שמאל */
+        /* הריבוע הירוק החדש מהקוד השני */
         .promo-box {
             position: fixed;
             top: 30%;
@@ -134,7 +134,6 @@
             }
         }
 
-        /* הסרנו את ה-.fixed-message הישן */
         .content-below {
             position: relative;
             top: 100vh;
@@ -222,9 +221,9 @@
 
         setInterval(nextSlide, 4000);
 
-        // קוד חדש לריבוע הירוק
+        // קוד הריבוע הירוק החדש
+        const promoBox = document.getElementById('promoBox');
         window.addEventListener('scroll', () => {
-            const promoBox = document.getElementById('promoBox');
             if (window.scrollY > 100) {
                 promoBox.classList.add('show');
             } else {
@@ -234,4 +233,5 @@
     </script>
 </body>
 </html>
+
 
