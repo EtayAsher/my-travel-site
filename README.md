@@ -63,35 +63,39 @@
       cursor: pointer;
     }
     /* עיצוב הריבוע הירוק - מודרני וחדשני */
-    .modern-green-box {
+    .promo-box {
       position: fixed;
-      top: 35%;
-      left: -600px;
+      top: 30%;
+      left: -600px; /* מתחבא בצד שמאל */
       transform: translateY(-50%);
       background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
       color: #fff;
-      padding: 32px 48px;
-      border-radius: 18px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      font-size: 1.25rem;
+      padding: 30px 40px; /* יותר מרווח */
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      font-size: 1.2rem;
       font-weight: bold;
-      z-index: 9999;
-      width: 520px;
-      max-width: 90vw;
+      z-index: 2;
+      transition: left 0.7s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.4s;
+      width: 500px; /* יותר רחב */
+      max-width: 90%;
       text-align: center;
       letter-spacing: 1px;
-      transition: left 0.8s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.4s;
     }
-    .modern-green-box.show {
-      left: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 12px 40px 0 rgba(0,0,0,0.28);
+    .promo-box.show {
+      left: calc(50% - 250px); /* ממרכז בהתאם לרוחב החדש */
+      box-shadow: 0 12px 40px 0 rgba(0,0,0,0.3);
     }
-    @media (max-width: 700px) {
-      .modern-green-box {
-        width: 95vw;
+    @media (max-width: 600px) {
+      .promo-box {
+        width: 90%; /* תופס 90% מהמסך */
+        left: -100%;
+        padding: 20px;
         font-size: 1rem;
-        padding: 18px 6px;
+      }
+      .promo-box.show {
+        left: 5%; /* מוצג עם שוליים בצדדים */
+        transform: translateY(-50%);
       }
     }
   </style>
@@ -108,9 +112,8 @@
     </div>
   </div>
 
-  <!-- הוספנו את הריבוע הירוק כאן -->
-  <div class="modern-green-box" id="modernGreenBox">
-    היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונמצא עבורכם את החופשה הכי טובה וזולה עבורכם!
+  <div class="promo-box" id="promoBox">
+    <p>היי! רוצים לתכנן את החופשה המושלמת שלכם אבל לא יודעים איך? הירשמו ונעזור לכם למצוא את החופשה הכי טובה וזולה בשבילכם</p>
   </div>
 
   <script>
@@ -136,16 +139,15 @@
       background.style.backgroundImage = `url('${images[current]}')`;
     }, 5000);
 
-    window.addEventListener('scroll', function() {
-      const box = document.getElementById('modernGreenBox');
-      if (window.scrollY > window.innerHeight / 2) {
-        box.classList.add('show');
-      } else {
-        box.classList.remove('show');
+    window.addEventListener('scroll', () => {
+      const promo = document.getElementById('promoBox');
+      if (window.scrollY > 100) {
+        promo.classList.add('show');
       }
     });
   </script>
 </body>
 </html>
+
 
 
