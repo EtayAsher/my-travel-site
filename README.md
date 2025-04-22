@@ -5,247 +5,142 @@
   <title>DreamTrip AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f7faff;
-      color: #333;
-      line-height: 1.6;
+      background: linear-gradient(to bottom, #ffffff, #f5f5f5);
       overflow-x: hidden;
     }
 
     header {
-      background: linear-gradient(120deg, #74ebd5, #ACB6E5);
-      color: #fff;
+      background: #4bb5ff;
+      color: white;
       text-align: center;
-      padding: 70px 20px 50px;
+      padding: 40px 20px;
+      animation: slideIn 1s ease-out;
     }
 
     header h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
+      font-size: 48px;
     }
 
     header p {
       font-size: 20px;
-    }
-
-    .email-section {
-      text-align: center;
-      margin-top: 50px;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    .email-box {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 14px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      display: inline-block;
-      margin-top: 20px;
-    }
-
-    .email-box input {
-      width: 90%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
-    .email-box button {
-      padding: 12px 25px;
-      background-color: #0077ff;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .email-box button:hover {
-      background-color: #005bcc;
+      margin-top: 10px;
     }
 
     .section {
-      max-width: 1100px;
-      margin: 80px auto;
-      padding: 0 20px;
-    }
-
-    .bubble-box {
-      background-color: #ffffff;
-      padding: 25px;
-      border-radius: 14px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      max-width: 700px;
-      margin: 40px auto;
-      animation: slideIn 1.5s ease-in-out;
-    }
-
-    .bubble {
-      max-width: 90%;
-      padding: 14px 18px;
-      border-radius: 20px;
-      margin: 10px 0;
-      font-size: 16px;
-      display: inline-block;
-    }
-
-    .user {
-      background-color: #d9f4ff;
-      float: right;
-      clear: both;
-    }
-
-    .ai {
-      background-color: #f2f2ff;
-      float: left;
-      clear: both;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      margin-top: 80px;
+      padding: 60px 20px;
+      text-align: center;
     }
 
     .card {
-      background-color: #ffffff;
-      border-radius: 14px;
-      padding: 25px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      transform: translateY(50px);
-      opacity: 0;
-      transition: all 0.8s ease;
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      animation: fadeIn 1.5s ease;
+      transition: transform 0.3s ease;
     }
 
-    .card.visible {
-      transform: translateY(0);
-      opacity: 1;
+    .card:hover {
+      transform: scale(1.03);
     }
 
-    .card h3 {
-      margin-bottom: 12px;
-      color: #2c3e50;
+    .chat-preview {
+      background: #f1f1f1;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: left;
+      font-size: 16px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
     }
 
-    .card p {
-      color: #555;
+    .chat-preview .user {
+      color: #007BFF;
+      font-weight: bold;
+    }
+
+    .chat-preview .bot {
+      color: #28a745;
+      font-weight: bold;
     }
 
     .testimonial {
-      background-color: #eaf4ff;
-      padding: 60px 20px;
-      border-radius: 16px;
-      margin-top: 80px;
-      text-align: center;
-    }
-
-    .testimonial h2 {
-      margin-bottom: 20px;
-    }
-
-    .testimonial p {
+      background: #fff9e6;
+      padding: 25px;
+      border-radius: 10px;
+      margin: 20px auto;
+      width: 80%;
+      max-width: 700px;
       font-style: italic;
-      color: #444;
-      font-size: 17px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
 
-    .footer {
+    footer {
+      background: #333;
+      color: white;
       text-align: center;
-      margin: 80px 0 30px;
-      color: #888;
-      font-size: 14px;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+      padding: 30px 10px;
+      margin-top: 50px;
     }
 
     @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
-    @media (max-width: 600px) {
-      header h1 { font-size: 30px; }
-      .email-box { width: 90%; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>DreamTrip AI</h1>
-    <p>Your smart travel assistant. No stress, just flights & fun.</p>
+    <h1>🌍 DreamTrip AI</h1>
+    <p>Your personal travel planner powered by smart AI</p>
   </header>
 
-  <div class="email-section">
-    <div class="email-box">
-      <h3>Start planning your trip:</h3>
-      <input type="email" placeholder="Your email">
-      <input type="password" placeholder="Create a password">
-      <button>Let’s Go!</button>
+  <div class="section">
+    <div class="card">
+      <h2>Start Your Dream Vacation</h2>
+      <p>Get personalized suggestions based on your budget, destination, and preferences.</p>
+      <input type="email" placeholder="Enter your email..." style="padding: 10px; margin-top: 20px; width: 60%; border-radius: 5px; border: 1px solid #ccc;">
+    </div>
+
+    <div class="card">
+      <h2>How it Works</h2>
+      <div class="chat-preview">
+        <p><span class="user">You:</span> I want a sunny beach vacation in August with a mid-range budget.</p>
+        <p><span class="bot">DreamTrip AI:</span> Perfect! 🌞 How about Costa del Sol, Spain? Here’s a package with flight + hotel for 5 nights under $900.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Why Travelers ❤️ Us</h2>
+      <div class="testimonial">“I found my honeymoon in Santorini for half the price. The AI saved us hours of research!” – Sarah G.</div>
+      <div class="testimonial">“Best trip planner I’ve ever used. I was matched with a 4-star hotel in Rome in seconds.” – Daniel K.</div>
     </div>
   </div>
 
-  <div class="section bubble-box">
-    <div class="bubble user"><strong>You:</strong> I want to go to New York in summer</div>
-    <div class="bubble ai"><strong>AI:</strong> Amazing! Here’s a direct flight + 3-night hotel combo in Manhattan 👇</div>
-  </div>
-
-  <div class="section card-grid">
-    <div class="card"><h3>Real-time Deals</h3><p>Daily updated vacation ideas based on your preferences.</p></div>
-    <div class="card"><h3>Smart Matching</h3><p>AI finds the best flight + hotel bundles for your budget.</p></div>
-    <div class="card"><h3>Ask Anything</h3><p>“Where to go in winter?” The AI will surprise you.</p></div>
-    <div class="card"><h3>Save Time</h3><p>No more 5 tabs open. AI does the comparison for you.</p></div>
-  </div>
-
-  <div class="testimonial">
-    <h2>Traveler Feedback</h2>
-    <p>“This felt like talking to a real agent. Fast, helpful, perfect results. Booked my honeymoon in 10 mins!”</p>
-  </div>
-
-  <div class="footer">
-    &copy; 2025 DreamTrip AI | Powered by imagination, not robots 🤫
-  </div>
-
-  <script>
-    const cards = document.querySelectorAll('.card');
-    const options = {
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, options);
-
-    cards.forEach(card => {
-      observer.observe(card);
-    });
-  </script>
+  <footer>
+    &copy; 2025 DreamTrip AI | All rights reserved
+  </footer>
 
 </body>
 </html>
+
 
 
