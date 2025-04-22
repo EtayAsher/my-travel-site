@@ -3,213 +3,216 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DreamTrip AI - Explore the World</title>
+  <title>Dream Travel AI</title>
   <style>
-    * { box-sizing: border-box; }
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #f2f9ff;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #fefefe, #e0f7fa);
+      color: #333;
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
     header {
-      background: linear-gradient(to right, #3f51b5, #00bcd4);
+      background: linear-gradient(to right, #2196f3, #00bcd4);
       color: white;
       padding: 60px 20px;
       text-align: center;
-      font-size: 2.8em;
-      animation: fadeInDown 1s ease-in-out;
+      animation: fadeIn 2s ease;
     }
 
-    @keyframes fadeInDown {
-      0% { opacity: 0; transform: translateY(-50px); }
-      100% { opacity: 1; transform: translateY(0); }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
     }
 
-    .hero {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding: 40px 20px;
-      background: white;
-    }
-
-    .hero input, .hero button {
-      padding: 12px;
-      margin: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 1em;
-    }
-
-    .hero button {
-      background: #00bcd4;
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .hero button:hover {
-      background: #0097a7;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      padding: 60px 30px;
-      background: #e3f2fd;
-    }
-
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 25px;
+    section {
+      padding: 60px 20px;
       text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
     }
 
-    .card:hover {
-      transform: translateY(-10px);
-      background: #f1f8ff;
-    }
-
-    .card h3 {
-      color: #3f51b5;
-    }
-
-    .demo {
-      background: #fff8e1;
-      padding: 60px 30px;
-      text-align: center;
-      border-top: 4px solid #ffb300;
-    }
-
-    .demo pre {
-      background: #263238;
-      color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      overflow-x: auto;
-      max-width: 700px;
-      margin: auto;
-      text-align: left;
+    section.visible {
+      opacity: 1;
     }
 
     .features {
-      background: #ffffff;
-      padding: 60px 30px;
-      text-align: center;
-    }
-
-    .features h2 {
-      color: #00bcd4;
-      margin-bottom: 30px;
-    }
-
-    .feature-box {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 30px;
+      margin-top: 30px;
     }
 
-    .feature {
-      flex: 1;
-      min-width: 250px;
-      max-width: 400px;
-      background: #e0f7fa;
+    .card {
+      background: white;
       border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 25px;
+      width: 280px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
-    .feature:hover {
-      transform: scale(1.03);
-      background: #b2ebf2;
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+
+    .chat-demo {
+      background: #263238;
+      color: #cfd8dc;
+      padding: 25px;
+      border-radius: 8px;
+      width: 85%;
+      max-width: 700px;
+      margin: 0 auto;
+      font-family: monospace;
+      font-size: 1rem;
+    }
+
+    .testimonials {
+      background: #f9f9f9;
+    }
+
+    .testimonial-card {
+      background: #ffffff;
+      margin: 25px auto;
+      padding: 20px;
+      border-left: 5px solid #009688;
+      width: 70%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+    }
+
+    .cta {
+      background: #00796b;
+      color: white;
+    }
+
+    .cta form {
+      margin-top: 20px;
+    }
+
+    .cta input {
+      padding: 12px;
+      width: 260px;
+      border-radius: 6px;
+      border: none;
+      margin-right: 10px;
+    }
+
+    .cta button {
+      padding: 12px 24px;
+      border: none;
+      background: #004d40;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
     footer {
-      background: #3f51b5;
+      background: #004d40;
       color: white;
+      padding: 25px;
       text-align: center;
-      padding: 40px 20px;
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    🌍 DreamTrip AI – Explore, Discover, Book
+    <h1>🌍 Dream Travel Planner</h1>
+    <p>Your perfect vacation starts here, powered by AI.</p>
   </header>
 
-  <section class="hero">
-    <h2>Plan your dream vacation with the help of smart AI</h2>
-    <input type="email" placeholder="Enter your email" />
-    <button>Get Started</button>
-  </section>
-
-  <section class="grid">
-    <div class="card">
-      <h3>🌟 Tailored AI Recommendations</h3>
-      <p>Get suggestions based on your budget, location, and dates.</p>
-    </div>
-    <div class="card">
-      <h3>✈️ Real-time Deals</h3>
-      <p>Never miss a deal on flights and hotels with instant alerts.</p>
-    </div>
-    <div class="card">
-      <h3>🏝️ Secret Spots</h3>
-      <p>Explore off-the-beaten-path locations curated by AI.</p>
-    </div>
-    <div class="card">
-      <h3>📅 Full Itineraries</h3>
-      <p>Let us plan each day of your trip based on your interests.</p>
+  <section id="features" class="feature-section">
+    <h2>🚀 Why People Love Us</h2>
+    <div class="features">
+      <div class="card">🌐 AI Travel Agent Available 24/7</div>
+      <div class="card">💸 Find The Best Deals Instantly</div>
+      <div class="card">✈️ Explore Hidden Destinations</div>
     </div>
   </section>
 
-  <section class="demo">
-    <h2>🧠 Try Our AI Travel Assistant</h2>
-    <p>Imagine what it can do for you:</p>
-    <pre>
-User: I'm planning a 5-day trip to Japan in October with my family.
-AI: Awesome! I found a beautiful hotel in Tokyo, direct flight from Tel Aviv, and family activities nearby!
-Total Package: $2,150 – want me to reserve it?
-    </pre>
+  <section id="ai-demo">
+    <h2>🤖 Sample Chat with Our Travel AI</h2>
+    <div class="chat-demo">
+      <p><strong>User:</strong> I want to go to Japan in spring.</p>
+      <p><strong>AI:</strong> Cherry blossom season! I found a 5-star hotel in Kyoto with a direct flight from Tel Aviv. Want to book now?</p>
+    </div>
   </section>
 
-  <section class="features">
-    <h2>Why DreamTrip AI?</h2>
-    <div class="feature-box">
-      <div class="feature">
-        <h3>🔒 Privacy First</h3>
-        <p>We don’t share your data. Your travel info stays yours.</p>
-      </div>
-      <div class="feature">
-        <h3>📲 Mobile Optimized</h3>
-        <p>Access everything easily from any device – anywhere!</p>
-      </div>
-      <div class="feature">
-        <h3>🌐 Multilingual Support</h3>
-        <p>Available in English, Hebrew, French, Spanish & more.</p>
-      </div>
+  <section class="testimonials">
+    <h2>💬 Real Stories</h2>
+    <div class="testimonial-card">
+      “Used this site to plan my honeymoon to Thailand. Insanely easy.” <br><span>- Avi L.</span>
     </div>
+    <div class="testimonial-card">
+      “Their AI literally saved me $600 on hotels!”<br><span>- Shira G.</span>
+    </div>
+    <div class="testimonial-card">
+      “Never thought travel planning could be this fast.”<br><span>- Yossi T.</span>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>📩 Ready to plan your trip?</h2>
+    <form>
+      <input type="email" placeholder="Enter your email" required />
+      <button type="submit">Start Planning</button>
+    </form>
   </section>
 
   <footer>
-    &copy; 2025 DreamTrip AI. Built with ❤️ for travelers by travelers.
+    <p>🚀 Powered by Etay's AI Travel Co. | All rights reserved © 2025</p>
   </footer>
 
+  <script>
+    // Reveal sections on scroll
+    const sections = document.querySelectorAll("section");
+
+    window.addEventListener("scroll", () => {
+      const trigger = window.innerHeight * 0.85;
+      sections.forEach(section => {
+        const top = section.getBoundingClientRect().top;
+        if (top < trigger) {
+          section.classList.add("visible");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-
-
-
 
 
 
