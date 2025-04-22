@@ -4,155 +4,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DreamTrip AI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <title>My Travel Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
     body {
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
-      color: white;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #ffffff;
       overflow-x: hidden;
     }
 
     header {
       text-align: center;
-      padding: 3rem 1rem 2rem;
-      animation: slideFade 1s ease-out;
+      padding: 4rem 1rem 2rem;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      color: #fff;
+      animation: fadeIn 1s ease-in;
     }
 
     header h1 {
       font-size: 3rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     header p {
       font-size: 1.2rem;
-      color: #f0f0f0;
     }
 
-    .email-box {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 20px;
-      max-width: 400px;
-      margin: 2rem auto;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      animation: popUp 1s ease-out;
+    .email-signup {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
     }
 
-    .email-box h2 {
-      color: #0072ff;
-      margin-bottom: 1rem;
+    .email-signup input {
+      padding: 1rem;
+      font-size: 1rem;
+      border: 2px solid #ff6f61;
+      border-radius: 8px 0 0 8px;
+      outline: none;
+      width: 300px;
     }
 
-    input[type="email"] {
-      padding: 0.6rem;
+    .email-signup button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
       border: none;
-      border-radius: 10px;
-      width: 80%;
-      margin-bottom: 1rem;
-    }
-
-    button {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      background: #0072ff;
+      background-color: #ff6f61;
       color: white;
-      border-radius: 10px;
+      border-radius: 0 8px 8px 0;
       cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #005dd1;
     }
 
     .features {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      padding: 3rem 1rem;
+      margin: 4rem 2rem;
       gap: 2rem;
+      animation: fadeIn 2s ease-in;
     }
 
-    .card {
-      background: white;
-      color: #333;
-      padding: 2rem;
+    .feature-box {
+      background: #f7f7f7;
       border-radius: 20px;
-      max-width: 300px;
+      padding: 2rem;
+      width: 300px;
       text-align: center;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
     }
 
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    .feature-box:hover {
+      transform: scale(1.05);
     }
 
-    .card h3 {
-      margin-bottom: 1rem;
+    .feature-box h3 {
+      color: #ff6f61;
     }
 
-    .card p {
-      font-size: 0.95rem;
+    .cities-section {
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      padding: 4rem 1rem;
+      animation: slideIn 1s ease-in-out;
     }
 
-    .section-title {
+    .cities-section h2 {
       text-align: center;
-      margin-top: 4rem;
-      font-size: 2rem;
-      color: #fff;
-      text-shadow: 2px 2px #000;
+      margin-bottom: 2rem;
     }
 
-    .animation-container {
-      margin-top: 3rem;
+    .city-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      padding: 0 2rem;
+    }
+
+    .city-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       text-align: center;
-      font-size: 1.4rem;
-      animation: float 3s infinite ease-in-out;
+    }
+
+    .city-card h4 {
+      margin-bottom: 0.5rem;
     }
 
     .footer {
       text-align: center;
       padding: 2rem;
-      background: rgba(0,0,0,0.3);
+      background: #222;
+      color: white;
       font-size: 0.9rem;
-      margin-top: 3rem;
     }
 
-    @keyframes popUp {
-      from {
-        transform: scale(0.9);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    @keyframes slideFade {
-      from {
-        transform: translateY(-30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
   </style>
 </head>
@@ -160,41 +137,60 @@
 <body>
   <header>
     <h1>Plan Your Dream Vacation</h1>
-    <p>With the power of AI, your perfect trip is just a few clicks away.</p>
+    <p>AI-powered travel suggestions tailored just for you</p>
+    <div class="email-signup">
+      <input type="email" placeholder="Enter your email" />
+      <button>Get Started</button>
+    </div>
   </header>
 
-  <section class="email-box">
-    <h2>Get Started</h2>
-    <input type="email" placeholder="Enter your email" />
-    <br />
-    <button>Start Planning</button>
-  </section>
-
-  <h2 class="section-title">Why Choose Us?</h2>
   <section class="features">
-    <div class="card">
-      <h3>Personalized Trips</h3>
-      <p>We use smart AI to tailor your vacation to your taste, budget, and dream destinations.</p>
+    <div class="feature-box">
+      <h3>🌍 Smart AI Planning</h3>
+      <p>Get personalized travel recommendations based on your preferences.</p>
     </div>
-    <div class="card">
-      <h3>Instant Booking</h3>
-      <p>Get real-time hotel & flight options based on your preferences. No more endless searching.</p>
+    <div class="feature-box">
+      <h3>✈️ Real-Time Flights</h3>
+      <p>See updated flight deals for your chosen destinations.</p>
     </div>
-    <div class="card">
-      <h3>One-Click Planning</h3>
-      <p>Tell us what you want, and we do the rest. Easy, simple, and stress-free.</p>
+    <div class="feature-box">
+      <h3>🏨 Hotels & Packages</h3>
+      <p>Get matched with hotels that fit your budget and style.</p>
+    </div>
+    <div class="feature-box">
+      <h3>🎯 Save Time</h3>
+      <p>Let our AI do the search. You enjoy the trip.</p>
     </div>
   </section>
 
-  <div class="animation-container">
-    ✈️ 🌍 Explore the World With Just One Click! 🏖️ 🗺️
-  </div>
+  <section class="cities-section">
+    <h2>Popular Destinations</h2>
+    <div class="city-grid">
+      <div class="city-card">
+        <h4>New York</h4>
+        <p>The city that never sleeps. Explore culture, shopping, and nightlife.</p>
+      </div>
+      <div class="city-card">
+        <h4>Paris</h4>
+        <p>Romantic getaways, art, and unforgettable food.</p>
+      </div>
+      <div class="city-card">
+        <h4>Tokyo</h4>
+        <p>Modern meets tradition. Discover a unique travel experience.</p>
+      </div>
+      <div class="city-card">
+        <h4>Rome</h4>
+        <p>History, architecture, and Italian charm everywhere you go.</p>
+      </div>
+    </div>
+  </section>
 
   <footer class="footer">
-    &copy; 2025 DreamTrip AI. All rights reserved.
+    &copy; 2025 My Travel Site | Powered by AI & Passion for Travel ✈️🌍
   </footer>
 </body>
 
 </html>
+
 
 
