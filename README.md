@@ -20,11 +20,6 @@
         line-height: 1.6;
         overflow-x: hidden;
       }
-      header {
-        background: white;
-        padding: 1.5rem 2rem;
-        display: none;
-      }
       .main-section {
         padding: 5rem 2rem;
         max-width: 1200px;
@@ -86,29 +81,34 @@
       .section:nth-child(even) {
         animation-delay: 0.5s;
       }
-      .section h3 {
-        font-size: 2rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-      }
-      .section p {
-        max-width: 800px;
-        margin-bottom: 1rem;
-      }
-      .grid {
-        display: grid;
+      .feature-box {
+        display: flex;
+        align-items: center;
         gap: 2rem;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      }
-      .card {
-        background: white;
         padding: 2rem;
-        border-radius: 1rem;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-        transition: transform 0.3s ease;
+        border-radius: 1.5rem;
+        background: white;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 2rem;
       }
-      .card:hover {
-        transform: translateY(-5px);
+      .feature-box:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      }
+      .feature-icon {
+        font-size: 3rem;
+        color: #06b6d4;
+        animation: bounce 2s infinite;
+      }
+      .feature-text h3 {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+      .feature-text p {
+        font-size: 1rem;
+        color: #4b5563;
       }
       footer {
         background: #1f2937;
@@ -126,6 +126,10 @@
         from { opacity: 0; transform: scale(0.95); }
         to { opacity: 1; transform: scale(1); }
       }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
     </style>
   </head>
   <body>
@@ -139,41 +143,54 @@
         </div>
       </div>
 
-      <!-- Fake long content for scroll -->
-      <div class="section">
-        <h3>Explore Destinations</h3>
-        <p>From the streets of Rome to the beaches of Bali, find the best places matched to your vibes.</p>
+      <div class="feature-box">
+        <div class="feature-icon">🌍</div>
+        <div class="feature-text">
+          <h3>Explore Destinations</h3>
+          <p>From hidden gems to iconic cities – we uncover the world's magic just for you.</p>
+        </div>
       </div>
 
-      <div class="section">
-        <h3>AI Matching Engine</h3>
-        <p>We use advanced algorithms to recommend the perfect trip based on your preferences.</p>
+      <div class="feature-box">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-text">
+          <h3>AI Matching Engine</h3>
+          <p>Advanced tech that truly *gets* you. Your dream trip starts with smart suggestions.</p>
+        </div>
       </div>
 
-      <div class="section">
-        <h3>Live Flight Search</h3>
-        <p>Instant access to real-time flight data and booking options, updated continuously.</p>
+      <div class="feature-box">
+        <div class="feature-icon">✈️</div>
+        <div class="feature-text">
+          <h3>Live Flight Search</h3>
+          <p>Real-time flights, best prices, no stress. Just pack your bags.</p>
+        </div>
       </div>
 
-      <div class="section">
-        <h3>Hotels You’ll Love</h3>
-        <p>Our AI suggests top-rated accommodations based on your travel style.</p>
+      <div class="feature-box">
+        <div class="feature-icon">🏨</div>
+        <div class="feature-text">
+          <h3>Hotels You’ll Love</h3>
+          <p>We match your vibe to amazing stays – from luxury to cozy.</p>
+        </div>
       </div>
 
-      <div class="section">
-        <h3>Activities Engine</h3>
-        <p>Whether it's surfing in Portugal or skiing in the Alps, we match the fun to your soul.</p>
+      <div class="feature-box">
+        <div class="feature-icon">🎉</div>
+        <div class="feature-text">
+          <h3>Fun & Adventure</h3>
+          <p>Our engine matches your mood with unforgettable experiences.</p>
+        </div>
       </div>
 
-      <div class="section">
-        <h3>Group Travel Made Easy</h3>
-        <p>Planning with friends or family? We’ll create synced itineraries in seconds.</p>
+      <div class="feature-box">
+        <div class="feature-icon">👨‍👩‍👧‍👦</div>
+        <div class="feature-text">
+          <h3>Perfect For Groups</h3>
+          <p>Traveling with friends or family? We'll sync your plans seamlessly.</p>
+        </div>
       </div>
 
-      <div class="section">
-        <h3>Why Us?</h3>
-        <p>We're not just another travel website. We're your digital travel agent – smarter, faster, friendlier.</p>
-      </div>
     </section>
 
     <footer>
@@ -181,4 +198,5 @@
     </footer>
   </body>
 </html>
+
 
