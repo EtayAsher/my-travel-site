@@ -1,151 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DreamTrip AI</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Travel Site</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #f9fafb;
+        color: #1f2937;
+        line-height: 1.6;
+      }
+      header {
+        background: white;
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      header h1 {
+        font-size: 1.5rem;
+        font-weight: 800;
+      }
+      .main-section {
+        padding: 5rem 2rem;
+        max-width: 1200px;
+        margin: auto;
+      }
+      .hero {
+        text-align: center;
+        padding: 6rem 2rem;
+        background: linear-gradient(120deg, #3b82f6, #06b6d4);
+        color: white;
+        border-radius: 2rem;
+        margin-bottom: 5rem;
+      }
+      .hero h2 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+      }
+      .hero p {
+        font-size: 1.25rem;
+      }
+      .section {
+        margin-bottom: 6rem;
+      }
+      .section h3 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .section p {
+        max-width: 800px;
+        margin-bottom: 1rem;
+      }
+      .grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+      .card {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        transition: transform 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+      }
+      footer {
+        background: #1f2937;
+        color: white;
+        padding: 3rem 2rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>My Travel Site</h1>
+      <nav>
+        <!-- Future nav links -->
+      </nav>
+    </header>
 
-    body {
-      background: linear-gradient(to bottom, #ffffff, #e6f0ff);
-      color: #333;
-      overflow-x: hidden;
-    }
+    <section class="main-section">
+      <div class="hero">
+        <h2>Discover Your Next Destination</h2>
+        <p>AI-powered travel planning made easy.</p>
+      </div>
 
-    header {
-      background: #4bb5ff;
-      color: white;
-      text-align: center;
-      padding: 40px 20px;
-      animation: fadeIn 1s ease-in-out;
-    }
+      <div class="section">
+        <h3>Why Travel With Us</h3>
+        <div class="grid">
+          <div class="card">
+            <h4>Smart AI Bot</h4>
+            <p>Talk to our smart assistant and get custom vacation ideas.</p>
+          </div>
+          <div class="card">
+            <h4>Live Flight Suggestions</h4>
+            <p>Updated real-time offers based on your preferences.</p>
+          </div>
+          <div class="card">
+            <h4>Hotel Booking Support</h4>
+            <p>Find the best places to stay with links ready to book.</p>
+          </div>
+        </div>
+      </div>
 
-    header h1 {
-      font-size: 2.5rem;
-    }
+      <div class="section">
+        <h3>Built For Explorers</h3>
+        <p>Whether you love city lights or quiet nature, we tailor your adventure.</p>
+      </div>
+    </section>
 
-    .section {
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    .email-box {
-      background: white;
-      margin: 0 auto;
-      max-width: 500px;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      margin-bottom: 60px;
-    }
-
-    .email-box input {
-      width: 80%;
-      padding: 12px;
-      margin-top: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
-
-    .feature {
-      margin: 20px auto;
-      max-width: 800px;
-      padding: 20px;
-      background: #f9f9f9;
-      border-left: 6px solid #4bb5ff;
-      animation: slideIn 0.5s ease forwards;
-      transition: transform 0.3s;
-    }
-
-    .feature:hover {
-      transform: scale(1.02);
-    }
-
-    .chat-demo {
-      margin: 50px auto;
-      max-width: 700px;
-      background: #222;
-      color: white;
-      border-radius: 15px;
-      padding: 20px;
-      font-family: monospace;
-      animation: fadeInUp 1s ease;
-    }
-
-    .chat-demo p span {
-      font-weight: bold;
-      color: #4bb5ff;
-    }
-
-    footer {
-      background: #f2f2f2;
-      padding: 40px;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    /* אנימציות */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideIn {
-      from { transform: translateX(-100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    @keyframes fadeInUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>🌍 DreamTrip AI</h1>
-    <p>Your smart travel planner powered by AI</p>
-  </header>
-
-  <div class="section">
-    <div class="email-box">
-      <h2>Start Planning Your Trip</h2>
-      <p>Enter your email to get personalized vacation offers</p>
-      <input type="email" placeholder="Your email..." />
-    </div>
-
-    <div class="section-title">🌟 Why Choose DreamTrip AI?</div>
-
-    <div class="feature">🚀 Get trip suggestions instantly based on your budget, dates, and style!</div>
-    <div class="feature">🌴 Discover hidden destinations that match your interests</div>
-    <div class="feature">✈️ Save time and money using our AI-based planning system</div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">🤖 Sample Chat with DreamTrip AI</div>
-    <div class="chat-demo">
-      <p><span>User:</span> I want to go to Japan in spring.</p>
-      <p><span>AI:</span> Great choice! I found a 5-star hotel in Kyoto with flights for only $1,750. Want to reserve?</p>
-    </div>
-  </div>
-
-  <footer>
-    &copy; 2025 DreamTrip AI. All rights reserved.
-  </footer>
-
-</body>
+    <footer>
+      <p>© 2025 My Travel Site | Designed for dreamers & explorers</p>
+    </footer>
+  </body>
 </html>
 
 
