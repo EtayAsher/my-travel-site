@@ -15,7 +15,7 @@
       }
       body {
         font-family: 'Inter', sans-serif;
-        background: #f9fafb;
+        background: linear-gradient(180deg, #dbeafe, #fdf2f8);
         color: #1f2937;
         line-height: 1.6;
         overflow-x: hidden;
@@ -24,6 +24,7 @@
         padding: 5rem 2rem;
         max-width: 1200px;
         margin: auto;
+        position: relative;
       }
       .hero {
         text-align: center;
@@ -110,6 +111,45 @@
         font-size: 1rem;
         color: #4b5563;
       }
+      .chat-demo-floating {
+        position: fixed;
+        right: 2rem;
+        bottom: 2rem;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        padding: 1rem;
+        width: 280px;
+        z-index: 999;
+        animation: fadeIn 1.2s ease-in-out;
+      }
+      .chat-demo-floating h4 {
+        text-align: center;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+      .chat-bubble {
+        padding: 0.75rem 1rem;
+        border-radius: 1rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        max-width: 90%;
+      }
+      .user-msg {
+        background: #e0f2fe;
+        align-self: flex-end;
+        margin-left: auto;
+      }
+      .bot-msg {
+        background: #fef9c3;
+        align-self: flex-start;
+        margin-right: auto;
+      }
+      .chat-container {
+        display: flex;
+        flex-direction: column;
+      }
       footer {
         background: #1f2937;
         color: white;
@@ -190,8 +230,17 @@
           <p>Traveling with friends or family? We'll sync your plans seamlessly.</p>
         </div>
       </div>
-
     </section>
+
+    <div class="chat-demo-floating">
+      <h4>Chat with Travel AI ✨</h4>
+      <div class="chat-container">
+        <div class="chat-bubble user-msg">I want to go on a beach trip this summer!</div>
+        <div class="chat-bubble bot-msg">Great! How about the Amalfi Coast or the Greek Islands?</div>
+        <div class="chat-bubble user-msg">Can you help with hotel options too?</div>
+        <div class="chat-bubble bot-msg">Absolutely! I'm checking the best beachfront hotels now. 🏖️</div>
+      </div>
+    </div>
 
     <footer>
       <p>© 2025 Travel AI | Powered by curiosity and algorithms.</p>
