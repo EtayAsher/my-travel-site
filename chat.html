@@ -1,25 +1,202 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Chat Page</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TravelBot Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #dbeafe, #fdf2f8);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
     }
-    h1 {
-      color: #444;
+
+    .chat-wrapper {
+      width: 100%;
+      max-width: 600px;
+      height: 90vh;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      padding: 1rem;
+      background-color: #3b82f6;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    .chat-box {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .bot {
+      background-color: #e0f2fe;
+      align-self: flex-start;
+    }
+
+    .user {
+      background-color: #fef3c7;
+      align-self: flex-end;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .chat-input button {
+      padding: 1rem;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
+
 <body>
-  <h1>This is the chat page placeholder.</h1>
+  <div class="chat-wrapper">
+    <div class="chat-header">TravelBot ✈️ – Your Personal Trip Planner</div>
+    <div class="chat-box" id="chatBox">
+      <!-- Messages appear here -->
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type your message here..." />
+      <button onclick="handleUserInput()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const userInput = document.getElementById("userInput");
+
+    let currentStep = 0;
+    let userData = {};
+
+    // Opening conversation steps
+    const steps = [
+      "Hi there! 👋 I’m your personal AI travel assistant. Ready to plan your dream vacation?",
+      "Great! 🌍 Which continent are you interested in? (Europe, Asia, North America, etc.)",
+      "Do you already have a destination in mind? (City or Country)",
+      "When are you planning to travel? (Dates or just a season)",
+      "How many days will your trip be? (3–5, 7–10, etc.)",
+      "What's your approximate budget per person? (e.g., under $500, $500–1000, etc.)",
+      "What kind of trip are you looking for? (Romantic, Family, Solo, Party, Nature... choose multiple if you want)",
+      "What type of place do you want to stay in? (Hotel, Airbnb, I'm flexible)",
+      "What's important in your accommodation? (Pool, center, kosher, quiet... list anything)",
+      "Should I help you with flights too? (Yes/No)",
+      "Anything special I should know? (Birthday, kids, wheelchair, dietary needs)",
+      "Thanks! I'm preparing the perfect recommendations for you now ✨"
+    ];
+
+    // Smart keyword triggers
+    const keywordResponses = {
+      "kids": "How old are your kids? 👧🧒",
+      "children": "What kind of activities do your children enjoy?",
+      "kosher": "Would you like to be near a synagogue or kosher restaurants?",
+      "halal": "Would you like to be near a mosque or halal options?",
+      "wheelchair": "Should I filter only accessibility-friendly places?",
+      "disabled": "Should I make sure accommodations have no stairs or have elevators?",
+      "anniversary": "Amazing! Want me to look for romantic options for couples?",
+      "honeymoon": "Congratulations! Would you like private or luxury packages?",
+      "birthday": "Great! Should I suggest party-friendly or special experiences?"
+    };
+
+    // Function to add message to chat
+    function addMessage(text, sender) {
+      const msg = document.createElement("div");
+      msg.className = "message " + sender;
+      msg.innerText = text;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Start the chat
+    window.onload = () => {
+      setTimeout(() => addMessage(steps[0], "bot"), 500);
+    };
+
+    // Handle user response
+    function handleUserInput() {
+      const input = userInput.value.trim();
+      if (!input) return;
+
+      addMessage(input, "user");
+      userInput.value = "";
+
+      // Keyword smart reactions
+      for (const keyword in keywordResponses) {
+        if (input.toLowerCase().includes(keyword)) {
+          setTimeout(() => addMessage(keywordResponses[keyword], "bot"), 800);
+        }
+      }
+
+      // Save user's answer
+      const key = "step_" + currentStep;
+      userData[key] = input;
+
+      currentStep++;
+
+      if (currentStep < steps.length) {
+        setTimeout(() => addMessage(steps[currentStep], "bot"), 1000);
+      } else {
+        // Show final recommendations
+        setTimeout(() => showRecommendations(), 1500);
+      }
+    }
+
+    // Show travel recommendations
+    function showRecommendations() {
+      const location = userData["step_2"] || "Europe";
+      const budget = userData["step_5"] || "$1000";
+      const stay = userData["step_7"] || "hotel";
+
+      const bookingLink = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(location)}`;
+      const flightsLink = `https://www.skyscanner.com/transport/flights-to/${location.toLowerCase().replace(/ /g, "-")}/`;
+      const airbnbLink = `https://www.airbnb.com/s/${encodeURIComponent(location)}/homes`;
+
+      addMessage("Here are some options based on your preferences:", "bot");
+
+      setTimeout(() => {
+        addMessage(`🏨 Hotels: ${bookingLink}`, "bot");
+        addMessage(`✈️ Flights: ${flightsLink}`, "bot");
+        addMessage(`🏠 Airbnb: ${airbnbLink}`, "bot");
+      }, 1000);
+    }
+  </script>
 </body>
 </html>
+
