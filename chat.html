@@ -82,39 +82,6 @@
   <script>
     const chatBox = document.getElementById("chatBox");
     const userInput = document.getElementById("userInput");
-    let step = 0;
-    let userData = {};
-    const correctionPhrases = ["actually", "instead", "change", "no wait", "never mind", "forget", "i meant", "now", "not anymore"];
-    const steps = [
-      "👋 Hi! I'm TravelBot, your personal trip planner. Ready to get started?",
-      "🌍 Which continent are you interested in?",
-      "🏙️ Any specific destination in mind?",
-      "📅 When are you planning to travel?",
-      "🕒 How many days are you planning to stay?",
-      "💸 What's your budget per person?",
-      "🎯 What type of trip do you want? (Relaxing, Adventure, Romantic, Party, Family...)",
-      "🛏️ Do you prefer Hotel, Airbnb, or either?",
-      "✈️ Should I find flights too?",
-      "📝 Anything else I should know? (Kosher, Birthday, Kids, Wheelchair etc.)",
-      "🎁 Perfect! Let me prepare something special for you..."
-    ];
-    const keywordTriggers = {
-      "kids": "🧒 How old are your kids?",
-      "kosher": "🕍 Would you like to be near a synagogue or kosher restaurants?",
-      "halal": "🕌 Looking for halal-friendly areas?",
-      "birthday": "🎉 Shall I include places for celebrations?",
-      "honeymoon": "💖 Want something extra romantic and private?",
-      "wheelchair": "♿ I'll focus on accessible locations only."
-    };
-    const cityContext = {
-      "new york": "city",
-      "paris": "city",
-      "thailand": "beach",
-      "bali": "beach",
-      "rome": "city",
-      "switzerland": "mountain",
-      "tokyo": "city"
-    };
 
     function addMessage(text, sender = "bot") {
       const msg = document.createElement("div");
@@ -124,60 +91,52 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     }
 
+    const responseLibrary = {
+      greetings: ["hello", "hi", "hey", "good morning", "good evening"],
+      farewell: ["bye", "goodbye", "see you", "later"],
+      thanks: ["thank you", "thanks", "appreciate it", "thx"],
+      confusion: ["not sure", "don't know", "no idea", "maybe"],
+      affirmatives: ["yes", "sure", "okay", "yep", "yeah", "definitely"],
+      negatives: ["no", "nope", "nah"],
+      restart: ["start over", "reset", "restart"],
+      love: ["i love you", "love this", "awesome bot"],
+      mood: ["how are you", "how's it going", "what's up"],
+      repeat: ["say again", "repeat", "what did you say"],
+      cancel: ["cancel", "stop", "never mind", "forget it"],
+      change: ["i changed my mind", "actually", "instead", "let's change"]
+    };
+
+    const autoResponses = {
+      greetings: "👋 Hey there! Ready for your next adventure?",
+      farewell: "👋 It was great helping you! Come back anytime!",
+      thanks: "🙏 You're very welcome! I'm here if you need more help.",
+      confusion: "🤔 No worries! I can help you decide.",
+      affirmatives: "✅ Awesome! Let's continue.",
+      negatives: "❌ No problem. We can skip that.",
+      restart: "🔄 Alright, starting over from the beginning!",
+      love: "❤️ Aww, you're the best! Let's find you the perfect trip.",
+      mood: "😊 I'm great! Just excited to help you travel the world!",
+      repeat: "🔁 Sure! Here's that again...",
+      cancel: "🚫 Got it. Let’s pause or start fresh when you're ready.",
+      change: "🔄 No problem! Just tell me what you'd like to update."
+    };
+
     function handleUserInput() {
       const input = userInput.value.trim();
       if (!input) return;
       addMessage(input, "user");
       userInput.value = "";
-
-      const lower = input.toLowerCase();
-      const stepKey = getStepKey(step);
-      const isCorrection = correctionPhrases.some(p => lower.includes(p));
-      if (isCorrection && stepKey) {
-        userData[stepKey] = input;
-        addMessage("✅ Got it! I've updated your info.");
-      } else if (stepKey) {
-        userData[stepKey] = input;
-      }
-
-      for (const keyword in keywordTriggers) {
-        if (lower.includes(keyword)) {
-          setTimeout(() => addMessage(keywordTriggers[keyword]), 600);
-        }
-      }
-
-      for (const city in cityContext) {
-        if (lower.includes(city)) {
-          userData["destination"] = city;
-        }
-      }
-
-      step++;
-      if (step < steps.length) {
-        setTimeout(() => addMessage(steps[step]), 700);
-      } else {
-        setTimeout(() => showResults(), 1000);
-      }
+      checkFreeInputResponses(input.toLowerCase());
     }
 
-    function getStepKey(step) {
-      return [null, "continent", "destination", "dates", "duration", "budget", "tripType", "stay", "flights", "notes"][step] || null;
-    }
-
-    function showResults() {
-      const dest = userData["destination"] || "Europe";
-      const booking = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(dest)}`;
-      const flights = `https://www.skyscanner.com/transport/flights-to/${dest.toLowerCase().replace(/ /g, "-")}/`;
-      const airbnb = `https://www.airbnb.com/s/${encodeURIComponent(dest)}/homes`;
-
-      addMessage("🔥 Hold on! I'm unlocking secret travel deals for you only available via TravelBot...");
-      setTimeout(() => addMessage("💎 These are special discounted offers you won't find anywhere else!"), 700);
-
-      setTimeout(() => {
-        addMessage(`🏨 Hotels → ${booking}`);
-        addMessage(`✈️ Flights → ${flights}`);
-        addMessage(`🏠 Airbnb → ${airbnb}`);
-      }, 1500);
+    function checkFreeInputResponses(input) {
+      for (const category in responseLibrary) {
+        if (responseLibrary[category].some(phrase => input.includes(phrase))) {
+          setTimeout(() => addMessage(autoResponses[category]), 600);
+          return;
+        }
+      }
+      setTimeout(() => addMessage("🤖 I'm here to help with your travel plans – tell me where you'd like to go!"), 1000);
     }
   </script>
 </body>
