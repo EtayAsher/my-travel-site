@@ -234,6 +234,39 @@
 
   <footer>
     <p>© 2025 Travel AI | Powered by curiosity and algorithms.</p>
-  </footer>
+  </footer> 
+  <script>
+  // כשנטען הדף – נבדוק אם יש אימייל שמור
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedEmail = localStorage.getItem("savedEmail");
+    if (savedEmail) {
+      document.querySelector("input[type='email']").value = savedEmail;
+    }
+  });
+
+  // כשהטופס נשלח
+  document.querySelector("form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const emailInput = document.querySelector("input[type='email']");
+    const email = emailInput.value.trim();
+
+    if (email !== "") {
+      const saveEmail = confirm("Do you want to save your email for next time?");
+      
+      if (saveEmail) {
+        localStorage.setItem("savedEmail", email);
+      } else {
+        localStorage.removeItem("savedEmail");
+      }
+
+      // פותח עמוד חדש
+      window.open("chat.html", "_blank");
+    } else {
+      alert("Please enter a valid email.");
+    }
+  });
+</script>
+
 </body>
 </html>
