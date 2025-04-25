@@ -4,37 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TravelBot Chat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #dbeafe, #fdf2f8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .chat-wrapper {
-      width: 100%;
-      max-width: 600px;
-      height: 90vh;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.1);
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #dbeafe, #fdf2f8);
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
     }
 
     .chat-header {
-      padding: 1rem;
       background-color: #3b82f6;
       color: white;
-      font-weight: bold;
+      padding: 1rem;
+      font-size: 1.5rem;
       text-align: center;
-      font-size: 1.2rem;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     .chat-box {
@@ -43,15 +36,18 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 1rem;
+      background: transparent;
     }
 
     .message {
-      max-width: 80%;
-      padding: 10px 15px;
-      border-radius: 12px;
-      font-size: 0.95rem;
+      max-width: 70%;
+      padding: 1rem;
+      border-radius: 20px;
+      font-size: 1rem;
       line-height: 1.4;
+      word-wrap: break-word;
+      animation: fadeIn 0.5s ease;
     }
 
     .bot {
@@ -66,37 +62,51 @@
 
     .chat-input {
       display: flex;
-      border-top: 1px solid #ddd;
+      padding: 1rem;
+      border-top: 1px solid #ccc;
+      background-color: white;
     }
 
     .chat-input input {
       flex: 1;
-      padding: 1rem;
-      border: none;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
       font-size: 1rem;
-      outline: none;
     }
 
     .chat-input button {
-      padding: 1rem;
       background-color: #3b82f6;
       color: white;
       border: none;
+      padding: 0.8rem 1.2rem;
+      margin-left: 0.5rem;
+      border-radius: 10px;
       cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .chat-input button:hover {
+      background-color: #2563eb;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 
 <body>
-  <div class="chat-wrapper">
-    <div class="chat-header">TravelBot ✈️ – Your Personal Trip Planner</div>
-    <div class="chat-box" id="chatBox">
-      <!-- Messages appear here -->
-    </div>
-    <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Type your message here..." />
-      <button onclick="handleUserInput()">Send</button>
-    </div>
+  <div class="chat-header">TravelBot ✈️ - Plan Your Trip</div>
+
+  <div class="chat-box" id="chatBox">
+    <!-- Chat messages will appear here -->
+  </div>
+
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Type your message..." />
+    <button onclick="handleUserInput()">Send</button>
   </div>
 
   <script>
@@ -106,36 +116,35 @@
     let currentStep = 0;
     let userData = {};
 
-    // Opening conversation steps
     const steps = [
-      "Hi there! 👋 I’m your personal AI travel assistant. Ready to plan your dream vacation?",
-      "Great! 🌍 Which continent are you interested in? (Europe, Asia, North America, etc.)",
-      "Do you already have a destination in mind? (City or Country)",
-      "When are you planning to travel? (Dates or just a season)",
-      "How many days will your trip be? (3–5, 7–10, etc.)",
-      "What's your approximate budget per person? (e.g., under $500, $500–1000, etc.)",
-      "What kind of trip are you looking for? (Romantic, Family, Solo, Party, Nature... choose multiple if you want)",
-      "What type of place do you want to stay in? (Hotel, Airbnb, I'm flexible)",
-      "What's important in your accommodation? (Pool, center, kosher, quiet... list anything)",
-      "Should I help you with flights too? (Yes/No)",
-      "Anything special I should know? (Birthday, kids, wheelchair, dietary needs)",
-      "Thanks! I'm preparing the perfect recommendations for you now ✨"
+      "👋 Hi there! I'm TravelBot – your AI travel planner. Ready to plan your dream vacation?",
+      "🌍 Which continent are you thinking about? (Europe, Asia, North America, etc.)",
+      "🇫🇷 Any specific country or city in mind? Or should I surprise you?",
+      "📅 When do you want to travel? (Exact dates or just a season like summer/winter)",
+      "🕒 How long will you be traveling? (3–5 days, 1 week, etc.)",
+      "💸 What's your budget per person? (e.g., under $500, $1000–1500, unlimited)",
+      "🏕️ What kind of trip are you looking for? (Romantic, Family, Solo, Adventure, Relax, Party)",
+      "🌄 What environments do you prefer? (Beach, Mountains, City, Island, No preference)",
+      "🌤️ What weather do you prefer? (Sunny, Cold, Doesn’t matter)",
+      "🏨 Hotel or Airbnb? Or both?",
+      "✨ What's important to you in a place to stay? (Pool, city center, kosher, quiet, etc.)",
+      "✈️ Should I help you with flights too? (Yes / No)",
+      "📝 Anything special I should know? (Birthday, kids, wheelchair, etc.)",
+      "🎁 Thanks! I'm preparing the best recommendations for you now!"
     ];
 
-    // Smart keyword triggers
     const keywordResponses = {
-      "kids": "How old are your kids? 👧🧒",
-      "children": "What kind of activities do your children enjoy?",
-      "kosher": "Would you like to be near a synagogue or kosher restaurants?",
-      "halal": "Would you like to be near a mosque or halal options?",
-      "wheelchair": "Should I filter only accessibility-friendly places?",
-      "disabled": "Should I make sure accommodations have no stairs or have elevators?",
-      "anniversary": "Amazing! Want me to look for romantic options for couples?",
-      "honeymoon": "Congratulations! Would you like private or luxury packages?",
-      "birthday": "Great! Should I suggest party-friendly or special experiences?"
+      "kids": "🧒 How old are your kids?",
+      "children": "🧸 Any specific activities they enjoy?",
+      "kosher": "🕍 Would you like to be near a synagogue or kosher restaurants?",
+      "halal": "🕌 Want me to look for areas with halal options?",
+      "wheelchair": "♿ Should I filter for accessible hotels with elevators?",
+      "disabled": "♿ Want me to check for step-free options?",
+      "birthday": "🎉 Amazing! Should I include party-friendly or celebration ideas?",
+      "honeymoon": "💖 Romantic! Want luxury couple packages?",
+      "anniversary": "💐 Should I find romantic hotels or private experiences?"
     };
 
-    // Function to add message to chat
     function addMessage(text, sender) {
       const msg = document.createElement("div");
       msg.className = "message " + sender;
@@ -144,12 +153,10 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    // Start the chat
     window.onload = () => {
-      setTimeout(() => addMessage(steps[0], "bot"), 500);
+      setTimeout(() => addMessage(steps[0], "bot"), 600);
     };
 
-    // Handle user response
     function handleUserInput() {
       const input = userInput.value.trim();
       if (!input) return;
@@ -157,44 +164,37 @@
       addMessage(input, "user");
       userInput.value = "";
 
-      // Keyword smart reactions
       for (const keyword in keywordResponses) {
         if (input.toLowerCase().includes(keyword)) {
-          setTimeout(() => addMessage(keywordResponses[keyword], "bot"), 800);
+          setTimeout(() => addMessage(keywordResponses[keyword], "bot"), 600);
         }
       }
 
-      // Save user's answer
-      const key = "step_" + currentStep;
-      userData[key] = input;
-
+      userData[`step_${currentStep}`] = input;
       currentStep++;
 
       if (currentStep < steps.length) {
         setTimeout(() => addMessage(steps[currentStep], "bot"), 1000);
       } else {
-        // Show final recommendations
         setTimeout(() => showRecommendations(), 1500);
       }
     }
 
-    // Show travel recommendations
     function showRecommendations() {
       const location = userData["step_2"] || "Europe";
-      const budget = userData["step_5"] || "$1000";
-      const stay = userData["step_7"] || "hotel";
+      const stayType = userData["step_9"] || "hotel";
 
-      const bookingLink = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(location)}`;
-      const flightsLink = `https://www.skyscanner.com/transport/flights-to/${location.toLowerCase().replace(/ /g, "-")}/`;
-      const airbnbLink = `https://www.airbnb.com/s/${encodeURIComponent(location)}/homes`;
+      const booking = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(location)}`;
+      const flights = `https://www.skyscanner.com/transport/flights-to/${location.toLowerCase().replace(/ /g, "-")}/`;
+      const airbnb = `https://www.airbnb.com/s/${encodeURIComponent(location)}/homes`;
 
-      addMessage("Here are some options based on your preferences:", "bot");
+      addMessage("🎯 Here are some recommendations based on your answers:", "bot");
 
       setTimeout(() => {
-        addMessage(`🏨 Hotels: ${bookingLink}`, "bot");
-        addMessage(`✈️ Flights: ${flightsLink}`, "bot");
-        addMessage(`🏠 Airbnb: ${airbnbLink}`, "bot");
-      }, 1000);
+        addMessage(`🏨 Hotels → ${booking}`, "bot");
+        addMessage(`✈️ Flights → ${flights}`, "bot");
+        addMessage(`🏠 Airbnb → ${airbnb}`, "bot");
+      }, 800);
     }
   </script>
 </body>
