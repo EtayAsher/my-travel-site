@@ -1,231 +1,229 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TravelBot Chat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #dbeafe, #fdf2f8);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+<style>
+  .chat-message {
+    max-width: 80%;
+    padding: 0.8rem 1rem;
+    margin: 0.4rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    display: inline-block;
+    clear: both;
+    white-space: pre-line;
+  }
+  .chat-message.user {
+    background-color: #d1e7dd;
+    float: right;
+    text-align: right;
+  }
+  .chat-message.bot {
+    background-color: #f8d7da;
+    float: left;
+    text-align: left;
+  }
+  #chat-container {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 1rem;
+    height: 70vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  #user-input {
+    width: 75%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+  }
+  #send-btn {
+    padding: 0.75rem 1.2rem;
+    font-size: 1rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  #send-btn:hover {
+    background: #0056b3;
+  }
+</style>
+
+<script>
+const chatContainer = document.getElementById("chat-container");
+const userInput = document.getElementById("user-input");
+const sendBtn = document.getElementById("send-btn");
+const synth = window.speechSynthesis;
+
+let destination = localStorage.getItem("destination") || "";
+let travelDates = localStorage.getItem("travelDates") || "";
+let travelDays = localStorage.getItem("travelDays") || null;
+let travelingWithPartner = localStorage.getItem("travelingWithPartner") === "true";
+let lastContinent = localStorage.getItem("lastContinent") || "";
+let userName = localStorage.getItem("userName") || "";
+let budget = localStorage.getItem("budget") || null;
+
+function addMessage(message, sender = "bot") {
+  const msgDiv = document.createElement("div");
+  msgDiv.className = `chat-message ${sender}`;
+  msgDiv.innerText = message;
+  chatContainer.appendChild(msgDiv);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+  if (sender === "bot") speak(message);
+}
+
+function speak(text) {
+  if (!synth) return;
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = "en-US";
+  synth.speak(utter);
+}
+
+function detectMisspellings(input) {
+  const corrections = {
+    "new yrok": "new york",
+    "parisx": "paris",
+    "romaa": "rome"
+  };
+  for (const [wrong, correct] of Object.entries(corrections)) {
+    if (input.includes(wrong)) return input.replace(wrong, correct);
+  }
+  return input;
+}
+
+function generateBookingLinks(dest) {
+  const encodedDest = encodeURIComponent(dest);
+  return `🎯 Here are some personalized travel deals for ${dest} – only available here!
+🏨 Hotels → https://www.booking.com/searchresults.html?ss=${encodedDest}
+✈️ Flights → https://www.skyscanner.com/transport/flights-to/${encodedDest}/
+🏠 Airbnb → https://www.airbnb.com/s/${encodedDest}/homes`;
+}
+
+function classifyDestination(dest) {
+  const cities = ["paris", "rome", "new york", "london", "barcelona"];
+  const beaches = ["bali", "maldives", "santorini", "miami", "cancun"];
+  const nature = ["switzerland", "iceland", "canada", "norway", "costa rica"];
+  dest = dest.toLowerCase();
+  if (cities.includes(dest)) return "city";
+  if (beaches.includes(dest)) return "beach";
+  if (nature.includes(dest)) return "nature";
+  return "general";
+}
+
+function detectContinent(dest) {
+  const europe = ["paris", "rome", "london", "barcelona", "berlin", "vienna"];
+  const asia = ["bali", "bangkok", "tokyo", "kyoto", "singapore"];
+  const america = ["new york", "miami", "los angeles", "cancun"];
+  dest = dest.toLowerCase();
+  if (europe.includes(dest)) return "Europe";
+  if (asia.includes(dest)) return "Asia";
+  if (america.includes(dest)) return "America";
+  return null;
+}
+
+function getFriendlyReply(input) {
+  const normalized = input.toLowerCase();
+
+  if (normalized.includes("my name is") || normalized.includes("i'm") || normalized.includes("i am")) {
+    const match = input.match(/(?:my name is|i'm|i am)\\s+(\\w+)/i);
+    if (match) {
+      userName = match[1];
+      localStorage.setItem("userName", userName);
     }
-    .chat-header {
-      background-color: #3b82f6;
-      color: white;
-      padding: 1rem;
-      font-size: 1.5rem;
-      text-align: center;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    return `Nice to meet you, ${userName}! 😊 Ready to plan your next adventure?`;
+  }
+
+  if (normalized.includes("budget") || normalized.includes("$") || normalized.match(/\\d+\\s?(usd|eur|₪)/)) {
+    const match = normalized.match(/\\d+/);
+    if (match) {
+      budget = match[0];
+      localStorage.setItem("budget", budget);
     }
-    .chat-box {
-      flex: 1;
-      padding: 1rem;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      background: transparent;
+    return `Thanks! I’ll keep your budget of ${budget} in mind while searching for the best deals.`;
+  }
+
+  if (normalized.includes("hello") || normalized.includes("hi") || normalized.includes("hey")) {
+    return `👋 Hi ${userName || "there"}! I'm your digital travel assistant. I'll help you plan an unforgettable trip – with exclusive hotel and flight deals just for you. Ready to begin?`;
+  }
+
+  if (normalized.includes("i want to travel") || normalized.includes("i want to go")) {
+    const match = normalized.match(/travel to ([a-zA-Z\\s]+)/);
+    if (match) {
+      destination = match[1].trim();
+      localStorage.setItem("destination", destination);
     }
-    .message {
-      max-width: 80%;
-      padding: 1rem;
-      border-radius: 20px;
-      font-size: 1rem;
-      line-height: 1.4;
-      word-wrap: break-word;
-      animation: fadeIn 0.4s ease;
+    return `Sounds exciting! ✈️ Which continent is ${destination} in? And do you have specific travel dates in mind?`;
+  }
+
+  if (normalized.includes("i changed my mind") || normalized.includes("instead")) {
+    const match = normalized.match(/to (.+)/);
+    if (match) {
+      destination = match[1].trim();
+      localStorage.setItem("destination", destination);
     }
-    .bot { background-color: #e0f2fe; align-self: flex-start; }
-    .user { background-color: #fef3c7; align-self: flex-end; }
-    .chat-input {
-      display: flex;
-      padding: 1rem;
-      border-top: 1px solid #ccc;
-      background-color: white;
-    }
-    .chat-input input {
-      flex: 1;
-      padding: 0.8rem 1rem;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 1rem;
-    }
-    .chat-input button {
-      background-color: #3b82f6;
-      color: white;
-      border: none;
-      padding: 0.8rem 1.2rem;
-      margin-left: 0.5rem;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-</head>
-<body>
-  <div class="chat-header">TravelBot ✈️ – Personal AI Travel Planner</div>
-  <div class="chat-box" id="chatBox"></div>
-  <div class="chat-input">
-    <input type="text" id="userInput" placeholder="Type your message here..." />
-    <button onclick="handleUserInput()">Send</button>
-  </div>
+    return `Got it! 👍 Let me pull up some updated options for ${destination}. Anything else you'd like to adjust?`;
+  }
 
-  <script>
-    const chatBox = document.getElementById("chatBox");
-    const userInput = document.getElementById("userInput");
-    let step = 0;
-    let userData = {};
+  if (normalized.includes("partner") || normalized.includes("girlfriend") || normalized.includes("boyfriend")) {
+    travelingWithPartner = true;
+    localStorage.setItem("travelingWithPartner", "true");
+    return "❤️ That's wonderful! A romantic vacation can be unforgettable. I'll keep that in mind when searching. Anything else I should know?";
+  }
 
-    const steps = [
-      "👋 Hi! I'm TravelBot, your personal trip planner. Ready to get started?",
-      "🌍 Which continent are you interested in?",
-      "🏙️ Any specific destination in mind?",
-      "📅 When are you planning to travel?",
-      "🕒 How many days are you planning to stay?",
-      "💸 What's your budget per person?",
-      "🎯 What type of trip do you want? (Relaxing, Adventure, Romantic, Party, Family...)",
-      "🛏️ Do you prefer Hotel, Airbnb, or either?",
-      "✈️ Should I find flights too?",
-      "📝 Anything else I should know? (Kosher, Birthday, Kids, Wheelchair etc.)",
-      "🎁 Perfect! Let me prepare something special for you..."
-    ];
+  if (normalized.includes("i love") && !normalized.includes("travel")) {
+    return "Haha 😄 I love that too! But let’s get back to building your perfect trip – where to next?";
+  }
 
-    function addMessage(text, sender = "bot") {
-      const msg = document.createElement("div");
-      msg.className = `message ${sender}`;
-      msg.innerText = text;
-      chatBox.appendChild(msg);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+  if (normalized.match(/\\d{1,2}-\\d{1,2}/)) {
+    const [startDay, endDay] = normalized.match(/\\d{1,2}/g);
+    travelDays = endDay - startDay;
+    localStorage.setItem("travelDays", travelDays);
+    return `📅 Awesome – looks like you're planning a ${travelDays}-day trip! Do you already have a place in mind?`;
+  }
 
-    function handleUserInput() {
-      const input = userInput.value.trim();
-      if (!input) return;
-      addMessage(input, "user");
-      userInput.value = "";
+  if ([\"paris\", \"rome\", \"new york\", \"bali\", \"switzerland\"].some(city => normalized.includes(city))) {
+    destination = normalized;
+    localStorage.setItem("destination", destination);
+    const type = classifyDestination(destination);
+    const continent = detectContinent(destination);
+    lastContinent = continent || "";
+    localStorage.setItem("lastContinent", lastContinent);
 
-      preScanInput(input.toLowerCase());
+    let comment = "";
+    if (type === "beach") comment = "🌴 A beach vacation sounds perfect right now!";
+    else if (type === "city") comment = "🌆 There's so much to explore in that city!";
+    else if (type === "nature") comment = "🍃 You're going to love the nature and calmness.";
 
-      if (step < steps.length) {
-        setTimeout(() => addMessage(steps[step]), 700);
-        step++;
-      } else {
-        setTimeout(() => showResults(), 1000);
-      }
-    }
+    let extra = "";
+    if (continent) extra = `Want to explore more destinations in ${continent}?`;
+    if (travelDays) extra += `\\n🗓️ Searching around ${travelDays} days.`;
+    if (travelingWithPartner) extra += `\\n💑 Romantic options included!`;
+    if (budget) extra += `\\n💸 Budget of ${budget} considered!`;
 
-    function preScanInput(input) {
-      const destinations = ["paris", "rome", "new york", "bali", "thailand", "switzerland", "tokyo"];
-      destinations.forEach(dest => {
-        if (input.includes(dest)) {
-          userData.destination = dest;
-          addMessage(`📍 Got it! Destination set to ${capitalize(dest)}.`);
-          if (step === 2) step++;
-        }
-      });
+    return `${comment}\\n${generateBookingLinks(destination)}\\n${extra}`;
+  }
 
-      const dateRegex = /(\d{1,2})[\/\-](\d{1,2})\s*(?:to|–|\-|until)\s*(\d{1,2})[\/\-](\d{1,2})/;
-      const match = input.match(dateRegex);
-      if (match) {
-        const start = new Date(2025, parseInt(match[2]) - 1, parseInt(match[1]));
-        const end = new Date(2025, parseInt(match[4]) - 1, parseInt(match[3]));
-        const diff = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-        userData.dates = `${match[1]}/${match[2]}–${match[3]}/${match[4]}`;
-        userData.duration = diff;
-        addMessage(`📅 Great! You’re traveling ${userData.dates} for ${diff} days.`);
-        if (step === 3) step++;
-        if (step === 4) step++;
-      }
+  return "🤔 Hmm… I didn’t quite get that. Let’s get back on track – ready for amazing travel deals and ideas?";
+}
 
-      const budgetMatch = input.match(/\$?(\d{2,6})/);
-      if (budgetMatch) {
-        userData.budget = budgetMatch[1];
-        addMessage(`💰 Budget noted: $${budgetMatch[1]} per person.`);
-        if (step === 5) step++;
-      }
+sendBtn.addEventListener("click", () => {
+  const input = userInput.value.trim();
+  if (!input) return;
 
-      if (input.includes("romantic") || input.includes("couple") || input.includes("honeymoon")) {
-        userData.tripType = "romantic";
-        addMessage("💖 Got it! Romantic trip confirmed.");
-        suggestByType("romantic");
-        if (step === 6) step++;
-      }
+  addMessage(input, "user");
+  userInput.value = "";
 
-      if (input.includes("party") || input.includes("fun") || input.includes("nightlife") || input.includes("clubbing")) {
-        userData.tripType = "party";
-        addMessage("🎉 Got it! Sounds like you're looking for a fun party trip.");
-        suggestByType("party");
-        if (step === 6) step++;
-      }
+  const cleanedInput = detectMisspellings(input);
+  addMessage("Typing...", "bot");
 
-      if (input.includes("nature") || input.includes("mountains") || input.includes("forest") || input.includes("hiking")) {
-        userData.environment = "nature";
-        addMessage("⛰️ Nature-based trip – I'll keep it green and scenic!");
-        suggestByType("nature");
-        if (step === 6) step++;
-      }
+  setTimeout(() => {
+    const lastBot = chatContainer.querySelector(".chat-message.bot:last-child");
+    if (lastBot) lastBot.remove();
+    const reply = getFriendlyReply(cleanedInput);
+    addMessage(reply, "bot");
+  }, 1000);
+});
+</script>
 
-      if (input.includes("kids") || input.includes("children")) {
-        userData.withKids = true;
-        addMessage("🧒 Traveling with kids – I’ll take that into account.");
-        if (step === 9) step++;
-      }
-
-      if (input.includes("kosher") || input.includes("halal")) {
-        userData.diet = "special";
-        addMessage("🍽️ Dietary preference noted – I’ll find suitable options.");
-        if (step === 9) step++;
-      }
-
-      if (input.includes("group") || input.includes("friends") || input.includes("we are") || input.match(/\b(\d{2})? ?people\b/)) {
-        userData.group = true;
-        addMessage("👨‍👩‍👧‍👦 Group travel noted – I’ll keep it suitable for multiple people.");
-        suggestByType("group");
-        if (step === 9) step++;
-      }
-    }
-
-    function suggestByType(type) {
-      const suggestions = {
-        romantic: "💞 Try Venice, Paris, or Santorini – perfect for couples 💕",
-        party: "🔥 I recommend cities like Tel Aviv, Ibiza, or Miami – wild nightlife!",
-        nature: "🌲 Nature lovers will enjoy Switzerland, Norway, or New Zealand",
-        group: "👨‍👩‍👧‍👦 Try Barcelona, Prague, or Lisbon – fun for everyone"
-      };
-      if (suggestions[type]) {
-        setTimeout(() => addMessage(suggestions[type]), 500);
-      }
-    }
-
-    function capitalize(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-
-    function showResults() {
-      const dest = userData.destination || "Europe";
-      const booking = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(dest)}`;
-      const flights = `https://www.skyscanner.com/transport/flights-to/${dest.toLowerCase().replace(/ /g, "-")}/`;
-      const airbnb = `https://www.airbnb.com/s/${encodeURIComponent(dest)}/homes`;
-
-      addMessage("🔥 Hold on! I'm unlocking secret travel deals for you only available via TravelBot...");
-      setTimeout(() => addMessage("💎 These are special discounted offers you won't find anywhere else!"), 700);
-
-      setTimeout(() => {
-        addMessage(`🏨 Hotels → ${booking}`);
-        addMessage(`✈️ Flights → ${flights}`);
-        addMessage(`🏠 Airbnb → ${airbnb}`);
-      }, 1500);
-    }
-  </script>
-</body>
-</html>
 
