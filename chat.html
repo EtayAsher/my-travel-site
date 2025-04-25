@@ -1,149 +1,184 @@
-<script>
-  const chatBox = document.getElementById("chatBox");
-  const userInput = document.getElementById("userInput");
-
-  let step = 0;
-  let userData = {};
-  let destinationUpdated = false;
-
-  const steps = [
-    "👋 Hi there! I'm TravelBot – your AI travel planner. Ready to plan your dream vacation?",
-    "🌍 Which continent are you thinking about? (Europe, Asia, America, Africa...)",
-    "🌐 Any specific country or city in mind?",
-    "📅 When do you want to travel? (Exact dates or just a season like summer/winter)",
-    "🕒 How many days do you plan to travel?",
-    "💸 What's your budget per person?",
-    "🧳 What kind of trip are you looking for? (Romantic, Family, Solo, Adventure, Relaxed, Party)",
-    "🏖️ What kind of environment do you prefer? (Beach, Mountains, City, Island, Anything)",
-    "🏨 Hotel or Airbnb or both?",
-    "✅ Anything special I should know? (Kids, Kosher, Birthday, Wheelchair etc.)",
-    "🎁 Perfect! I’ll prepare your recommendations now..."
-  ];
-
-  // מילים שהבוט מזהה כדי להבין שינוי/כוונה
-  const keywordTriggers = {
-    "kids": "🧒 How old are your kids?",
-    "children": "🧸 Any specific activities they enjoy?",
-    "kosher": "🕍 Would you like to be near a synagogue or kosher food?",
-    "halal": "🕌 Do you want to be close to halal options?",
-    "wheelchair": "♿ Should I filter for accessible locations?",
-    "disabled": "♿ I’ll make sure everything is step-free!",
-    "honeymoon": "💖 Got it! Looking for romantic & private locations!",
-    "birthday": "🎉 Awesome! Should I include celebration-friendly spots?",
-    "anniversary": "💐 Would you like couple packages or spa hotels?"
-  };
-
-  const cityContext = {
-    "new york": "city",
-    "paris": "city",
-    "rome": "city",
-    "thailand": "beach",
-    "bali": "beach",
-    "tel aviv": "beach",
-    "switzerland": "mountain",
-    "amsterdam": "city",
-    "tokyo": "city",
-    "london": "city"
-  };
-
-  // זיהוי אם המשתמש שינה יעד/תשובה
-  const correctionPhrases = ["actually", "instead", "change", "no wait", "never mind", "forget", "i meant", "now", "not anymore"];
-
-  // שליחת הודעה לצ’אט
-  function addMessage(text, sender = "bot") {
-    const msg = document.createElement("div");
-    msg.className = "message " + sender;
-    msg.innerText = text;
-    chatBox.appendChild(msg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
-
-  // התחלה
-  window.onload = () => {
-    setTimeout(() => addMessage(steps[0]), 500);
-  };
-
-  function handleUserInput() {
-    const input = userInput.value.trim();
-    if (!input) return;
-    addMessage(input, "user");
-    userInput.value = "";
-
-    // בדיקת מילות מפתח מיוחדות
-    for (const key in keywordTriggers) {
-      if (input.toLowerCase().includes(key)) {
-        setTimeout(() => addMessage(keywordTriggers[key]), 700);
-      }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TravelBot Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #dbeafe, #fdf2f8);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-
-    // בדיקת תיקון או עדכון
-    const lower = input.toLowerCase();
-    const isCorrection = correctionPhrases.some(p => lower.includes(p));
-
-    // שמירה או עדכון תשובה
-    const stepKey = getStepKey(step);
-    if (isCorrection && stepKey) {
-      userData[stepKey] = input;
-      destinationUpdated = true;
-      setTimeout(() => addMessage("✅ Got it! I've updated your answer."), 600);
-    } else if (stepKey) {
-      if (!userData[stepKey]) {
-        userData[stepKey] = input;
-      } else {
-        userData[stepKey] = input;
-        destinationUpdated = true;
-      }
+    .chat-header {
+      background-color: #3b82f6;
+      color: white;
+      padding: 1rem;
+      font-size: 1.5rem;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-
-    // עדכון יעד לפי מילים ישירות
-    Object.keys(cityContext).forEach(city => {
-      if (lower.includes(city)) {
-        userData["destination"] = city;
-        destinationUpdated = true;
-      }
-    });
-
-    // הצגת שאלה הבאה או סיום
-    step++;
-    if (step < steps.length) {
-      setTimeout(() => addMessage(steps[step]), 900);
-    } else {
-      setTimeout(() => showResults(), 1200);
+    .chat-box {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background: transparent;
     }
-  }
+    .message {
+      max-width: 80%;
+      padding: 1rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+      animation: fadeIn 0.4s ease;
+    }
+    .bot { background-color: #e0f2fe; align-self: flex-start; }
+    .user { background-color: #fef3c7; align-self: flex-end; }
+    .chat-input {
+      display: flex;
+      padding: 1rem;
+      border-top: 1px solid #ccc;
+      background-color: white;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    .chat-input button {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      margin-left: 0.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-header">TravelBot ✈️ – Personal AI Travel Planner</div>
+  <div class="chat-box" id="chatBox"></div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Type your message here..." />
+    <button onclick="handleUserInput()">Send</button>
+  </div>
 
-  function getStepKey(step) {
-    const map = {
-      1: "continent",
-      2: "destination",
-      3: "dates",
-      4: "duration",
-      5: "budget",
-      6: "tripType",
-      7: "environment",
-      8: "stay",
-      9: "special",
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const userInput = document.getElementById("userInput");
+    let step = 0;
+    let userData = {};
+    const correctionPhrases = ["actually", "instead", "change", "no wait", "never mind", "forget", "i meant", "now", "not anymore"];
+    const steps = [
+      "👋 Hi! I'm TravelBot, your personal trip planner. Ready to get started?",
+      "🌍 Which continent are you interested in?",
+      "🏙️ Any specific destination in mind?",
+      "📅 When are you planning to travel?",
+      "🕒 How many days are you planning to stay?",
+      "💸 What's your budget per person?",
+      "🎯 What type of trip do you want? (Relaxing, Adventure, Romantic, Party, Family...)",
+      "🛏️ Do you prefer Hotel, Airbnb, or either?",
+      "✈️ Should I find flights too?",
+      "📝 Anything else I should know? (Kosher, Birthday, Kids, Wheelchair etc.)",
+      "🎁 Perfect! Let me prepare something special for you..."
+    ];
+    const keywordTriggers = {
+      "kids": "🧒 How old are your kids?",
+      "kosher": "🕍 Would you like to be near a synagogue or kosher restaurants?",
+      "halal": "🕌 Looking for halal-friendly areas?",
+      "birthday": "🎉 Shall I include places for celebrations?",
+      "honeymoon": "💖 Want something extra romantic and private?",
+      "wheelchair": "♿ I'll focus on accessible locations only."
     };
-    return map[step] || null;
-  }
+    const cityContext = {
+      "new york": "city",
+      "paris": "city",
+      "thailand": "beach",
+      "bali": "beach",
+      "rome": "city",
+      "switzerland": "mountain",
+      "tokyo": "city"
+    };
 
-  // יצירת המלצות
-  function showResults() {
-    const dest = userData["destination"] || "Europe";
+    function addMessage(text, sender = "bot") {
+      const msg = document.createElement("div");
+      msg.className = `message ${sender}`;
+      msg.innerText = text;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
 
-    addMessage("🔥 I've found exclusive deals just for you – only available through TravelBot!");
-    addMessage("🎯 Here are your custom travel suggestions:");
+    function handleUserInput() {
+      const input = userInput.value.trim();
+      if (!input) return;
+      addMessage(input, "user");
+      userInput.value = "";
 
-    const booking = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(dest)}`;
-    const flights = `https://www.skyscanner.com/transport/flights-to/${dest.toLowerCase().replace(/ /g, "-")}/`;
-    const airbnb = `https://www.airbnb.com/s/${encodeURIComponent(dest)}/homes`;
+      const lower = input.toLowerCase();
+      const stepKey = getStepKey(step);
+      const isCorrection = correctionPhrases.some(p => lower.includes(p));
+      if (isCorrection && stepKey) {
+        userData[stepKey] = input;
+        addMessage("✅ Got it! I've updated your info.");
+      } else if (stepKey) {
+        userData[stepKey] = input;
+      }
 
-    setTimeout(() => {
-      addMessage(`🏨 Hotels → ${booking}`);
-      addMessage(`✈️ Flights → ${flights}`);
-      addMessage(`🏠 Airbnb → ${airbnb}`);
-    }, 1000);
-  }
-</script>
+      for (const keyword in keywordTriggers) {
+        if (lower.includes(keyword)) {
+          setTimeout(() => addMessage(keywordTriggers[keyword]), 600);
+        }
+      }
+
+      for (const city in cityContext) {
+        if (lower.includes(city)) {
+          userData["destination"] = city;
+        }
+      }
+
+      step++;
+      if (step < steps.length) {
+        setTimeout(() => addMessage(steps[step]), 700);
+      } else {
+        setTimeout(() => showResults(), 1000);
+      }
+    }
+
+    function getStepKey(step) {
+      return [null, "continent", "destination", "dates", "duration", "budget", "tripType", "stay", "flights", "notes"][step] || null;
+    }
+
+    function showResults() {
+      const dest = userData["destination"] || "Europe";
+      const booking = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(dest)}`;
+      const flights = `https://www.skyscanner.com/transport/flights-to/${dest.toLowerCase().replace(/ /g, "-")}/`;
+      const airbnb = `https://www.airbnb.com/s/${encodeURIComponent(dest)}/homes`;
+
+      addMessage("🔥 Hold on! I'm unlocking secret travel deals for you only available via TravelBot...");
+      setTimeout(() => addMessage("💎 These are special discounted offers you won't find anywhere else!"), 700);
+
+      setTimeout(() => {
+        addMessage(`🏨 Hotels → ${booking}`);
+        addMessage(`✈️ Flights → ${flights}`);
+        addMessage(`🏠 Airbnb → ${airbnb}`);
+      }, 1500);
+    }
+  </script>
 </body>
 </html>
