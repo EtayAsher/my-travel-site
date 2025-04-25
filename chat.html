@@ -2,243 +2,159 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Travel AI Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelBot – Plan Your Trip</title>
   <style>
-    .chat-message {
-      max-width: 80%;
-      padding: 0.8rem 1rem;
-      margin: 0.4rem;
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f0f9ff, #e0f7fa);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .chat-box {
+      width: 95%;
+      max-width: 500px;
+      background: white;
       border-radius: 1rem;
-      font-size: 1rem;
-      line-height: 1.5;
-      display: inline-block;
-      clear: both;
-      white-space: pre-line;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 2rem;
+      box-sizing: border-box;
     }
-    .chat-message.user {
-      background-color: #d1e7dd;
-      float: right;
-      text-align: right;
+    h2 {
+      margin-bottom: 1rem;
+      text-align: center;
+      color: #0077b6;
     }
-    .chat-message.bot {
-      background-color: #f8d7da;
-      float: left;
-      text-align: left;
+    .question {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #333;
+      text-align: center;
     }
-    #chat-container {
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 1rem;
-      height: 70vh;
-      overflow-y: auto;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      margin: 1rem;
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
     }
-    #user-input {
-      width: 75%;
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      margin-right: 0.5rem;
-      font-size: 1rem;
-    }
-    #send-btn {
-      padding: 0.75rem 1.2rem;
-      font-size: 1rem;
-      background: #007bff;
+    .option-btn {
+      padding: 0.75rem 1.25rem;
+      background-color: #00b4d8;
       color: white;
       border: none;
-      border-radius: 0.5rem;
+      border-radius: 999px;
       cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
     }
-    #send-btn:hover {
-      background: #0056b3;
+    .option-btn:hover {
+      background-color: #0077b6;
+    }
+    @media screen and (max-width: 500px) {
+      .option-btn {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
-  <h2 style="text-align:center;">Chat with Travel AI 💬</h2>
-  <div id="chat-container"></div>
-  <div style="margin-top:1rem; display:flex; justify-content:center;">
-    <input id="user-input" type="text" placeholder="Type your message..." />
-    <button id="send-btn">Send</button>
+  <div class="chat-box">
+    <h2>TravelBot ✈️</h2>
+    <div class="question" id="question">Where do you want to travel?</div>
+    <div class="options" id="options">
+      <button class="option-btn" onclick="handleAnswer('Europe')">Europe</button>
+      <button class="option-btn" onclick="handleAnswer('Asia')">Asia</button>
+      <button class="option-btn" onclick="handleAnswer('America')">America</button>
+      <button class="option-btn" onclick="handleAnswer('Africa')">Africa</button>
+      <button class="option-btn" onclick="handleAnswer('Australia')">Australia</button>
+      <button class="option-btn" onclick="handleAnswer('Not sure yet')">Not sure yet</button>
+    </div>
   </div>
 
   <script>
-    const chatContainer = document.getElementById("chat-container");
-    const userInput = document.getElementById("user-input");
-    const sendBtn = document.getElementById("send-btn");
-    const synth = window.speechSynthesis;
+    const questions = [
+      {
+        text: "What type of vacation are you looking for?",
+        options: ["Beach", "City", "Nature", "Romantic", "Family-friendly", "Adventure"]
+      },
+      {
+        text: "What's your budget per person?",
+        options: ["<$500", "$500–$1000", "$1000–$2000", ">$2000", "No limit"]
+      },
+      {
+        text: "How many days do you plan to travel?",
+        options: ["1–3", "4–6", "7–10", "More than 10"]
+      },
+      {
+        text: "Are you traveling with anyone?",
+        options: ["Alone", "With my partner", "With kids", "With friends"]
+      },
+      {
+        text: "Which month are you planning to travel?",
+        options: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+      },
+      {
+        text: "Do you want accommodations with kosher or halal food?",
+        options: ["Kosher", "Halal", "Not important"]
+      },
+      {
+        text: "Which kind of lodging do you prefer?",
+        options: ["Hotel", "Apartment", "Resort", "Airbnb", "Hostel"]
+      },
+      {
+        text: "What activities are you interested in?",
+        options: ["Sightseeing", "Shopping", "Museums", "Nightlife", "Hiking", "Water parks"]
+      },
+      {
+        text: "How important is relaxation to you?",
+        options: ["Very important", "Somewhat important", "Not important"]
+      },
+      {
+        text: "Would you like your destination to be near the beach?",
+        options: ["Yes", "No", "Doesn't matter"]
+      },
+      {
+        text: "Do you want to be near a synagogue or mosque?",
+        options: ["Synagogue", "Mosque", "Doesn't matter"]
+      },
+      {
+        text: "What’s your flight preference?",
+        options: ["Direct flight only", "No preference"]
+      },
+      {
+        text: "Do you prefer a cold or warm climate?",
+        options: ["Warm & sunny", "Cold & snowy", "Doesn't matter"]
+      }
+    ];
 
-    let destination = localStorage.getItem("destination") || "";
-    let travelDates = localStorage.getItem("travelDates") || "";
-    let travelDays = localStorage.getItem("travelDays") || null;
-    let travelingWithPartner = localStorage.getItem("travelingWithPartner") === "true";
-    let lastContinent = localStorage.getItem("lastContinent") || "";
-    let userName = localStorage.getItem("userName") || "";
-    let budget = localStorage.getItem("budget") || null;
+    let currentQuestion = 0;
 
-    function addMessage(message, sender = "bot") {
-      const msgDiv = document.createElement("div");
-      msgDiv.className = `chat-message ${sender}`;
-      msgDiv.innerText = message;
-      chatContainer.appendChild(msgDiv);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-      if (sender === "bot") speak(message);
+    function handleAnswer(answer) {
+      console.log("Selected:", answer);
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        renderQuestion();
+      } else {
+        document.getElementById("question").innerText = "Awesome! We're finding the best deals just for you...";
+        document.getElementById("options").innerHTML = "<p style='text-align:center;'>🧳 Please wait while we prepare your personalized results...</p>";
+      }
     }
 
-    function speak(text) {
-      if (!synth) return;
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = "en-US";
-      synth.speak(utter);
+    function renderQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById("question").innerText = q.text;
+      document.getElementById("options").innerHTML = q.options.map(opt => `
+        <button class="option-btn" onclick="handleAnswer('${opt}')">${opt}</button>
+      `).join("");
     }
-
-    function detectMisspellings(input) {
-      const corrections = {
-        "new yrok": "new york",
-        "parisx": "paris",
-        "romaa": "rome"
-      };
-      for (const [wrong, correct] of Object.entries(corrections)) {
-        if (input.includes(wrong)) return input.replace(wrong, correct);
-      }
-      return input;
-    }
-
-    function generateBookingLinks(dest) {
-      const encodedDest = encodeURIComponent(dest);
-      return `🎯 Here are some personalized travel deals for ${dest} – only available here!\n🏨 Hotels → https://www.booking.com/searchresults.html?ss=${encodedDest}\n✈️ Flights → https://www.skyscanner.com/transport/flights-to/${encodedDest}/\n🏠 Airbnb → https://www.airbnb.com/s/${encodedDest}/homes`;
-    }
-
-    function classifyDestination(dest) {
-      const cities = ["paris", "rome", "new york", "london", "barcelona"];
-      const beaches = ["bali", "maldives", "santorini", "miami", "cancun"];
-      const nature = ["switzerland", "iceland", "canada", "norway", "costa rica"];
-      dest = dest.toLowerCase();
-      if (cities.includes(dest)) return "city";
-      if (beaches.includes(dest)) return "beach";
-      if (nature.includes(dest)) return "nature";
-      return "general";
-    }
-
-    function detectContinent(dest) {
-      const europe = ["paris", "rome", "london", "barcelona", "berlin", "vienna"];
-      const asia = ["bali", "bangkok", "tokyo", "kyoto", "singapore"];
-      const america = ["new york", "miami", "los angeles", "cancun"];
-      dest = dest.toLowerCase();
-      if (europe.includes(dest)) return "Europe";
-      if (asia.includes(dest)) return "Asia";
-      if (america.includes(dest)) return "America";
-      return null;
-    }
-
-    function getFriendlyReply(input) {
-      const normalized = input.toLowerCase();
-
-      if (normalized.includes("my name is") || normalized.includes("i'm") || normalized.includes("i am")) {
-        const match = input.match(/(?:my name is|i'm|i am)\s+(\w+)/i);
-        if (match) {
-          userName = match[1];
-          localStorage.setItem("userName", userName);
-        }
-        return `Nice to meet you, ${userName}! 😊 Ready to plan your next adventure?`;
-      }
-
-      if (normalized.includes("budget") || normalized.includes("$") || normalized.match(/\d+\s?(usd|eur|₪)/)) {
-        const match = normalized.match(/\d+/);
-        if (match) {
-          budget = match[0];
-          localStorage.setItem("budget", budget);
-        }
-        return `Thanks! I’ll keep your budget of ${budget} in mind while searching for the best deals.`;
-      }
-
-      if (normalized.includes("hello") || normalized.includes("hi") || normalized.includes("hey")) {
-        return `👋 Hi ${userName || "there"}! I'm your digital travel assistant. I'll help you plan an unforgettable trip – with exclusive hotel and flight deals just for you. Ready to begin?`;
-      }
-
-      if (normalized.includes("i want to travel") || normalized.includes("i want to go")) {
-        const match = normalized.match(/travel to ([a-zA-Z\s]+)/);
-        if (match) {
-          destination = match[1].trim();
-          localStorage.setItem("destination", destination);
-        }
-        return `Sounds exciting! ✈️ Which continent is ${destination} in? And do you have specific travel dates in mind?`;
-      }
-
-      if (normalized.includes("i changed my mind") || normalized.includes("instead")) {
-        const match = normalized.match(/to (.+)/);
-        if (match) {
-          destination = match[1].trim();
-          localStorage.setItem("destination", destination);
-        }
-        return `Got it! 👍 Let me pull up some updated options for ${destination}. Anything else you'd like to adjust?`;
-      }
-
-      if (normalized.includes("partner") || normalized.includes("girlfriend") || normalized.includes("boyfriend")) {
-        travelingWithPartner = true;
-        localStorage.setItem("travelingWithPartner", "true");
-        return "❤️ That's wonderful! A romantic vacation can be unforgettable. I'll keep that in mind when searching. Anything else I should know?";
-      }
-
-      if (normalized.includes("i love") && !normalized.includes("travel")) {
-        return "Haha 😄 I love that too! But let’s get back to building your perfect trip – where to next?";
-      }
-
-      if (normalized.match(/\d{1,2}-\d{1,2}/)) {
-        const [startDay, endDay] = normalized.match(/\d{1,2}/g);
-        travelDays = endDay - startDay;
-        localStorage.setItem("travelDays", travelDays);
-        return `📅 Awesome – looks like you're planning a ${travelDays}-day trip! Do you already have a place in mind?`;
-      }
-
-      if (["paris", "rome", "new york", "bali", "switzerland"].some(city => normalized.includes(city))) {
-        destination = normalized;
-        localStorage.setItem("destination", destination);
-        const type = classifyDestination(destination);
-        const continent = detectContinent(destination);
-        lastContinent = continent || "";
-        localStorage.setItem("lastContinent", lastContinent);
-
-        let comment = "";
-        if (type === "beach") comment = "🌴 A beach vacation sounds perfect right now!";
-        else if (type === "city") comment = "🌆 There's so much to explore in that city!";
-        else if (type === "nature") comment = "🍃 You're going to love the nature and calmness.";
-
-        let extra = "";
-        if (continent) extra = `Want to explore more destinations in ${continent}?`;
-        if (travelDays) extra += `\n🗓️ Searching around ${travelDays} days.`;
-        if (travelingWithPartner) extra += `\n💑 Romantic options included!`;
-        if (budget) extra += `\n💸 Budget of ${budget} considered!`;
-
-        return `${comment}\n${generateBookingLinks(destination)}\n${extra}`;
-      }
-
-      return "🤔 Hmm… I didn’t quite get that. Let’s get back on track – ready for amazing travel deals and ideas?";
-    }
-
-    sendBtn.addEventListener("click", () => {
-      const input = userInput.value.trim();
-      if (!input) return;
-
-      addMessage(input, "user");
-      userInput.value = "";
-
-      const cleanedInput = detectMisspellings(input);
-      addMessage("Typing...", "bot");
-
-      setTimeout(() => {
-        const lastBot = chatContainer.querySelector(".chat-message.bot:last-child");
-        if (lastBot) lastBot.remove();
-        const reply = getFriendlyReply(cleanedInput);
-        addMessage(reply, "bot");
-      }, 1000);
-    });
   </script>
 </body>
 </html>
+
 
 
 
