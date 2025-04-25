@@ -186,66 +186,13 @@
         padding: 3rem 2rem;
         text-align: center;
       }
-      #newsletter-popup {
-
-        display: none;
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background: white;
-        border-radius: 12px;
-        padding: 1.5rem;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        z-index: 9999;
-        flex-direction: column;
-        gap: 1rem;
-        max-width: 300px;
-      
-  position: fixed;
-  top: auto;
-  bottom: 30px;
-  right: 30px;
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  z-index: 9999;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 300px;
-  display: none;
-  box-sizing: border-box;
-}
-      #newsletter-popup input {
-        padding: 0.6rem;
-        width: 100%;
-        border-radius: 8px;
-        border: 1px solid #ccc;
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
       }
-      #newsletter-popup button {
-
-        background: #3b82f6;
-        color: white;
-        border: none;
-        padding: 0.6rem;
-        border-radius: 8px;
-        cursor: pointer;
-      
-  position: relative;
-  z-index: 1;
-}
-      @media (max-width: 600px) {
-        #newsletter-popup {
-          bottom: 10px;
-          right: 10px;
-          width: 90%;
-          max-width: none;
-          box-sizing: border-box;
-        }
-        #newsletter-popup input,
-        #newsletter-popup button {
-          font-size: 1rem;
-        }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
       }
     </style>
   </head>
@@ -253,14 +200,6 @@
     <div class="banner-popup" id="popup">
       <span>Smart digital travel advisor powered by AI – get personalized recommendations!</span>
       <button onclick="closePopup()">✕</button>
-    </div>
-
-    <div id="newsletter-popup">
-      <button onclick="closePopup()" style="position:absolute; top:8px; right:8px; background:none; border:none; font-size:1.2rem; cursor:pointer; z-index:10;">✕</button>
-      <strong>🎁 Want travel deals & hotel offers?</strong>
-      <input type="email" placeholder="Your email here" />
-      <button onclick="closePopup()">Subscribe</button>
-      <button onclick="closePopup()" style="background:#f87171">Close</button>
     </div>
 
     <section class="main-section">
@@ -303,14 +242,13 @@
     </footer>
 
     <script>
+      // סגירת הפופאפ
       function closePopup() {
         const popup = document.getElementById('popup');
         if (popup) popup.classList.add('hide');
-
-        const newsletter = document.getElementById('newsletter-popup');
-        if (newsletter) newsletter.style.display = 'none';
       }
 
+      // בדיקת אימייל שמור כשנכנסים לאתר
       window.onload = function () {
         setTimeout(() => {
           const popup = document.getElementById('popup');
@@ -321,13 +259,9 @@
         if (savedEmail) {
           document.getElementById("emailInput").value = savedEmail;
         }
-
-        setTimeout(() => {
-          const newsletter = document.getElementById('newsletter-popup');
-          if (newsletter) newsletter.style.display = 'flex';
-        }, 5000);
       };
 
+      // פעולה בלחיצה על Get Started
       function handleGetStarted() {
         const email = document.getElementById("emailInput").value.trim();
 
@@ -348,5 +282,6 @@
     </script>
   </body>
 </html>
+
 
 
