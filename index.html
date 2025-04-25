@@ -187,6 +187,7 @@
         text-align: center;
       }
       #newsletter-popup {
+
         display: none;
         position: fixed;
         bottom: 30px;
@@ -199,7 +200,22 @@
         flex-direction: column;
         gap: 1rem;
         max-width: 300px;
-      }
+      
+  position: fixed;
+  top: auto;
+  bottom: 30px;
+  right: 30px;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 300px;
+  display: none;
+  box-sizing: border-box;
+}
       #newsletter-popup input {
         padding: 0.6rem;
         width: 100%;
@@ -207,13 +223,17 @@
         border: 1px solid #ccc;
       }
       #newsletter-popup button {
+
         background: #3b82f6;
         color: white;
         border: none;
         padding: 0.6rem;
         border-radius: 8px;
         cursor: pointer;
-      }
+      
+  position: relative;
+  z-index: 1;
+}
       @media (max-width: 600px) {
         #newsletter-popup {
           bottom: 10px;
@@ -236,7 +256,7 @@
     </div>
 
     <div id="newsletter-popup">
-      <button onclick="closePopup()" style="position:absolute; top:8px; right:8px; background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
+      <button onclick="closePopup()" style="position:absolute; top:8px; right:8px; background:none; border:none; font-size:1.2rem; cursor:pointer; z-index:10;">✕</button>
       <strong>🎁 Want travel deals & hotel offers?</strong>
       <input type="email" placeholder="Your email here" />
       <button onclick="closePopup()">Subscribe</button>
@@ -329,5 +349,4 @@
   </body>
 </html>
 
-  
 
