@@ -1,229 +1,244 @@
-<style>
-  .chat-message {
-    max-width: 80%;
-    padding: 0.8rem 1rem;
-    margin: 0.4rem;
-    border-radius: 1rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    display: inline-block;
-    clear: both;
-    white-space: pre-line;
-  }
-  .chat-message.user {
-    background-color: #d1e7dd;
-    float: right;
-    text-align: right;
-  }
-  .chat-message.bot {
-    background-color: #f8d7da;
-    float: left;
-    text-align: left;
-  }
-  #chat-container {
-    background: #f9f9f9;
-    padding: 1rem;
-    border-radius: 1rem;
-    height: 70vh;
-    overflow-y: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  #user-input {
-    width: 75%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    margin-right: 0.5rem;
-    font-size: 1rem;
-  }
-  #send-btn {
-    padding: 0.75rem 1.2rem;
-    font-size: 1rem;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-  }
-  #send-btn:hover {
-    background: #0056b3;
-  }
-</style>
-
-<script>
-const chatContainer = document.getElementById("chat-container");
-const userInput = document.getElementById("user-input");
-const sendBtn = document.getElementById("send-btn");
-const synth = window.speechSynthesis;
-
-let destination = localStorage.getItem("destination") || "";
-let travelDates = localStorage.getItem("travelDates") || "";
-let travelDays = localStorage.getItem("travelDays") || null;
-let travelingWithPartner = localStorage.getItem("travelingWithPartner") === "true";
-let lastContinent = localStorage.getItem("lastContinent") || "";
-let userName = localStorage.getItem("userName") || "";
-let budget = localStorage.getItem("budget") || null;
-
-function addMessage(message, sender = "bot") {
-  const msgDiv = document.createElement("div");
-  msgDiv.className = `chat-message ${sender}`;
-  msgDiv.innerText = message;
-  chatContainer.appendChild(msgDiv);
-  chatContainer.scrollTop = chatContainer.scrollHeight;
-  if (sender === "bot") speak(message);
-}
-
-function speak(text) {
-  if (!synth) return;
-  const utter = new SpeechSynthesisUtterance(text);
-  utter.lang = "en-US";
-  synth.speak(utter);
-}
-
-function detectMisspellings(input) {
-  const corrections = {
-    "new yrok": "new york",
-    "parisx": "paris",
-    "romaa": "rome"
-  };
-  for (const [wrong, correct] of Object.entries(corrections)) {
-    if (input.includes(wrong)) return input.replace(wrong, correct);
-  }
-  return input;
-}
-
-function generateBookingLinks(dest) {
-  const encodedDest = encodeURIComponent(dest);
-  return `🎯 Here are some personalized travel deals for ${dest} – only available here!
-🏨 Hotels → https://www.booking.com/searchresults.html?ss=${encodedDest}
-✈️ Flights → https://www.skyscanner.com/transport/flights-to/${encodedDest}/
-🏠 Airbnb → https://www.airbnb.com/s/${encodedDest}/homes`;
-}
-
-function classifyDestination(dest) {
-  const cities = ["paris", "rome", "new york", "london", "barcelona"];
-  const beaches = ["bali", "maldives", "santorini", "miami", "cancun"];
-  const nature = ["switzerland", "iceland", "canada", "norway", "costa rica"];
-  dest = dest.toLowerCase();
-  if (cities.includes(dest)) return "city";
-  if (beaches.includes(dest)) return "beach";
-  if (nature.includes(dest)) return "nature";
-  return "general";
-}
-
-function detectContinent(dest) {
-  const europe = ["paris", "rome", "london", "barcelona", "berlin", "vienna"];
-  const asia = ["bali", "bangkok", "tokyo", "kyoto", "singapore"];
-  const america = ["new york", "miami", "los angeles", "cancun"];
-  dest = dest.toLowerCase();
-  if (europe.includes(dest)) return "Europe";
-  if (asia.includes(dest)) return "Asia";
-  if (america.includes(dest)) return "America";
-  return null;
-}
-
-function getFriendlyReply(input) {
-  const normalized = input.toLowerCase();
-
-  if (normalized.includes("my name is") || normalized.includes("i'm") || normalized.includes("i am")) {
-    const match = input.match(/(?:my name is|i'm|i am)\\s+(\\w+)/i);
-    if (match) {
-      userName = match[1];
-      localStorage.setItem("userName", userName);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travel AI Chat</title>
+  <style>
+    .chat-message {
+      max-width: 80%;
+      padding: 0.8rem 1rem;
+      margin: 0.4rem;
+      border-radius: 1rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      display: inline-block;
+      clear: both;
+      white-space: pre-line;
     }
-    return `Nice to meet you, ${userName}! 😊 Ready to plan your next adventure?`;
-  }
-
-  if (normalized.includes("budget") || normalized.includes("$") || normalized.match(/\\d+\\s?(usd|eur|₪)/)) {
-    const match = normalized.match(/\\d+/);
-    if (match) {
-      budget = match[0];
-      localStorage.setItem("budget", budget);
+    .chat-message.user {
+      background-color: #d1e7dd;
+      float: right;
+      text-align: right;
     }
-    return `Thanks! I’ll keep your budget of ${budget} in mind while searching for the best deals.`;
-  }
-
-  if (normalized.includes("hello") || normalized.includes("hi") || normalized.includes("hey")) {
-    return `👋 Hi ${userName || "there"}! I'm your digital travel assistant. I'll help you plan an unforgettable trip – with exclusive hotel and flight deals just for you. Ready to begin?`;
-  }
-
-  if (normalized.includes("i want to travel") || normalized.includes("i want to go")) {
-    const match = normalized.match(/travel to ([a-zA-Z\\s]+)/);
-    if (match) {
-      destination = match[1].trim();
-      localStorage.setItem("destination", destination);
+    .chat-message.bot {
+      background-color: #f8d7da;
+      float: left;
+      text-align: left;
     }
-    return `Sounds exciting! ✈️ Which continent is ${destination} in? And do you have specific travel dates in mind?`;
-  }
-
-  if (normalized.includes("i changed my mind") || normalized.includes("instead")) {
-    const match = normalized.match(/to (.+)/);
-    if (match) {
-      destination = match[1].trim();
-      localStorage.setItem("destination", destination);
+    #chat-container {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 1rem;
+      height: 70vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 1rem;
     }
-    return `Got it! 👍 Let me pull up some updated options for ${destination}. Anything else you'd like to adjust?`;
-  }
+    #user-input {
+      width: 75%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      margin-right: 0.5rem;
+      font-size: 1rem;
+    }
+    #send-btn {
+      padding: 0.75rem 1.2rem;
+      font-size: 1rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    #send-btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Chat with Travel AI 💬</h2>
+  <div id="chat-container"></div>
+  <div style="margin-top:1rem; display:flex; justify-content:center;">
+    <input id="user-input" type="text" placeholder="Type your message..." />
+    <button id="send-btn">Send</button>
+  </div>
 
-  if (normalized.includes("partner") || normalized.includes("girlfriend") || normalized.includes("boyfriend")) {
-    travelingWithPartner = true;
-    localStorage.setItem("travelingWithPartner", "true");
-    return "❤️ That's wonderful! A romantic vacation can be unforgettable. I'll keep that in mind when searching. Anything else I should know?";
-  }
+  <script>
+    const chatContainer = document.getElementById("chat-container");
+    const userInput = document.getElementById("user-input");
+    const sendBtn = document.getElementById("send-btn");
+    const synth = window.speechSynthesis;
 
-  if (normalized.includes("i love") && !normalized.includes("travel")) {
-    return "Haha 😄 I love that too! But let’s get back to building your perfect trip – where to next?";
-  }
+    let destination = localStorage.getItem("destination") || "";
+    let travelDates = localStorage.getItem("travelDates") || "";
+    let travelDays = localStorage.getItem("travelDays") || null;
+    let travelingWithPartner = localStorage.getItem("travelingWithPartner") === "true";
+    let lastContinent = localStorage.getItem("lastContinent") || "";
+    let userName = localStorage.getItem("userName") || "";
+    let budget = localStorage.getItem("budget") || null;
 
-  if (normalized.match(/\\d{1,2}-\\d{1,2}/)) {
-    const [startDay, endDay] = normalized.match(/\\d{1,2}/g);
-    travelDays = endDay - startDay;
-    localStorage.setItem("travelDays", travelDays);
-    return `📅 Awesome – looks like you're planning a ${travelDays}-day trip! Do you already have a place in mind?`;
-  }
+    function addMessage(message, sender = "bot") {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = `chat-message ${sender}`;
+      msgDiv.innerText = message;
+      chatContainer.appendChild(msgDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      if (sender === "bot") speak(message);
+    }
 
-  if ([\"paris\", \"rome\", \"new york\", \"bali\", \"switzerland\"].some(city => normalized.includes(city))) {
-    destination = normalized;
-    localStorage.setItem("destination", destination);
-    const type = classifyDestination(destination);
-    const continent = detectContinent(destination);
-    lastContinent = continent || "";
-    localStorage.setItem("lastContinent", lastContinent);
+    function speak(text) {
+      if (!synth) return;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = "en-US";
+      synth.speak(utter);
+    }
 
-    let comment = "";
-    if (type === "beach") comment = "🌴 A beach vacation sounds perfect right now!";
-    else if (type === "city") comment = "🌆 There's so much to explore in that city!";
-    else if (type === "nature") comment = "🍃 You're going to love the nature and calmness.";
+    function detectMisspellings(input) {
+      const corrections = {
+        "new yrok": "new york",
+        "parisx": "paris",
+        "romaa": "rome"
+      };
+      for (const [wrong, correct] of Object.entries(corrections)) {
+        if (input.includes(wrong)) return input.replace(wrong, correct);
+      }
+      return input;
+    }
 
-    let extra = "";
-    if (continent) extra = `Want to explore more destinations in ${continent}?`;
-    if (travelDays) extra += `\\n🗓️ Searching around ${travelDays} days.`;
-    if (travelingWithPartner) extra += `\\n💑 Romantic options included!`;
-    if (budget) extra += `\\n💸 Budget of ${budget} considered!`;
+    function generateBookingLinks(dest) {
+      const encodedDest = encodeURIComponent(dest);
+      return `🎯 Here are some personalized travel deals for ${dest} – only available here!\n🏨 Hotels → https://www.booking.com/searchresults.html?ss=${encodedDest}\n✈️ Flights → https://www.skyscanner.com/transport/flights-to/${encodedDest}/\n🏠 Airbnb → https://www.airbnb.com/s/${encodedDest}/homes`;
+    }
 
-    return `${comment}\\n${generateBookingLinks(destination)}\\n${extra}`;
-  }
+    function classifyDestination(dest) {
+      const cities = ["paris", "rome", "new york", "london", "barcelona"];
+      const beaches = ["bali", "maldives", "santorini", "miami", "cancun"];
+      const nature = ["switzerland", "iceland", "canada", "norway", "costa rica"];
+      dest = dest.toLowerCase();
+      if (cities.includes(dest)) return "city";
+      if (beaches.includes(dest)) return "beach";
+      if (nature.includes(dest)) return "nature";
+      return "general";
+    }
 
-  return "🤔 Hmm… I didn’t quite get that. Let’s get back on track – ready for amazing travel deals and ideas?";
-}
+    function detectContinent(dest) {
+      const europe = ["paris", "rome", "london", "barcelona", "berlin", "vienna"];
+      const asia = ["bali", "bangkok", "tokyo", "kyoto", "singapore"];
+      const america = ["new york", "miami", "los angeles", "cancun"];
+      dest = dest.toLowerCase();
+      if (europe.includes(dest)) return "Europe";
+      if (asia.includes(dest)) return "Asia";
+      if (america.includes(dest)) return "America";
+      return null;
+    }
 
-sendBtn.addEventListener("click", () => {
-  const input = userInput.value.trim();
-  if (!input) return;
+    function getFriendlyReply(input) {
+      const normalized = input.toLowerCase();
 
-  addMessage(input, "user");
-  userInput.value = "";
+      if (normalized.includes("my name is") || normalized.includes("i'm") || normalized.includes("i am")) {
+        const match = input.match(/(?:my name is|i'm|i am)\s+(\w+)/i);
+        if (match) {
+          userName = match[1];
+          localStorage.setItem("userName", userName);
+        }
+        return `Nice to meet you, ${userName}! 😊 Ready to plan your next adventure?`;
+      }
 
-  const cleanedInput = detectMisspellings(input);
-  addMessage("Typing...", "bot");
+      if (normalized.includes("budget") || normalized.includes("$") || normalized.match(/\d+\s?(usd|eur|₪)/)) {
+        const match = normalized.match(/\d+/);
+        if (match) {
+          budget = match[0];
+          localStorage.setItem("budget", budget);
+        }
+        return `Thanks! I’ll keep your budget of ${budget} in mind while searching for the best deals.`;
+      }
 
-  setTimeout(() => {
-    const lastBot = chatContainer.querySelector(".chat-message.bot:last-child");
-    if (lastBot) lastBot.remove();
-    const reply = getFriendlyReply(cleanedInput);
-    addMessage(reply, "bot");
-  }, 1000);
-});
-</script>
+      if (normalized.includes("hello") || normalized.includes("hi") || normalized.includes("hey")) {
+        return `👋 Hi ${userName || "there"}! I'm your digital travel assistant. I'll help you plan an unforgettable trip – with exclusive hotel and flight deals just for you. Ready to begin?`;
+      }
+
+      if (normalized.includes("i want to travel") || normalized.includes("i want to go")) {
+        const match = normalized.match(/travel to ([a-zA-Z\s]+)/);
+        if (match) {
+          destination = match[1].trim();
+          localStorage.setItem("destination", destination);
+        }
+        return `Sounds exciting! ✈️ Which continent is ${destination} in? And do you have specific travel dates in mind?`;
+      }
+
+      if (normalized.includes("i changed my mind") || normalized.includes("instead")) {
+        const match = normalized.match(/to (.+)/);
+        if (match) {
+          destination = match[1].trim();
+          localStorage.setItem("destination", destination);
+        }
+        return `Got it! 👍 Let me pull up some updated options for ${destination}. Anything else you'd like to adjust?`;
+      }
+
+      if (normalized.includes("partner") || normalized.includes("girlfriend") || normalized.includes("boyfriend")) {
+        travelingWithPartner = true;
+        localStorage.setItem("travelingWithPartner", "true");
+        return "❤️ That's wonderful! A romantic vacation can be unforgettable. I'll keep that in mind when searching. Anything else I should know?";
+      }
+
+      if (normalized.includes("i love") && !normalized.includes("travel")) {
+        return "Haha 😄 I love that too! But let’s get back to building your perfect trip – where to next?";
+      }
+
+      if (normalized.match(/\d{1,2}-\d{1,2}/)) {
+        const [startDay, endDay] = normalized.match(/\d{1,2}/g);
+        travelDays = endDay - startDay;
+        localStorage.setItem("travelDays", travelDays);
+        return `📅 Awesome – looks like you're planning a ${travelDays}-day trip! Do you already have a place in mind?`;
+      }
+
+      if (["paris", "rome", "new york", "bali", "switzerland"].some(city => normalized.includes(city))) {
+        destination = normalized;
+        localStorage.setItem("destination", destination);
+        const type = classifyDestination(destination);
+        const continent = detectContinent(destination);
+        lastContinent = continent || "";
+        localStorage.setItem("lastContinent", lastContinent);
+
+        let comment = "";
+        if (type === "beach") comment = "🌴 A beach vacation sounds perfect right now!";
+        else if (type === "city") comment = "🌆 There's so much to explore in that city!";
+        else if (type === "nature") comment = "🍃 You're going to love the nature and calmness.";
+
+        let extra = "";
+        if (continent) extra = `Want to explore more destinations in ${continent}?`;
+        if (travelDays) extra += `\n🗓️ Searching around ${travelDays} days.`;
+        if (travelingWithPartner) extra += `\n💑 Romantic options included!`;
+        if (budget) extra += `\n💸 Budget of ${budget} considered!`;
+
+        return `${comment}\n${generateBookingLinks(destination)}\n${extra}`;
+      }
+
+      return "🤔 Hmm… I didn’t quite get that. Let’s get back on track – ready for amazing travel deals and ideas?";
+    }
+
+    sendBtn.addEventListener("click", () => {
+      const input = userInput.value.trim();
+      if (!input) return;
+
+      addMessage(input, "user");
+      userInput.value = "";
+
+      const cleanedInput = detectMisspellings(input);
+      addMessage("Typing...", "bot");
+
+      setTimeout(() => {
+        const lastBot = chatContainer.querySelector(".chat-message.bot:last-child");
+        if (lastBot) lastBot.remove();
+        const reply = getFriendlyReply(cleanedInput);
+        addMessage(reply, "bot");
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
+
 
 
