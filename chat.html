@@ -1,144 +1,101 @@
-<!-- TravelBot_Full_Version: קוד מלא, מחובר, מקצועי, לפי כל ההוראות שלך -->
-
+<!-- chat.html - Smart Travel Search Page -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Advisor Bot - Full Version</title>
+  <title>Find Your Dream Vacation</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html { height: 100%; font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #fdfcfb, #e2d1c3); overflow: hidden; }
-    .chat-container { width: 100%; height: 100vh; background-color: rgba(255,255,255,0.8); backdrop-filter: blur(5px); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; }
-    .chat-box { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 10px; }
-    .bubble { padding: 12px 18px; border-radius: 20px; max-width: 80%; font-size: 16px; line-height: 1.4; animation: fadeIn 0.5s ease; }
-    .user { align-self: flex-end; background: #4facfe; color: white; }
-    .bot { align-self: flex-start; background: #f1f1f1; color: #333; }
-    .input-area { display: flex; padding-top: 10px; gap: 10px; }
-    input { flex: 1; padding: 12px; border: none; border-radius: 20px; font-size: 16px; outline: none; }
-    button { padding: 12px 20px; background-color: #4facfe; color: white; border: none; border-radius: 20px; font-size: 16px; cursor: pointer; }
-    button:hover { background-color: #00f2fe; }
-    .option-button { background-color: #00c9ff; border: none; border-radius: 20px; padding: 10px 18px; margin: 5px 5px 0 0; cursor: pointer; font-size: 15px; }
-    .option-button:hover { background-color: #92fe9d; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    a { color: #007bff; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: #f0f0f5; overflow-x: hidden; }
+    header { background: linear-gradient(to right, #ff5e57, #ff9966); color: white; text-align: center; padding: 50px 20px; }
+    header h1 { font-size: 3em; margin-bottom: 10px; }
+    header p { font-size: 1.2em; }
+    form { background: white; max-width: 800px; margin: 30px auto; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 20px; }
+    label { font-weight: bold; }
+    input, select, button { padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; }
+    button { background: #4CAF50; color: white; border: none; font-size: 1.2em; cursor: pointer; }
+    .results { margin: 40px auto; max-width: 800px; display: grid; gap: 20px; }
+    .result-link { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; transition: 0.3s; }
+    .result-link:hover { transform: translateY(-5px); }
+    .result-link a { text-decoration: none; color: #333; font-weight: bold; font-size: 1.1em; }
   </style>
 </head>
-
 <body>
 
-<div class="chat-container">
-  <div class="chat-box" id="chat-box">
-    <div class="bubble bot">🌍 Welcome! I'm your personal travel advisor. Let's create your dream trip together!</div>
-    <div id="options"></div>
-  </div>
-  <div class="input-area">
-    <input type="text" id="user-input" placeholder="Type your message..." />
-    <button onclick="sendMessage()">Send</button>
-  </div>
-</div>
+<header>
+  <h1>Plan Your Next Vacation</h1>
+  <p>Choose your destination, budget, and travel style</p>
+</header>
+
+<form id="searchForm">
+  <label for="country">Select a Country:</label>
+  <select id="country" required>
+    <option value="">-- Select Country --</option>
+    <option>France</option>
+    <option>Italy</option>
+    <option>Spain</option>
+    <option>USA</option>
+    <option>Thailand</option>
+    <option>Japan</option>
+    <option>Mexico</option>
+    <option>Greece</option>
+    <option>Australia</option>
+    <option>Canada</option>
+    <!-- (continue to add over 100 countries here) -->
+  </select>
+
+  <label for="departure">Departure Date:</label>
+  <input type="date" id="departure" required>
+
+  <label for="return">Return Date:</label>
+  <input type="date" id="return" required>
+
+  <label for="budget">Your Budget ($):</label>
+  <input type="number" id="budget" placeholder="e.g., 2000" required>
+
+  <label for="travelType">Travel Type:</label>
+  <select id="travelType" required>
+    <option value="">-- Select --</option>
+    <option>Solo</option>
+    <option>Couple</option>
+    <option>Family</option>
+    <option>Friends</option>
+  </select>
+
+  <button type="submit">Find My Vacation</button>
+</form>
+
+<div id="results" class="results"></div>
 
 <script>
-// משתני מצב שיחה
-let userData = { destination: '', season: '', budget: '', tripType: '', travelers: '', hobbies: '', accommodation: '', flightType: '', kosher: '', specialNeeds: '', dates: '' };
-let step = 'destination';
-const optionsDiv = document.getElementById('options');
+  document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-const allCountries = ["France", "Italy", "USA", "Japan", "Thailand", "Germany", "Spain", "Mexico", "Canada", "Brazil", "Argentina", "Peru", "Australia", "New Zealand", "South Africa", "Morocco", "Iceland", "Kenya", "Switzerland", "Greece", "Israel", "Portugal", "Turkey", "Dubai", "Singapore", "Malaysia", "Vietnam", "Indonesia", "Egypt", "Czech Republic", "Poland", "Sweden", "Norway", "Finland", "Denmark", "Ireland", "Netherlands", "Belgium", "Austria", "Hungary", "Croatia", "Slovenia", "Chile", "Colombia", "Cuba", "Dominican Republic", "India", "Nepal", "Sri Lanka", "Maldives", "Seychelles", "Philippines", "South Korea", "Taiwan", "Hong Kong", "China", "Russia", "Ukraine", "Romania", "Bulgaria", "Serbia", "Georgia", "Armenia", "Kazakhstan", "Saudi Arabia", "Qatar", "Jordan", "Lebanon", "Iran", "Iraq", "New Caledonia", "Fiji", "Tahiti", "Madagascar", "Mauritius", "Zanzibar", "Tanzania", "Uganda", "Ethiopia", "Botswana", "Namibia", "Mozambique", "Zimbabwe", "Algeria", "Tunisia", "Senegal", "Ghana", "Nigeria"];
+    const country = document.getElementById('country').value;
+    const departure = document.getElementById('departure').value;
+    const ret = document.getElementById('return').value;
+    const budget = document.getElementById('budget').value;
+    const travelType = document.getElementById('travelType').value;
 
-function addMessage(text, sender) {
-  const chatBox = document.getElementById('chat-box');
-  const bubble = document.createElement('div');
-  bubble.className = 'bubble ' + sender;
-  bubble.innerHTML = text;
-  chatBox.appendChild(bubble);
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = '';
 
-function createOption(text, nextStep) {
-  const btn = document.createElement('button');
-  btn.className = 'option-button';
-  btn.textContent = text;
-  btn.onclick = () => {
-    addMessage(text, 'user');
-    userData[step] = text;
-    optionsDiv.innerHTML = '';
-    setTimeout(() => nextStep(), 500);
-  };
-  optionsDiv.appendChild(btn);
-}
+    const formattedDeparture = departure.split('-').join('');
+    const formattedReturn = ret.split('-').join('');
 
-function sendMessage() {
-  const input = document.getElementById('user-input');
-  if (!input.value.trim()) return;
-  addMessage(input.value, 'user');
-  handleFreeText(input.value);
-  input.value = '';
-}
+    const bookingLink = `https://www.booking.com/searchresults.html?ss=${country}&checkin_year_month_monthday=${departure}&checkout_year_month_monthday=${ret}`;
+    const skyscannerLink = `https://www.skyscanner.net/transport/flights/?adults=1&cabinclass=economy&preferdirects=false&outbounddate=${departure}&inbounddate=${ret}&destination=${country}`;
+    const expediaLink = `https://www.expedia.com/Hotel-Search?destination=${country}&startDate=${departure}&endDate=${ret}`;
 
-function handleFreeText(text) {
-  if (step === 'destination') {
-    userData.destination = text;
-    step = 'season';
-    askSeason();
-  } else if (step === 'dates') {
-    userData.dates = text;
-    buildRecommendation();
-  } else {
-    userData[step] = text;
-    nextStep();
-  }
-}
-
-function askSeason() {
-  addMessage('Which season are you planning to travel?', 'bot');
-  ['Spring', 'Summer', 'Fall', 'Winter', "I don't know"].forEach(option => createOption(option, nextStep));
-}
-
-function nextStep() {
-  if (step === 'season') { step = 'budget'; askQuestion('What is your travel budget?', ['<$1000', '$1000-$3000', '$3000-$5000', '$5000+']); }
-  else if (step === 'budget') { step = 'tripType'; askQuestion('What type of trip are you looking for?', ['Luxury', 'Family', 'Adventure', 'Romantic', 'Nature', 'City', 'Shopping', 'Beach']); }
-  else if (step === 'tripType') { step = 'travelers'; addMessage('How many travelers?', 'bot'); }
-  else if (step === 'travelers') { step = 'hobbies'; addMessage('What are your main interests? (nature, museums, nightlife, mountains, islands)', 'bot'); }
-  else if (step === 'hobbies') { step = 'accommodation'; askQuestion('Preferred accommodation type?', ['Hotel', 'Apartment', 'Villa', 'Resort']); }
-  else if (step === 'accommodation') { step = 'flightType'; askQuestion('Direct flight or with connection?', ['Direct', "Doesn't matter"]); }
-  else if (step === 'flightType') { step = 'kosher'; askQuestion('Is kosher food important?', ['Yes', 'No']); }
-  else if (step === 'kosher') { step = 'specialNeeds'; addMessage('Any special needs? (baby, accessibility, dietary)', 'bot'); }
-  else if (step === 'specialNeeds') { step = 'dates'; addMessage('When do you plan to travel?', 'bot'); }
-}
-
-function askQuestion(question, options) {
-  addMessage(question, 'bot');
-  options.forEach(option => createOption(option, nextStep));
-}
-
-function buildRecommendation() {
-  addMessage('✨ Preparing the best deals for you...', 'bot');
-  const destination = userData.destination.trim();
-  let validDestination = allCountries.find(c => destination.toLowerCase().includes(c.toLowerCase())) || destination;
-  let bookingLink = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(validDestination)}`;
-
-  addMessage(`👉 Here are amazing hotel options in ${validDestination}: <a href="${bookingLink}" target="_blank">View Hotels</a>`, 'bot');
-
-  setTimeout(() => specialOffer(), 1500);
-}
-
-function specialOffer() {
-  addMessage('🔥 Special Deal: Book today and save 15%!', 'bot');
-  setTimeout(() => endConversation(), 2000);
-}
-
-function endConversation() {
-  addMessage('⭐ How would you rate your experience? (1-5 stars)', 'bot');
-  step = 'end';
-}
-
+    resultsDiv.innerHTML = `
+      <div class="result-link"><a href="${bookingLink}" target="_blank">View Hotels in ${country} (Booking.com)</a></div>
+      <div class="result-link"><a href="${skyscannerLink}" target="_blank">Find Flights to ${country} (Skyscanner)</a></div>
+      <div class="result-link"><a href="${expediaLink}" target="_blank">Explore Deals in ${country} (Expedia)</a></div>
+    `;
+  });
 </script>
 
 </body>
 </html>
-
-
 
 
