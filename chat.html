@@ -1,48 +1,90 @@
-<!-- chat.html - Smart Travel Search Page -->
+<!-- Full Travel Smart Form - chat.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Find Your Dream Vacation</title>
+  <title>Find Your Perfect Vacation</title>
   <style>
-    body { margin: 0; font-family: 'Poppins', sans-serif; background: #f0f0f5; overflow-x: hidden; }
-    header { background: linear-gradient(to right, #ff5e57, #ff9966); color: white; text-align: center; padding: 50px 20px; }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: #f5f5f5; }
+    header { background: linear-gradient(to right, #00c6ff, #0072ff); color: white; padding: 60px 20px; text-align: center; }
     header h1 { font-size: 3em; margin-bottom: 10px; }
-    header p { font-size: 1.2em; }
-    form { background: white; max-width: 800px; margin: 30px auto; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 20px; }
-    label { font-weight: bold; }
-    input, select, button { padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; }
-    button { background: #4CAF50; color: white; border: none; font-size: 1.2em; cursor: pointer; }
-    .results { margin: 40px auto; max-width: 800px; display: grid; gap: 20px; }
+    form { max-width: 800px; margin: 30px auto; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 20px; }
+    label { font-weight: bold; margin-top: 10px; }
+    select, input, button { padding: 12px; border: 1px solid #ccc; border-radius: 8px; width: 100%; font-size: 1em; }
+    button { background: #ff5e57; color: white; border: none; cursor: pointer; font-size: 1.2em; }
+    button:hover { background: #ff3d3d; }
+    .results { max-width: 800px; margin: 30px auto; display: grid; gap: 20px; }
     .result-link { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; transition: 0.3s; }
     .result-link:hover { transform: translateY(-5px); }
-    .result-link a { text-decoration: none; color: #333; font-weight: bold; font-size: 1.1em; }
+    .result-link a { text-decoration: none; color: #0072ff; font-weight: bold; }
   </style>
 </head>
+
 <body>
 
 <header>
-  <h1>Plan Your Next Vacation</h1>
-  <p>Choose your destination, budget, and travel style</p>
+  <h1>Plan Your Dream Vacation</h1>
+  <p>Hotels, Flights, and Packages in Over 50 Countries</p>
 </header>
 
-<form id="searchForm">
+<form id="travelForm">
   <label for="country">Select a Country:</label>
   <select id="country" required>
     <option value="">-- Select Country --</option>
-    <option>France</option>
-    <option>Italy</option>
     <option>Spain</option>
-    <option>USA</option>
-    <option>Thailand</option>
-    <option>Japan</option>
+    <option>Italy</option>
+    <option>United States</option>
+    <option>China</option>
+    <option>Turkey</option>
     <option>Mexico</option>
+    <option>Thailand</option>
+    <option>Germany</option>
+    <option>United Kingdom</option>
+    <option>Japan</option>
+    <option>Austria</option>
     <option>Greece</option>
-    <option>Australia</option>
     <option>Canada</option>
-    <!-- (continue to add over 100 countries here) -->
+    <option>Russia</option>
+    <option>Portugal</option>
+    <option>Poland</option>
+    <option>Netherlands</option>
+    <option>Croatia</option>
+    <option>Switzerland</option>
+    <option>South Korea</option>
+    <option>Brazil</option>
+    <option>Egypt</option>
+    <option>Australia</option>
+    <option>India</option>
+    <option>South Africa</option>
+    <option>Vietnam</option>
+    <option>Indonesia</option>
+    <option>Dubai</option>
+    <option>Morocco</option>
+    <option>Malaysia</option>
+    <option>Belgium</option>
+    <option>Hungary</option>
+    <option>Czech Republic</option>
+    <option>Denmark</option>
+    <option>Sweden</option>
+    <option>Finland</option>
+    <option>Norway</option>
+    <option>Iceland</option>
+    <option>Singapore</option>
+    <option>Philippines</option>
+    <option>Cuba</option>
+    <option>Sri Lanka</option>
+    <option>Cyprus</option>
+    <option>Qatar</option>
+    <option>New Zealand</option>
+    <option>Tanzania</option>
+    <option>Saudi Arabia</option>
+    <option>Israel</option>
+    <option>Jordan</option>
   </select>
+
+  <label for="city">Enter City:</label>
+  <input type="text" id="city" placeholder="e.g., Paris" required>
 
   <label for="departure">Departure Date:</label>
   <input type="date" id="departure" required>
@@ -50,16 +92,34 @@
   <label for="return">Return Date:</label>
   <input type="date" id="return" required>
 
-  <label for="budget">Your Budget ($):</label>
+  <label for="budget">Budget ($):</label>
   <input type="number" id="budget" placeholder="e.g., 2000" required>
 
-  <label for="travelType">Travel Type:</label>
-  <select id="travelType" required>
+  <label for="type">Travel Type:</label>
+  <select id="type" required>
     <option value="">-- Select --</option>
     <option>Solo</option>
     <option>Couple</option>
     <option>Family</option>
     <option>Friends</option>
+  </select>
+
+  <label for="style">Vacation Style:</label>
+  <select id="style" required>
+    <option value="">-- Select --</option>
+    <option>Relaxation</option>
+    <option>Adventure</option>
+    <option>Luxury</option>
+    <option>Nature</option>
+    <option>Nightlife</option>
+  </select>
+
+  <label for="hotel">Hotel Rating:</label>
+  <select id="hotel" required>
+    <option value="">-- Select --</option>
+    <option>3 Stars</option>
+    <option>4 Stars</option>
+    <option>5 Stars</option>
   </select>
 
   <button type="submit">Find My Vacation</button>
@@ -68,34 +128,29 @@
 <div id="results" class="results"></div>
 
 <script>
-  document.getElementById('searchForm').addEventListener('submit', function(event) {
+  document.getElementById('travelForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const country = document.getElementById('country').value;
+    const city = document.getElementById('city').value;
     const departure = document.getElementById('departure').value;
     const ret = document.getElementById('return').value;
-    const budget = document.getElementById('budget').value;
-    const travelType = document.getElementById('travelType').value;
 
     const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = '';
+    resultsDiv.innerHTML = '<p>Finding the best deals for you...</p>';
 
-    const formattedDeparture = departure.split('-').join('');
-    const formattedReturn = ret.split('-').join('');
-
-    const bookingLink = `https://www.booking.com/searchresults.html?ss=${country}&checkin_year_month_monthday=${departure}&checkout_year_month_monthday=${ret}`;
-    const skyscannerLink = `https://www.skyscanner.net/transport/flights/?adults=1&cabinclass=economy&preferdirects=false&outbounddate=${departure}&inbounddate=${ret}&destination=${country}`;
-    const expediaLink = `https://www.expedia.com/Hotel-Search?destination=${country}&startDate=${departure}&endDate=${ret}`;
-
-    resultsDiv.innerHTML = `
-      <div class="result-link"><a href="${bookingLink}" target="_blank">View Hotels in ${country} (Booking.com)</a></div>
-      <div class="result-link"><a href="${skyscannerLink}" target="_blank">Find Flights to ${country} (Skyscanner)</a></div>
-      <div class="result-link"><a href="${expediaLink}" target="_blank">Explore Deals in ${country} (Expedia)</a></div>
-    `;
+    setTimeout(() => {
+      resultsDiv.innerHTML = `
+        <div class="result-link"><a href="https://www.booking.com/searchresults.html?ss=${city}%20${country}&checkin_year_month_monthday=${departure}&checkout_year_month_monthday=${ret}" target="_blank">Find Hotels in ${city}, ${country} (Booking.com)</a></div>
+        <div class="result-link"><a href="https://www.skyscanner.net/transport/flights/?destination=${city}&adults=1&outbounddate=${departure}&inbounddate=${ret}" target="_blank">Find Flights to ${city} (Skyscanner)</a></div>
+        <div class="result-link"><a href="https://www.expedia.com/Hotel-Search?destination=${city}%20${country}&startDate=${departure}&endDate=${ret}" target="_blank">Explore Packages in ${city}, ${country} (Expedia)</a></div>
+      `;
+    }, 1500);
   });
 </script>
 
 </body>
 </html>
+
 
 
