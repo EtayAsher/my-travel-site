@@ -1,127 +1,87 @@
+<!-- New index.html for a lively, young, luxurious travel site -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Find Your Perfect Trip!</title>
+  <title>Dream Travel - Your Next Adventure Awaits</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html { height: 100%; font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #fdfcfb, #e2d1c3); overflow-x: hidden; }
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      text-align: center;
-      min-height: 100vh;
-    }
-    h1 {
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-      color: #2c3e50;
-    }
-    p {
-      font-size: 1.3rem;
-      margin-bottom: 30px;
-      color: #34495e;
-    }
-    select, button {
-      padding: 15px 20px;
-      font-size: 1rem;
-      margin: 10px 0;
-      border-radius: 25px;
-      border: none;
-      outline: none;
-    }
-    select {
-      width: 280px;
-      background: #ecf0f1;
-      color: #2c3e50;
-    }
-    button {
-      background-color: #4facfe;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #00f2fe;
-    }
-    .form-group {
-      margin: 20px 0;
-    }
-    @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
-      p { font-size: 1rem; }
-      select, button { width: 90%; }
-    }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: #f9f9f9; overflow-x: hidden; }
+    header { height: 100vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover no-repeat; color: white; text-align: center; display: flex; flex-direction: column; justify-content: center; padding: 20px; }
+    header h1 { font-size: 3em; margin-bottom: 10px; }
+    header p { font-size: 1.5em; margin-bottom: 20px; }
+    .email-box { margin-top: 20px; }
+    input[type="email"] { padding: 12px; width: 300px; border: none; border-radius: 5px; }
+    button { padding: 12px 25px; background: #ff5e57; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px; font-size: 1em; }
+    section { padding: 80px 20px; text-align: center; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 40px; }
+    .feature { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+    .feature:hover { transform: translateY(-10px); }
+    .animated { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+    .animated.visible { opacity: 1; transform: translateY(0); }
+    footer { background: #222; color: white; padding: 20px; text-align: center; font-size: 0.9em; }
   </style>
 </head>
-
 <body>
+  <header>
+    <h1>Dream Your Next Vacation</h1>
+    <p>Discover hotels, flights, and adventures in over 100 countries</p>
+    <div class="email-box">
+      <input type="email" id="email" placeholder="Enter your email">
+      <button onclick="startSearch()">Get Started</button>
+    </div>
+  </header>
 
-<div class="container">
-  <h1>✈️ Find Your Perfect Trip!</h1>
-  <p>Choose your destination and what you're looking for. We'll find the best deals for you!</p>
+  <section class="animated">
+    <h2>Why Book With Us?</h2>
+    <div class="feature-grid">
+      <div class="feature">Luxury Hotels at Best Prices</div>
+      <div class="feature">Fast and Easy Flight Booking</div>
+      <div class="feature">Custom Packages for Every Traveler</div>
+      <div class="feature">Real-Time Special Deals</div>
+    </div>
+  </section>
 
-  <div class="form-group">
-    <select id="country-select">
-      <option value="">-- Select your destination --</option>
-      <option value="Japan">Japan</option>
-      <option value="Italy">Italy</option>
-      <option value="Thailand">Thailand</option>
-      <option value="France">France</option>
-      <option value="USA">USA</option>
-      <option value="Mexico">Mexico</option>
-      <option value="Australia">Australia</option>
-      <option value="Spain">Spain</option>
-      <option value="Greece">Greece</option>
-      <option value="South Africa">South Africa</option>
-      <!-- תוכל להוסיף פה עוד מדינות בקלות -->
-    </select>
-  </div>
+  <section class="animated">
+    <h2>Explore the World</h2>
+    <p>From Paris to Bali, Tokyo to New York – find your perfect trip with us.</p>
+  </section>
 
-  <div class="form-group">
-    <select id="service-select">
-      <option value="">-- What are you looking for? --</option>
-      <option value="hotel">Hotel</option>
-      <option value="flight">Flight</option>
-      <option value="package">Vacation Package</option>
-    </select>
-  </div>
+  <section class="animated">
+    <h2>What Makes Us Different?</h2>
+    <div class="feature-grid">
+      <div class="feature">Instant Matching to Best Deals</div>
+      <div class="feature">24/7 Personal Travel Support</div>
+      <div class="feature">Smart Recommendations with AI</div>
+      <div class="feature">Safe and Trusted Partners</div>
+    </div>
+  </section>
 
-  <button onclick="findDeal()">Find Your Deal Now!</button>
-</div>
+  <footer>
+    Dream Travel &copy; 2025 | All rights reserved
+  </footer>
 
-<script>
-function findDeal() {
-  const country = document.getElementById('country-select').value.trim();
-  const service = document.getElementById('service-select').value.trim();
+  <script>
+    function startSearch() {
+      const email = document.getElementById('email').value;
+      if (email) {
+        window.location.href = 'chat.html';
+      } else {
+        alert('Please enter your email.');
+      }
+    }
 
-  if (country === '' || service === '') {
-    alert('Please select both a destination and a service!');
-    return;
-  }
-
-  let link = '';
-
-  if (service === 'hotel') {
-    link = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(country)}`;
-  } else if (service === 'flight') {
-    link = `https://www.skyscanner.com/transport/flights-to/${encodeURIComponent(country.replace(/\s+/g, '-').toLowerCase())}/`;
-  } else if (service === 'package') {
-    link = `https://www.expedia.com/Packages?destination=${encodeURIComponent(country)}`;
-  }
-
-  // מעבירים את המשתמש לקישור החי
-  window.location.href = link;
-}
-</script>
-
+    window.addEventListener('scroll', () => {
+      document.querySelectorAll('.animated').forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+          section.classList.add('visible');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-
 
 
 
