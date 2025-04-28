@@ -20,12 +20,12 @@
       padding: 0;
       font-family: 'Poppins', sans-serif;
     }
-    body, html {
-      height: 100%;
+    body {
       background: var(--background);
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
       padding: 20px;
     }
     .form-container {
@@ -35,8 +35,8 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       width: 100%;
       max-width: 550px;
+      margin-top: 20px;
       animation: fadeIn 1s ease;
-      overflow: hidden;
     }
     h1 {
       text-align: center;
@@ -103,6 +103,37 @@
       color: #666;
       margin-top: 5px;
     }
+    .share-section {
+      background: #e0f7fa;
+      margin-top: 40px;
+      padding: 20px;
+      border-radius: 20px;
+      text-align: center;
+    }
+    .share-section h2 {
+      color: #0077b6;
+      margin-bottom: 15px;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    .social-icons a {
+      background: #0077b6;
+      color: white;
+      font-size: 20px;
+      padding: 12px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .social-icons a:hover {
+      background: #00b4d8;
+    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -115,40 +146,35 @@
   </style>
 </head>
 <body>
+
 <div class="form-container">
 <h1>Plan Your Perfect Vacation ✈️</h1>
 <form id="travelForm">
-
   <div>
     <label for="country">Country 🌎</label>
     <input type="text" id="country" name="country" placeholder="e.g., Italy, Japan, USA" required>
     <div class="hint">Choose the country you dream to visit!</div>
   </div>
-
   <div>
     <label for="city">City 🏙️</label>
     <input type="text" id="city" name="city" placeholder="e.g., Rome, Tokyo, New York" required>
     <div class="hint">Which city are you planning to explore?</div>
   </div>
-
   <div>
     <label for="departure">Departure Date ✈️</label>
     <input type="date" id="departure" name="departure" required>
     <div class="hint">When do you want your adventure to start?</div>
   </div>
-
   <div>
     <label for="return">Return Date 🏡</label>
     <input type="date" id="return" name="return" required>
     <div class="hint">When are you coming back?</div>
   </div>
-
   <div>
     <label for="budget">Your Budget ($) 💸</label>
     <input type="number" id="budget" name="budget" placeholder="e.g., 1500" required>
     <div class="hint">Let us find the best deals for your budget!</div>
   </div>
-
   <div>
     <label for="hotel">Preferred Hotel Type 🏨</label>
     <select id="hotel" name="hotel" required>
@@ -160,7 +186,6 @@
     </select>
     <div class="hint">Choose your preferred accommodation style!</div>
   </div>
-
   <div>
     <label for="direct">Prefer Direct Flight? ✈️</label>
     <select id="direct" name="direct" required>
@@ -170,7 +195,6 @@
     </select>
     <div class="hint">Faster or cheaper? It's your choice!</div>
   </div>
-
   <div>
     <label for="room">Room Type 🛏️</label>
     <select id="room" name="room" required>
@@ -181,7 +205,6 @@
     </select>
     <div class="hint">Pick the room that fits your trip!</div>
   </div>
-
   <div>
     <label for="family">Traveling With 🧑‍🤝‍🧑</label>
     <select id="family" name="family" required>
@@ -191,7 +214,6 @@
     </select>
     <div class="hint">Tell us who's coming with you!</div>
   </div>
-
   <div>
     <label for="tour">Interested in Guided Tours? 🗺️</label>
     <select id="tour" name="tour" required>
@@ -211,6 +233,15 @@
   <a id="expediaLink" class="link-btn" target="_blank">Expedia.com Deals</a>
   <a id="skyscannerLink" class="link-btn" target="_blank">Skyscanner Flights</a>
 </div>
+</div>
+
+<div class="share-section">
+  <h2>Share your perfect trip with friends!</h2>
+  <div class="social-icons">
+    <a href="https://wa.me/?text=Check%20out%20this%20amazing%20travel%20site:%20https://etayasher.github.io/my-travel-site" target="_blank">📱</a>
+    <a href="https://www.instagram.com/" target="_blank">📷</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://etayasher.github.io/my-travel-site" target="_blank">📘</a>
+  </div>
 </div>
 
 <script>
