@@ -41,23 +41,70 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-    .features, .how-it-works, .testimonials {
+    .features, .testimonials {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
     }
-    .feature, .step, .testimonial {
+    .feature, .testimonial {
       background: white;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: transform 0.3s;
     }
-    .feature:hover, .step:hover, .testimonial:hover {
+    .feature:hover, .testimonial:hover {
       transform: translateY(-5px);
     }
-    .feature h3, .step h3, .testimonial h3 {
+    .feature h3, .testimonial h3 {
       color: #0077b6;
+    }
+    .timeline {
+      position: relative;
+      margin: 60px 0;
+    }
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background-color: #0077b6;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+    }
+    .timeline-item {
+      padding: 20px 30px;
+      position: relative;
+      width: 50%;
+    }
+    .timeline-item.left {
+      left: 0;
+    }
+    .timeline-item.right {
+      left: 50%;
+    }
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: -10px;
+      background-color: #0077b6;
+      border: 4px solid white;
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .timeline-item.right::after {
+      left: -10px;
+    }
+    .timeline-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: relative;
     }
     .cta {
       text-align: center;
@@ -80,6 +127,22 @@
       border-radius: 10px;
       text-decoration: none;
       font-weight: 600;
+    }
+    @media screen and (max-width: 768px) {
+      .timeline::after {
+        left: 90px;
+      }
+      .timeline-item {
+        width: 100%;
+        padding-left: 120px;
+        padding-right: 30px;
+      }
+      .timeline-item.right {
+        left: 0%;
+      }
+      .timeline-item::after {
+        left: 60px;
+      }
     }
   </style>
 </head>
@@ -110,35 +173,45 @@
     </div>
   </section>
 
-  <section class="how-it-works" data-aos="fade-up">
-    <h2>How It Works</h2>
-    <div class="step">
-      <h3>1. Tell Us Your Dream</h3>
-      <p>Share your preferences: destination, budget, travel style.</p>
+  <section class="timeline" data-aos="fade-up">
+    <h2 style="text-align:center; margin-bottom: 40px;">How It Works</h2>
+    
+    <div class="timeline-item left" data-aos="fade-right">
+      <div class="timeline-content">
+        <h3>1. Tell Us Your Dream</h3>
+        <p>Share your preferences: destination, budget, travel style.</p>
+      </div>
     </div>
-    <div class="step">
-      <h3>2. We Search for You</h3>
-      <p>Our AI finds the best options tailored to your needs.</p>
+
+    <div class="timeline-item right" data-aos="fade-left">
+      <div class="timeline-content">
+        <h3>2. We Search for You</h3>
+        <p>Our AI finds the best options tailored to your needs.</p>
+      </div>
     </div>
-    <div class="step">
-      <h3>3. You Book & Enjoy</h3>
-      <p>Pick your favorite deal and get ready for an unforgettable trip!</p>
+
+    <div class="timeline-item left" data-aos="fade-right">
+      <div class="timeline-content">
+        <h3>3. You Book & Enjoy</h3>
+        <p>Pick your favorite deal and get ready for an unforgettable trip!</p>
+      </div>
     </div>
+
   </section>
 
   <section class="testimonials" data-aos="fade-up">
     <h2>What Our Travelers Say</h2>
     <div class="testimonial">
       <h3>Sarah W.</h3>
-      <p>"I found an amazing vacation to Italy within minutes. Highly recommend!"</p>
+      <p>\"I found an amazing vacation to Italy within minutes. Highly recommend!\"</p>
     </div>
     <div class="testimonial">
       <h3>James L.</h3>
-      <p>"Great service, easy to use, and the deals were unbeatable."</p>
+      <p>\"Great service, easy to use, and the deals were unbeatable.\"</p>
     </div>
     <div class="testimonial">
       <h3>Ana R.</h3>
-      <p>"Booking was effortless and the AI suggestions were spot on!"</p>
+      <p>\"Booking was effortless and the AI suggestions were spot on!\"</p>
     </div>
   </section>
 
@@ -154,6 +227,8 @@
 </script>
 </body>
 </html>
+
+
 
 
 
