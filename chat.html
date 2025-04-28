@@ -3,43 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Assistant - Plan Your Trip</title>
+  <title>Find Your Perfect Vacation</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-color: #0077b6;
-      --secondary-color: #00b4d8;
-      --background-gradient: linear-gradient(135deg, #0077b6, #00b4d8);
+      --primary: #0077b6;
+      --secondary: #00b4d8;
+      --background: linear-gradient(135deg, #0077b6, #00b4d8);
       --white: #ffffff;
-      --light-gray: #f1f1f1;
+      --gray: #f1f1f1;
+      --accent: #ffd166;
     }
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
     body, html {
       height: 100%;
-      background: var(--background-gradient);
+      background: var(--background);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .chat-form-container {
+    .form-container {
       background: var(--white);
       padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      border-radius: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       width: 100%;
-      max-width: 500px;
-      animation: fadeIn 1s ease-in-out;
+      max-width: 550px;
+      animation: fadeIn 1s ease;
+      overflow: hidden;
     }
-    .chat-form-container h1 {
+    h1 {
       text-align: center;
-      color: var(--primary-color);
+      color: var(--primary);
       margin-bottom: 20px;
+      font-size: 2rem;
     }
     form {
       display: flex;
@@ -50,90 +53,198 @@
       font-weight: 600;
       color: #333;
     }
-    select, input, textarea {
+    input, select {
       padding: 12px;
-      border: 2px solid var(--light-gray);
       border-radius: 15px;
+      border: 2px solid var(--gray);
       background: #fafafa;
-      font-size: 1rem;
       outline: none;
-      transition: border 0.3s;
+      transition: 0.3s;
+      font-size: 1rem;
     }
-    select:focus, input:focus, textarea:focus {
-      border-color: var(--primary-color);
+    input:focus, select:focus {
+      border-color: var(--primary);
       background: #fff;
     }
     .submit-btn {
       background: linear-gradient(135deg, #00b4d8, #0077b6);
-      color: white;
-      padding: 15px;
       border: none;
       border-radius: 30px;
-      font-size: 1.2rem;
+      color: white;
       font-weight: 600;
+      padding: 15px;
+      font-size: 1.2rem;
       cursor: pointer;
       transition: background 0.3s;
     }
     .submit-btn:hover {
       background: linear-gradient(135deg, #0077b6, #00b4d8);
     }
+    .links-section {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .link-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #333;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 12px 20px;
+      margin: 10px 5px;
+      border-radius: 20px;
+      transition: 0.3s;
+    }
+    .link-btn:hover {
+      background: #ffc107;
+    }
+    .hint {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 5px;
+    }
     @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     @media screen and (max-width: 600px) {
-      .chat-form-container {
+      .form-container {
         padding: 20px;
       }
     }
   </style>
 </head>
 <body>
+<div class="form-container">
+<h1>Plan Your Perfect Vacation ✈️</h1>
+<form id="travelForm">
 
-<div class="chat-form-container">
-  <h1>Plan Your Dream Trip ✈️</h1>
-  <form>
-    <div>
-      <label for="country">Select a Country:</label>
-      <input type="text" id="country" name="country" placeholder="e.g., France, Japan, USA" required>
-    </div>
+  <div>
+    <label for="country">Country 🌎</label>
+    <input type="text" id="country" name="country" placeholder="e.g., Italy, Japan, USA" required>
+    <div class="hint">Choose the country you dream to visit!</div>
+  </div>
 
-    <div>
-      <label for="city">Enter City:</label>
-      <input type="text" id="city" name="city" placeholder="e.g., Paris" required>
-    </div>
+  <div>
+    <label for="city">City 🏙️</label>
+    <input type="text" id="city" name="city" placeholder="e.g., Rome, Tokyo, New York" required>
+    <div class="hint">Which city are you planning to explore?</div>
+  </div>
 
-    <div>
-      <label for="departure">Departure Date:</label>
-      <input type="date" id="departure" name="departure" required>
-    </div>
+  <div>
+    <label for="departure">Departure Date ✈️</label>
+    <input type="date" id="departure" name="departure" required>
+    <div class="hint">When do you want your adventure to start?</div>
+  </div>
 
-    <div>
-      <label for="return">Return Date:</label>
-      <input type="date" id="return" name="return" required>
-    </div>
+  <div>
+    <label for="return">Return Date 🏡</label>
+    <input type="date" id="return" name="return" required>
+    <div class="hint">When are you coming back?</div>
+  </div>
 
-    <div>
-      <label for="budget">Budget ($):</label>
-      <input type="number" id="budget" name="budget" placeholder="e.g., 2000" required>
-    </div>
+  <div>
+    <label for="budget">Your Budget ($) 💸</label>
+    <input type="number" id="budget" name="budget" placeholder="e.g., 1500" required>
+    <div class="hint">Let us find the best deals for your budget!</div>
+  </div>
 
-    <div>
-      <label for="travelType">Travel Type:</label>
-      <select id="travelType" name="travelType" required>
-        <option value="">-- Select Travel Type --</option>
-        <option value="Relaxation">Relaxation</option>
-        <option value="Adventure">Adventure</option>
-        <option value="City Tour">City Tour</option>
-        <option value="Romantic">Romantic</option>
-        <option value="Family">Family</option>
-      </select>
-    </div>
+  <div>
+    <label for="hotel">Preferred Hotel Type 🏨</label>
+    <select id="hotel" name="hotel" required>
+      <option value="">-- Select --</option>
+      <option value="3 Stars">3 Stars</option>
+      <option value="4 Stars">4 Stars</option>
+      <option value="5 Stars">5 Stars</option>
+      <option value="Luxury Suite">Luxury Suite</option>
+    </select>
+    <div class="hint">Choose your preferred accommodation style!</div>
+  </div>
 
-    <button type="submit" class="submit-btn">Find My Trip 🌎</button>
-  </form>
+  <div>
+    <label for="direct">Prefer Direct Flight? ✈️</label>
+    <select id="direct" name="direct" required>
+      <option value="">-- Select --</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+    <div class="hint">Faster or cheaper? It's your choice!</div>
+  </div>
+
+  <div>
+    <label for="room">Room Type 🛏️</label>
+    <select id="room" name="room" required>
+      <option value="">-- Select --</option>
+      <option value="Standard Room">Standard Room</option>
+      <option value="Suite">Suite</option>
+      <option value="Apartment">Apartment</option>
+    </select>
+    <div class="hint">Pick the room that fits your trip!</div>
+  </div>
+
+  <div>
+    <label for="family">Traveling With 🧑‍🤝‍🧑</label>
+    <select id="family" name="family" required>
+      <option value="">-- Select --</option>
+      <option value="Adults Only">Adults Only</option>
+      <option value="Family with Kids">Family with Kids</option>
+    </select>
+    <div class="hint">Tell us who's coming with you!</div>
+  </div>
+
+  <div>
+    <label for="tour">Interested in Guided Tours? 🗺️</label>
+    <select id="tour" name="tour" required>
+      <option value="">-- Select --</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+    <div class="hint">Add more adventures to your journey!</div>
+  </div>
+
+  <button type="submit" class="submit-btn">Find My Perfect Vacation</button>
+</form>
+
+<div class="links-section" id="linksSection" style="display:none;">
+  <h2>Here are your personalized, affordable, and perfect vacation deals!</h2>
+  <a id="bookingLink" class="link-btn" target="_blank">Booking.com Deals</a>
+  <a id="expediaLink" class="link-btn" target="_blank">Expedia.com Deals</a>
+  <a id="skyscannerLink" class="link-btn" target="_blank">Skyscanner Flights</a>
 </div>
+</div>
+
+<script>
+  document.getElementById('travelForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const country = document.getElementById('country').value.trim();
+    const city = document.getElementById('city').value.trim();
+    const departure = document.getElementById('departure').value;
+    const retDate = document.getElementById('return').value;
+
+    if (!country || !city || !departure || !retDate) {
+      alert("Please fill all fields!");
+      return;
+    }
+
+    const checkin = departure;
+    const checkout = retDate;
+    const destination = encodeURIComponent(city);
+
+    const bookingLink = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2`;
+    const expediaLink = `https://www.expedia.com/Hotel-Search?destination=${destination}&startDate=${checkin}&endDate=${checkout}&adults=2`;
+    const skyscannerLink = `https://www.skyscanner.com/transport/flights/?query=${destination}+${checkin}`;
+
+    document.getElementById('bookingLink').href = bookingLink;
+    document.getElementById('expediaLink').href = expediaLink;
+    document.getElementById('skyscannerLink').href = skyscannerLink;
+
+    document.getElementById('linksSection').style.display = 'block';
+    document.getElementById('linksSection').scrollIntoView({ behavior: "smooth" });
+  });
+</script>
 
 </body>
 </html>
+
 
