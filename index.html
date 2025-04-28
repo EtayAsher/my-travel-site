@@ -7,18 +7,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
+    :root {
+      --primary-color: #0077b6;
+      --secondary-color: #00b4d8;
+      --accent-color: #caf0f8;
+      --yellow-pastel: #fff3b0;
+    }
     body, html {
       margin: 0;
       padding: 0;
       font-family: 'Poppins', sans-serif;
       color: #333;
       scroll-behavior: smooth;
-      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center/cover;
+      background: linear-gradient(to bottom, #0077b6, #00b4d8);
       height: 100%;
       width: 100%;
     }
     .overlay {
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.9);
       width: 100%;
       min-height: 100%;
       padding: 0;
@@ -26,93 +32,151 @@
     header {
       text-align: center;
       padding: 100px 20px 60px;
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      color: white;
     }
     header h1 {
       font-size: 3.5rem;
-      color: #0077b6;
       margin-bottom: 20px;
     }
     header p {
       font-size: 1.5rem;
-      color: #023e8a;
     }
     section {
       padding: 60px 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
-    .features, .testimonials {
+    /* About Us Section */
+    .about {
+      background: linear-gradient(135deg, #d4f1f9, #ffffff);
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 40px;
+      margin-bottom: 60px;
+    }
+    .about h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+    .about p {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    /* Features Section */
+    .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
+      background: linear-gradient(135deg, #caf0f8, #ffffff);
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 40px;
+      margin-bottom: 60px;
     }
-    .feature, .testimonial {
-      background: white;
+    .feature {
+      background: #ffffff;
+      border-radius: 15px;
       padding: 20px;
-      border-radius: 10px;
+      text-align: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: transform 0.3s;
     }
-    .feature:hover, .testimonial:hover {
+    .feature:hover {
       transform: translateY(-5px);
     }
-    .feature h3, .testimonial h3 {
-      color: #0077b6;
+    .feature h3 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
     }
+    /* Timeline Section */
     .timeline {
       position: relative;
       margin: 60px 0;
+      background: linear-gradient(135deg, #edf6f9, #d9f9ff);
+      border-radius: 20px;
+      padding: 40px 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
-    .timeline::after {
+    .timeline::before {
       content: '';
       position: absolute;
-      width: 4px;
-      background-color: #0077b6;
+      left: 50%;
       top: 0;
       bottom: 0;
-      left: 50%;
-      margin-left: -2px;
+      width: 4px;
+      background: var(--primary-color);
+      transform: translateX(-50%);
     }
     .timeline-item {
-      padding: 20px 30px;
       position: relative;
       width: 50%;
+      padding: 20px 40px;
+      box-sizing: border-box;
     }
     .timeline-item.left {
       left: 0;
+      text-align: right;
     }
     .timeline-item.right {
       left: 50%;
+      text-align: left;
+    }
+    .timeline-content {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     .timeline-item::after {
       content: '';
       position: absolute;
       width: 20px;
       height: 20px;
-      right: -10px;
-      background-color: #0077b6;
+      background: var(--secondary-color);
       border: 4px solid white;
-      top: 15px;
       border-radius: 50%;
+      top: 20px;
       z-index: 1;
+    }
+    .timeline-item.left::after {
+      right: -10px;
     }
     .timeline-item.right::after {
       left: -10px;
     }
-    .timeline-content {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      position: relative;
+    /* Testimonials */
+    .testimonials {
+      background: var(--yellow-pastel);
+      padding: 60px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-top: 60px;
+      margin-bottom: 60px;
     }
+    .testimonials h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: var(--primary-color);
+    }
+    .testimonial {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    /* CTA Section */
     .cta {
       text-align: center;
-      background: #0077b6;
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
       color: white;
       padding: 60px 20px;
       border-radius: 20px;
       margin: 60px 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
     .cta h2 {
       margin-bottom: 20px;
@@ -129,19 +193,23 @@
       font-weight: 600;
     }
     @media screen and (max-width: 768px) {
-      .timeline::after {
-        left: 90px;
+      .timeline::before {
+        left: 20px;
       }
       .timeline-item {
         width: 100%;
-        padding-left: 120px;
-        padding-right: 30px;
+        padding-left: 60px;
+        padding-right: 20px;
+        margin-bottom: 40px;
       }
       .timeline-item.right {
-        left: 0%;
+        left: 0;
+      }
+      .timeline-item.left {
+        left: 0;
       }
       .timeline-item::after {
-        left: 60px;
+        left: 0px;
       }
     }
   </style>
@@ -153,7 +221,7 @@
     <p>We connect you with the best travel experiences worldwide.</p>
   </header>
 
-  <section data-aos="fade-up">
+  <section class="about" data-aos="fade-up">
     <h2>About Us</h2>
     <p>At My Travel Site, we believe traveling should be effortless, exciting, and tailored to you. Our AI technology finds the best flights, hotels, and experiences based on your preferences, making your dream vacation a reality.</p>
   </section>
@@ -227,8 +295,6 @@
 </script>
 </body>
 </html>
-
-
 
 
 
