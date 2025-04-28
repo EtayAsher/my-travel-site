@@ -1,85 +1,157 @@
-<!-- New index.html for a lively, young, luxurious travel site -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dream Travel - Your Next Adventure Awaits</title>
+  <title>My Travel Site - Explore the World with Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    body { margin: 0; font-family: 'Poppins', sans-serif; background: #f9f9f9; overflow-x: hidden; }
-    header { height: 100vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover no-repeat; color: white; text-align: center; display: flex; flex-direction: column; justify-content: center; padding: 20px; }
-    header h1 { font-size: 3em; margin-bottom: 10px; }
-    header p { font-size: 1.5em; margin-bottom: 20px; }
-    .email-box { margin-top: 20px; }
-    input[type="email"] { padding: 12px; width: 300px; border: none; border-radius: 5px; }
-    button { padding: 12px 25px; background: #ff5e57; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px; font-size: 1em; }
-    section { padding: 80px 20px; text-align: center; }
-    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 40px; }
-    .feature { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
-    .feature:hover { transform: translateY(-10px); }
-    .animated { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
-    .animated.visible { opacity: 1; transform: translateY(0); }
-    footer { background: #222; color: white; padding: 20px; text-align: center; font-size: 0.9em; }
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      scroll-behavior: smooth;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center/cover;
+      height: 100%;
+      width: 100%;
+    }
+    .overlay {
+      background: rgba(255,255,255,0.85);
+      width: 100%;
+      min-height: 100%;
+      padding: 0;
+    }
+    header {
+      text-align: center;
+      padding: 100px 20px 60px;
+    }
+    header h1 {
+      font-size: 3.5rem;
+      color: #0077b6;
+      margin-bottom: 20px;
+    }
+    header p {
+      font-size: 1.5rem;
+      color: #023e8a;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .features, .how-it-works, .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .feature, .step, .testimonial {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .feature:hover, .step:hover, .testimonial:hover {
+      transform: translateY(-5px);
+    }
+    .feature h3, .step h3, .testimonial h3 {
+      color: #0077b6;
+    }
+    .cta {
+      text-align: center;
+      background: #0077b6;
+      color: white;
+      padding: 60px 20px;
+      border-radius: 20px;
+      margin: 60px 20px;
+    }
+    .cta h2 {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+    }
+    .cta a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 15px 30px;
+      background: white;
+      color: #0077b6;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Dream Your Next Vacation</h1>
-    <p>Discover hotels, flights, and adventures in over 100 countries</p>
-    <div class="email-box">
-      <input type="email" id="email" placeholder="Enter your email">
-      <button onclick="startSearch()">Get Started</button>
-    </div>
+<div class="overlay">
+  <header data-aos="fade-down">
+    <h1>Discover Your Next Adventure</h1>
+    <p>We connect you with the best travel experiences worldwide.</p>
   </header>
 
-  <section class="animated">
-    <h2>Why Book With Us?</h2>
-    <div class="feature-grid">
-      <div class="feature">Luxury Hotels at Best Prices</div>
-      <div class="feature">Fast and Easy Flight Booking</div>
-      <div class="feature">Custom Packages for Every Traveler</div>
-      <div class="feature">Real-Time Special Deals</div>
+  <section data-aos="fade-up">
+    <h2>About Us</h2>
+    <p>At My Travel Site, we believe traveling should be effortless, exciting, and tailored to you. Our AI technology finds the best flights, hotels, and experiences based on your preferences, making your dream vacation a reality.</p>
+  </section>
+
+  <section class="features" data-aos="fade-up">
+    <div class="feature">
+      <h3>Smart Search</h3>
+      <p>Find customized deals in seconds with our intelligent recommendation engine.</p>
+    </div>
+    <div class="feature">
+      <h3>Real-Time Deals</h3>
+      <p>We provide up-to-date prices and exclusive offers to save you money.</p>
+    </div>
+    <div class="feature">
+      <h3>Trusted Partners</h3>
+      <p>We collaborate with top brands like Booking.com and Expedia for your peace of mind.</p>
     </div>
   </section>
 
-  <section class="animated">
-    <h2>Explore the World</h2>
-    <p>From Paris to Bali, Tokyo to New York – find your perfect trip with us.</p>
-  </section>
-
-  <section class="animated">
-    <h2>What Makes Us Different?</h2>
-    <div class="feature-grid">
-      <div class="feature">Instant Matching to Best Deals</div>
-      <div class="feature">24/7 Personal Travel Support</div>
-      <div class="feature">Smart Recommendations with AI</div>
-      <div class="feature">Safe and Trusted Partners</div>
+  <section class="how-it-works" data-aos="fade-up">
+    <h2>How It Works</h2>
+    <div class="step">
+      <h3>1. Tell Us Your Dream</h3>
+      <p>Share your preferences: destination, budget, travel style.</p>
+    </div>
+    <div class="step">
+      <h3>2. We Search for You</h3>
+      <p>Our AI finds the best options tailored to your needs.</p>
+    </div>
+    <div class="step">
+      <h3>3. You Book & Enjoy</h3>
+      <p>Pick your favorite deal and get ready for an unforgettable trip!</p>
     </div>
   </section>
 
-  <footer>
-    Dream Travel &copy; 2025 | All rights reserved
-  </footer>
+  <section class="testimonials" data-aos="fade-up">
+    <h2>What Our Travelers Say</h2>
+    <div class="testimonial">
+      <h3>Sarah W.</h3>
+      <p>"I found an amazing vacation to Italy within minutes. Highly recommend!"</p>
+    </div>
+    <div class="testimonial">
+      <h3>James L.</h3>
+      <p>"Great service, easy to use, and the deals were unbeatable."</p>
+    </div>
+    <div class="testimonial">
+      <h3>Ana R.</h3>
+      <p>"Booking was effortless and the AI suggestions were spot on!"</p>
+    </div>
+  </section>
 
-  <script>
-    function startSearch() {
-      const email = document.getElementById('email').value;
-      if (email) {
-        window.location.href = 'chat.html';
-      } else {
-        alert('Please enter your email.');
-      }
-    }
+  <section class="cta" data-aos="fade-up">
+    <h2>Ready to Start Your Journey?</h2>
+    <a href="chat.html">Find My Deal</a>
+  </section>
+</div>
 
-    window.addEventListener('scroll', () => {
-      document.querySelectorAll('.animated').forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 50) {
-          section.classList.add('visible');
-        }
-      });
-    });
-  </script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
 </body>
 </html>
 
