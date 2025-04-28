@@ -3,181 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Chat Assistant</title>
+  <title>Travel Assistant - Plan Your Trip</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     :root {
       --primary-color: #0077b6;
       --secondary-color: #00b4d8;
-      --accent-color: #caf0f8;
-      --user-message-color: #0077b6;
-      --bot-message-color: #00b4d8;
+      --background-gradient: linear-gradient(135deg, #0077b6, #00b4d8);
+      --white: #ffffff;
+      --light-gray: #f1f1f1;
     }
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
     body, html {
       height: 100%;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      background: var(--background-gradient);
       display: flex;
-      flex-direction: column;
-    }
-    .chat-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: center;
       padding: 20px;
-      overflow-y: auto;
     }
-    .message {
-      max-width: 70%;
-      padding: 15px 20px;
-      margin: 10px;
+    .chat-form-container {
+      background: var(--white);
+      padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      animation: fadeIn 0.5s ease-in;
-      word-wrap: break-word;
-      position: relative;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 500px;
+      animation: fadeIn 1s ease-in-out;
     }
-    .bot {
-      align-self: flex-start;
-      background: var(--bot-message-color);
-      color: white;
+    .chat-form-container h1 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 20px;
     }
-    .user {
-      align-self: flex-end;
-      background: var(--user-message-color);
-      color: white;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    .chat-input {
+    form {
       display: flex;
-      padding: 20px;
-      background: rgba(255,255,255,0.9);
-      border-top: 1px solid #ccc;
+      flex-direction: column;
+      gap: 20px;
     }
-    .chat-input input {
-      flex: 1;
+    label {
+      font-weight: 600;
+      color: #333;
+    }
+    select, input, textarea {
       padding: 12px;
+      border: 2px solid var(--light-gray);
+      border-radius: 15px;
+      background: #fafafa;
       font-size: 1rem;
-      border-radius: 30px;
-      border: 1px solid #ccc;
-      margin-right: 10px;
       outline: none;
+      transition: border 0.3s;
     }
-    .chat-input button {
-      padding: 12px 25px;
-      border: none;
-      border-radius: 30px;
+    select:focus, input:focus, textarea:focus {
+      border-color: var(--primary-color);
+      background: #fff;
+    }
+    .submit-btn {
       background: linear-gradient(135deg, #00b4d8, #0077b6);
       color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.3s;
     }
-    .chat-input button:hover {
+    .submit-btn:hover {
       background: linear-gradient(135deg, #0077b6, #00b4d8);
     }
-    .link-button {
-      display: inline-block;
-      padding: 8px 15px;
-      background: white;
-      color: #0077b6;
-      border: 2px solid #0077b6;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-top: 10px;
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
     }
-    @media screen and (max-width: 768px) {
-      .message {
-        max-width: 85%;
-      }
-      .chat-input input {
-        font-size: 0.9rem;
-      }
-      .chat-input button {
-        padding: 10px 20px;
-        font-size: 0.9rem;
+    @media screen and (max-width: 600px) {
+      .chat-form-container {
+        padding: 20px;
       }
     }
   </style>
 </head>
 <body>
 
-<div class="chat-container" id="chat">
-  <div class="message bot" data-aos="fade-right">
-    Hi there! 👋 Where would you like to travel?
-  </div>
+<div class="chat-form-container">
+  <h1>Plan Your Dream Trip ✈️</h1>
+  <form>
+    <div>
+      <label for="country">Select a Country:</label>
+      <input type="text" id="country" name="country" placeholder="e.g., France, Japan, USA" required>
+    </div>
+
+    <div>
+      <label for="city">Enter City:</label>
+      <input type="text" id="city" name="city" placeholder="e.g., Paris" required>
+    </div>
+
+    <div>
+      <label for="departure">Departure Date:</label>
+      <input type="date" id="departure" name="departure" required>
+    </div>
+
+    <div>
+      <label for="return">Return Date:</label>
+      <input type="date" id="return" name="return" required>
+    </div>
+
+    <div>
+      <label for="budget">Budget ($):</label>
+      <input type="number" id="budget" name="budget" placeholder="e.g., 2000" required>
+    </div>
+
+    <div>
+      <label for="travelType">Travel Type:</label>
+      <select id="travelType" name="travelType" required>
+        <option value="">-- Select Travel Type --</option>
+        <option value="Relaxation">Relaxation</option>
+        <option value="Adventure">Adventure</option>
+        <option value="City Tour">City Tour</option>
+        <option value="Romantic">Romantic</option>
+        <option value="Family">Family</option>
+      </select>
+    </div>
+
+    <button type="submit" class="submit-btn">Find My Trip 🌎</button>
+  </form>
 </div>
-
-<div class="chat-input">
-  <input type="text" id="userInput" placeholder="Type your answer...">
-  <button onclick="sendMessage()">Send</button>
-</div>
-
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-
-  const chat = document.getElementById('chat');
-
-  const questions = [
-    "Which country are you interested in? (50 options available)",
-    "Which city specifically?",
-    "When would you like to depart? (Enter date)",
-    "When would you like to return? (Enter date)",
-    "What is your approximate budget?",
-    "What type of trip are you looking for? (Relaxation, Adventure, City Tour, etc.)",
-    "Amazing! Let me find some options for you... ✈️"
-  ];
-
-  let step = 0;
-
-  function sendMessage() {
-    const input = document.getElementById('userInput');
-    const userText = input.value.trim();
-    if (userText === '') return;
-
-    const userMessage = document.createElement('div');
-    userMessage.className = 'message user';
-    userMessage.setAttribute('data-aos', 'fade-left');
-    userMessage.innerText = userText;
-    chat.appendChild(userMessage);
-    input.value = '';
-    chat.scrollTop = chat.scrollHeight;
-
-    setTimeout(() => {
-      if (step < questions.length) {
-        const botMessage = document.createElement('div');
-        botMessage.className = 'message bot';
-        botMessage.setAttribute('data-aos', 'fade-right');
-        botMessage.innerText = questions[step];
-        chat.appendChild(botMessage);
-        chat.scrollTop = chat.scrollHeight;
-        step++;
-      } else {
-        const botMessage = document.createElement('div');
-        botMessage.className = 'message bot';
-        botMessage.setAttribute('data-aos', 'fade-right');
-        botMessage.innerHTML = `Here are some great options for you! <br><a class="link-button" href="#">View Deals ✈️</a>`;
-        chat.appendChild(botMessage);
-        chat.scrollTop = chat.scrollHeight;
-      }
-    }, 600);
-  }
-</script>
 
 </body>
 </html>
-
 
