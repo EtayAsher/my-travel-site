@@ -1,156 +1,183 @@
-<!-- Full Travel Smart Form - chat.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Find Your Perfect Vacation</title>
+  <title>Travel Chat Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    body { margin: 0; font-family: 'Poppins', sans-serif; background: #f5f5f5; }
-    header { background: linear-gradient(to right, #00c6ff, #0072ff); color: white; padding: 60px 20px; text-align: center; }
-    header h1 { font-size: 3em; margin-bottom: 10px; }
-    form { max-width: 800px; margin: 30px auto; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 20px; }
-    label { font-weight: bold; margin-top: 10px; }
-    select, input, button { padding: 12px; border: 1px solid #ccc; border-radius: 8px; width: 100%; font-size: 1em; }
-    button { background: #ff5e57; color: white; border: none; cursor: pointer; font-size: 1.2em; }
-    button:hover { background: #ff3d3d; }
-    .results { max-width: 800px; margin: 30px auto; display: grid; gap: 20px; }
-    .result-link { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; transition: 0.3s; }
-    .result-link:hover { transform: translateY(-5px); }
-    .result-link a { text-decoration: none; color: #0072ff; font-weight: bold; }
+    :root {
+      --primary-color: #0077b6;
+      --secondary-color: #00b4d8;
+      --accent-color: #caf0f8;
+      --user-message-color: #0077b6;
+      --bot-message-color: #00b4d8;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .message {
+      max-width: 70%;
+      padding: 15px 20px;
+      margin: 10px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      animation: fadeIn 0.5s ease-in;
+      word-wrap: break-word;
+      position: relative;
+    }
+    .bot {
+      align-self: flex-start;
+      background: var(--bot-message-color);
+      color: white;
+    }
+    .user {
+      align-self: flex-end;
+      background: var(--user-message-color);
+      color: white;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .chat-input {
+      display: flex;
+      padding: 20px;
+      background: rgba(255,255,255,0.9);
+      border-top: 1px solid #ccc;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 30px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+      outline: none;
+    }
+    .chat-input button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .chat-input button:hover {
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
+    }
+    .link-button {
+      display: inline-block;
+      padding: 8px 15px;
+      background: white;
+      color: #0077b6;
+      border: 2px solid #0077b6;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    @media screen and (max-width: 768px) {
+      .message {
+        max-width: 85%;
+      }
+      .chat-input input {
+        font-size: 0.9rem;
+      }
+      .chat-input button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
-
 <body>
 
-<header>
-  <h1>Plan Your Dream Vacation</h1>
-  <p>Hotels, Flights, and Packages in Over 50 Countries</p>
-</header>
+<div class="chat-container" id="chat">
+  <div class="message bot" data-aos="fade-right">
+    Hi there! 👋 Where would you like to travel?
+  </div>
+</div>
 
-<form id="travelForm">
-  <label for="country">Select a Country:</label>
-  <select id="country" required>
-    <option value="">-- Select Country --</option>
-    <option>Spain</option>
-    <option>Italy</option>
-    <option>United States</option>
-    <option>China</option>
-    <option>Turkey</option>
-    <option>Mexico</option>
-    <option>Thailand</option>
-    <option>Germany</option>
-    <option>United Kingdom</option>
-    <option>Japan</option>
-    <option>Austria</option>
-    <option>Greece</option>
-    <option>Canada</option>
-    <option>Russia</option>
-    <option>Portugal</option>
-    <option>Poland</option>
-    <option>Netherlands</option>
-    <option>Croatia</option>
-    <option>Switzerland</option>
-    <option>South Korea</option>
-    <option>Brazil</option>
-    <option>Egypt</option>
-    <option>Australia</option>
-    <option>India</option>
-    <option>South Africa</option>
-    <option>Vietnam</option>
-    <option>Indonesia</option>
-    <option>Dubai</option>
-    <option>Morocco</option>
-    <option>Malaysia</option>
-    <option>Belgium</option>
-    <option>Hungary</option>
-    <option>Czech Republic</option>
-    <option>Denmark</option>
-    <option>Sweden</option>
-    <option>Finland</option>
-    <option>Norway</option>
-    <option>Iceland</option>
-    <option>Singapore</option>
-    <option>Philippines</option>
-    <option>Cuba</option>
-    <option>Sri Lanka</option>
-    <option>Cyprus</option>
-    <option>Qatar</option>
-    <option>New Zealand</option>
-    <option>Tanzania</option>
-    <option>Saudi Arabia</option>
-    <option>Israel</option>
-    <option>Jordan</option>
-  </select>
+<div class="chat-input">
+  <input type="text" id="userInput" placeholder="Type your answer...">
+  <button onclick="sendMessage()">Send</button>
+</div>
 
-  <label for="city">Enter City:</label>
-  <input type="text" id="city" placeholder="e.g., Paris" required>
-
-  <label for="departure">Departure Date:</label>
-  <input type="date" id="departure" required>
-
-  <label for="return">Return Date:</label>
-  <input type="date" id="return" required>
-
-  <label for="budget">Budget ($):</label>
-  <input type="number" id="budget" placeholder="e.g., 2000" required>
-
-  <label for="type">Travel Type:</label>
-  <select id="type" required>
-    <option value="">-- Select --</option>
-    <option>Solo</option>
-    <option>Couple</option>
-    <option>Family</option>
-    <option>Friends</option>
-  </select>
-
-  <label for="style">Vacation Style:</label>
-  <select id="style" required>
-    <option value="">-- Select --</option>
-    <option>Relaxation</option>
-    <option>Adventure</option>
-    <option>Luxury</option>
-    <option>Nature</option>
-    <option>Nightlife</option>
-  </select>
-
-  <label for="hotel">Hotel Rating:</label>
-  <select id="hotel" required>
-    <option value="">-- Select --</option>
-    <option>3 Stars</option>
-    <option>4 Stars</option>
-    <option>5 Stars</option>
-  </select>
-
-  <button type="submit">Find My Vacation</button>
-</form>
-
-<div id="results" class="results"></div>
-
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  document.getElementById('travelForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+  AOS.init();
 
-    const country = document.getElementById('country').value;
-    const city = document.getElementById('city').value;
-    const departure = document.getElementById('departure').value;
-    const ret = document.getElementById('return').value;
+  const chat = document.getElementById('chat');
 
-    const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = '<p>Finding the best deals for you...</p>';
+  const questions = [
+    "Which country are you interested in? (50 options available)",
+    "Which city specifically?",
+    "When would you like to depart? (Enter date)",
+    "When would you like to return? (Enter date)",
+    "What is your approximate budget?",
+    "What type of trip are you looking for? (Relaxation, Adventure, City Tour, etc.)",
+    "Amazing! Let me find some options for you... ✈️"
+  ];
+
+  let step = 0;
+
+  function sendMessage() {
+    const input = document.getElementById('userInput');
+    const userText = input.value.trim();
+    if (userText === '') return;
+
+    const userMessage = document.createElement('div');
+    userMessage.className = 'message user';
+    userMessage.setAttribute('data-aos', 'fade-left');
+    userMessage.innerText = userText;
+    chat.appendChild(userMessage);
+    input.value = '';
+    chat.scrollTop = chat.scrollHeight;
 
     setTimeout(() => {
-      resultsDiv.innerHTML = `
-        <div class="result-link"><a href="https://www.booking.com/searchresults.html?ss=${city}%20${country}&checkin_year_month_monthday=${departure}&checkout_year_month_monthday=${ret}" target="_blank">Find Hotels in ${city}, ${country} (Booking.com)</a></div>
-        <div class="result-link"><a href="https://www.skyscanner.net/transport/flights/?destination=${city}&adults=1&outbounddate=${departure}&inbounddate=${ret}" target="_blank">Find Flights to ${city} (Skyscanner)</a></div>
-        <div class="result-link"><a href="https://www.expedia.com/Hotel-Search?destination=${city}%20${country}&startDate=${departure}&endDate=${ret}" target="_blank">Explore Packages in ${city}, ${country} (Expedia)</a></div>
-      `;
-    }, 1500);
-  });
+      if (step < questions.length) {
+        const botMessage = document.createElement('div');
+        botMessage.className = 'message bot';
+        botMessage.setAttribute('data-aos', 'fade-right');
+        botMessage.innerText = questions[step];
+        chat.appendChild(botMessage);
+        chat.scrollTop = chat.scrollHeight;
+        step++;
+      } else {
+        const botMessage = document.createElement('div');
+        botMessage.className = 'message bot';
+        botMessage.setAttribute('data-aos', 'fade-right');
+        botMessage.innerHTML = `Here are some great options for you! <br><a class="link-button" href="#">View Deals ✈️</a>`;
+        chat.appendChild(botMessage);
+        chat.scrollTop = chat.scrollHeight;
+      }
+    }, 600);
+  }
 </script>
 
 </body>
 </html>
-
 
 
