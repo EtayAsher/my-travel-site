@@ -47,9 +47,7 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-    .about, .features, .timeline, .testimonials, .cta {
-      margin-bottom: 60px;
-    }
+    /* Quick Form */
     .quick-form {
       background: #ffffff;
       border-radius: 15px;
@@ -83,6 +81,171 @@
     }
     .quick-form button:hover {
       background-color: var(--secondary-color);
+    }
+    /* About Us Section */
+    .about {
+      background: linear-gradient(135deg, #d4f1f9, #ffffff);
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 40px;
+      margin-bottom: 60px;
+    }
+    .about h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+    .about p {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    /* Features Section */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      background: linear-gradient(135deg, #caf0f8, #ffffff);
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 40px;
+      margin-bottom: 60px;
+    }
+    .feature {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .feature:hover {
+      transform: translateY(-5px);
+    }
+    .feature h3 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+    /* Timeline Section */
+    .timeline {
+      position: relative;
+      margin: 60px 0;
+      background: linear-gradient(135deg, #edf6f9, #d9f9ff);
+      border-radius: 20px;
+      padding: 40px 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--primary-color);
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 20px 40px;
+      box-sizing: border-box;
+    }
+    .timeline-item.left {
+      left: 0;
+      text-align: right;
+    }
+    .timeline-item.right {
+      left: 50%;
+      text-align: left;
+    }
+    .timeline-content {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--secondary-color);
+      border: 4px solid white;
+      border-radius: 50%;
+      top: 20px;
+      z-index: 1;
+    }
+    .timeline-item.left::after {
+      right: -10px;
+    }
+    .timeline-item.right::after {
+      left: -10px;
+    }
+    /* Testimonials */
+    .testimonials {
+      background: var(--yellow-pastel);
+      padding: 60px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-top: 60px;
+      margin-bottom: 60px;
+    }
+    .testimonials h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: var(--primary-color);
+    }
+    .testimonial {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    /* CTA Section */
+    .cta {
+      text-align: center;
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
+      color: white;
+      padding: 60px 20px;
+      border-radius: 20px;
+      margin: 60px 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .cta h2 {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+    }
+    .cta a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 15px 30px;
+      background: white;
+      color: #0077b6;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    @media screen and (max-width: 768px) {
+      .timeline::before {
+        left: 20px;
+      }
+      .timeline-item {
+        width: 100%;
+        padding-left: 60px;
+        padding-right: 20px;
+        margin-bottom: 40px;
+      }
+      .timeline-item.right {
+        left: 0;
+      }
+      .timeline-item.left {
+        left: 0;
+      }
+      .timeline-item::after {
+        left: 0px;
+      }
     }
   </style>
 </head>
@@ -123,28 +286,24 @@
 
   <section class="timeline" data-aos="fade-up">
     <h2 style="text-align:center; margin-bottom: 40px;">How It Works</h2>
-
     <div class="timeline-item left" data-aos="fade-right">
       <div class="timeline-content">
         <h3>1. Tell Us Your Dream</h3>
         <p>Share your preferences: destination, budget, travel style.</p>
       </div>
     </div>
-
     <div class="timeline-item right" data-aos="fade-left">
       <div class="timeline-content">
         <h3>2. We Search for You</h3>
         <p>Our AI finds the best options tailored to your needs.</p>
       </div>
     </div>
-
     <div class="timeline-item left" data-aos="fade-right">
       <div class="timeline-content">
         <h3>3. You Book & Enjoy</h3>
         <p>Pick your favorite deal and get ready for an unforgettable trip!</p>
       </div>
     </div>
-
   </section>
 
   <section class="testimonials" data-aos="fade-up">
