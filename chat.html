@@ -4,18 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ✅ SEO TAGS -->
-  <meta name="description" content="Chat with our AI travel assistant and get personalized hotel and flight deals instantly.">
-  <meta name="keywords" content="AI travel chat, vacation assistant, book trip with AI, travel chatbot, hotel suggestions, AI trip planner">
+  <!-- ✅ SEO META TAGS -->
+  <meta name="description" content="Plan your next vacation using TripWise AI – your personal AI travel assistant for flights, hotels, and experiences.">
+  <meta name="keywords" content="AI travel planner, smart vacation, AI vacation deals, book trip with AI, hotel and flight deals, travel assistant AI">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Etay Asher">
+  <meta property="og:title" content="TripWise AI – Your Smart Travel Companion">
+  <meta property="og:description" content="Discover the future of travel with AI. Book smarter, faster, and cheaper.">
+  <meta property="og:image" content="https://etayasher.github.io/my-travel-site/preview-image.jpg">
+  <meta property="og:url" content="https://etayasher.github.io/my-travel-site">
+  <meta name="twitter:card" content="summary_large_image">
 
   <title>TripWise AI - Find Your Perfect Vacation</title>
+  <link rel="icon" href="earth-icon.png.png" type="image/png">
 
-  <!-- פונט יוקרתי + אייקונים אמיתיים -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link rel="icon" href="earth-icon.png.png" type="image/png">
 
   <style>
     :root {
@@ -46,7 +50,7 @@
       border-radius: 25px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       width: 100%;
-      max-width: 550px;
+      max-width: 600px;
       margin-top: 20px;
       animation: fadeIn 1s ease;
     }
@@ -54,7 +58,7 @@
       text-align: center;
       color: var(--primary);
       margin-bottom: 10px;
-      font-size: 2rem;
+      font-size: 2.2rem;
     }
     .subtitle {
       text-align: center;
@@ -85,7 +89,7 @@
       background: #fff;
     }
     .submit-btn {
-      background: linear-gradient(135deg, #00b4d8, #0077b6);
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
       border: none;
       border-radius: 30px;
       color: white;
@@ -96,7 +100,7 @@
       transition: background 0.3s;
     }
     .submit-btn:hover {
-      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
     }
     .links-section {
       margin-top: 30px;
@@ -176,7 +180,7 @@
       <div class="hint">Choose the country you dream to visit!</div>
     </div>
     <div>
-      <label for="city">City 🌇️</label>
+      <label for="city">City 🏙️</label>
       <input type="text" id="city" name="city" placeholder="e.g., Rome, Tokyo, New York" required>
       <div class="hint">Which city are you planning to explore?</div>
     </div>
@@ -216,7 +220,7 @@
       <div class="hint">Faster or cheaper? It's your choice!</div>
     </div>
     <div>
-      <label for="room">Room Type 📏</label>
+      <label for="room">Room Type 🛏️</label>
       <select id="room" name="room" required>
         <option value="">-- Select --</option>
         <option value="Standard Room">Standard Room</option>
@@ -226,7 +230,7 @@
       <div class="hint">Pick the room that fits your trip!</div>
     </div>
     <div>
-      <label for="family">Traveling With 🦑‍🦑</label>
+      <label for="family">Traveling With 🧑‍🤝‍🧑</label>
       <select id="family" name="family" required>
         <option value="">-- Select --</option>
         <option value="Adults Only">Adults Only</option>
@@ -235,7 +239,7 @@
       <div class="hint">Tell us who's coming with you!</div>
     </div>
     <div>
-      <label for="tour">Interested in Guided Tours? 🗚️</label>
+      <label for="tour">Interested in Guided Tours? 🗺️</label>
       <select id="tour" name="tour" required>
         <option value="">-- Select --</option>
         <option value="Yes">Yes</option>
@@ -257,9 +261,9 @@
 <div class="share-section">
   <h2>Share your perfect trip with friends!</h2>
   <div class="social-icons">
-    <a href="https://wa.me/?text=Check%20out%20this%20amazing%20travel%20site:%20https://smartvacationai.netlify.app" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/?text=Check%20out%20this%20amazing%20travel%20site:%20https://etayasher.github.io/my-travel-site" target="_blank"><i class="fab fa-whatsapp"></i></a>
     <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https://smartvacationai.netlify.app" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://etayasher.github.io/my-travel-site" target="_blank"><i class="fab fa-facebook-f"></i></a>
   </div>
 </div>
 
@@ -293,6 +297,5 @@
     document.getElementById('linksSection').scrollIntoView({ behavior: "smooth" });
   });
 </script>
-
 </body>
 </html>
