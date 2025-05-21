@@ -15,9 +15,8 @@
   <meta property="og:url" content="https://etayasher.github.io/my-travel-site">
   <meta name="twitter:card" content="summary_large_image">
 
-  <title>TripWise AI - Find Your Perfect Vacation</title>
+  <title>TripWise AI – Find Your Perfect Vacation</title>
   <link rel="icon" href="earth-icon.png.png" type="image/png">
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
@@ -50,7 +49,7 @@
       border-radius: 25px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       width: 100%;
-      max-width: 600px;
+      max-width: 550px;
       margin-top: 20px;
       animation: fadeIn 1s ease;
     }
@@ -58,7 +57,7 @@
       text-align: center;
       color: var(--primary);
       margin-bottom: 10px;
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
     .subtitle {
       text-align: center;
@@ -89,7 +88,7 @@
       background: #fff;
     }
     .submit-btn {
-      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
       border: none;
       border-radius: 30px;
       color: white;
@@ -100,7 +99,7 @@
       transition: background 0.3s;
     }
     .submit-btn:hover {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
     }
     .links-section {
       margin-top: 30px;
@@ -168,7 +167,6 @@
   </style>
 </head>
 <body>
-
 <div class="form-container">
   <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation in Seconds</h1>
   <p class="subtitle">No sign-up needed. Just great travel deals.</p>
@@ -271,21 +269,20 @@
   document.getElementById('travelForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const country = document.getElementById('country').value.trim();
     const city = document.getElementById('city').value.trim();
-    const departure = document.getElementById('departure').value;
-    const retDate = document.getElementById('return').value;
+    const checkin = document.getElementById('departure').value;
+    const checkout = document.getElementById('return').value;
+    const budget = parseInt(document.getElementById('budget').value);
+    const starsRaw = document.getElementById('hotel').value;
 
-    if (!country || !city || !departure || !retDate) {
-      alert("Please fill all fields!");
-      return;
-    }
+    let stars = '';
+    if (starsRaw.includes('3')) stars = '3';
+    else if (starsRaw.includes('4')) stars = '4';
+    else if (starsRaw.includes('5')) stars = '5';
 
-    const checkin = departure;
-    const checkout = retDate;
     const destination = encodeURIComponent(city);
 
-    const bookingLink = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2`;
+    const bookingLink = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2${budget ? `&price_to=${budget}` : ''}${stars ? `&nflt=class%3D${stars}` : ''}`;
     const expediaLink = `https://www.expedia.com/Hotel-Search?destination=${destination}&startDate=${checkin}&endDate=${checkout}&adults=2`;
     const skyscannerLink = `https://www.skyscanner.com/transport/flights/?query=${destination}+${checkin}`;
 
@@ -297,5 +294,7 @@
     document.getElementById('linksSection').scrollIntoView({ behavior: "smooth" });
   });
 </script>
+
 </body>
 </html>
+
