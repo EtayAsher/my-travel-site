@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TripWise AI – Plan Your Perfect Trip</title>
 
-  <!-- ✅ SEO META TAGS -->
-  <meta name="description" content="Plan your next vacation using TripWise AI – your personal AI travel assistant for flights, hotels, and experiences.">
-  <meta name="keywords" content="AI travel planner, smart vacation, AI vacation deals, book trip with AI, hotel and flight deals, travel assistant AI">
+  <!-- SEO -->
+  <meta name="description" content="Plan your vacation using TripWise AI – your personal AI travel assistant.">
+  <meta name="keywords" content="AI travel planner, smart vacation, hotel and flight deals, travel assistant AI">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Etay Asher">
   <meta property="og:title" content="TripWise AI – Your Smart Travel Companion">
@@ -15,126 +16,99 @@
   <meta property="og:url" content="https://etayasher.github.io/my-travel-site">
   <meta name="twitter:card" content="summary_large_image">
 
-  <title>TripWise AI – Plan Your Perfect Trip</title>
+  <!-- Styles and Icons -->
   <link rel="icon" href="earth-icon.png.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
   <style>
     :root {
       --primary: #0077b6;
       --secondary: #00b4d8;
-      --background: linear-gradient(135deg, #0077b6, #00b4d8);
-      --white: #ffffff;
-      --gray: #f1f1f1;
       --accent: #ffd166;
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
+      --bg: linear-gradient(135deg, #0077b6, #00b4d8);
     }
     body {
-      background: var(--background);
-      min-height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      justify-content: center;
       padding: 20px;
     }
     .form-container {
-      background: var(--white);
+      background: white;
       padding: 30px;
-      border-radius: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      max-width: 600px;
       width: 100%;
-      max-width: 650px;
-      margin-top: 20px;
     }
     h1 {
-      text-align: center;
       color: var(--primary);
+      text-align: center;
+      font-size: 2rem;
       margin-bottom: 10px;
-      font-size: 2.2rem;
     }
     .subtitle {
       text-align: center;
       color: #555;
-      font-size: 1rem;
       margin-bottom: 20px;
     }
     form {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
     }
     label {
       font-weight: 600;
-      color: #333;
+      margin-bottom: 5px;
+      display: block;
     }
     input, select {
       padding: 12px;
-      border-radius: 15px;
-      border: 2px solid var(--gray);
-      background: #fafafa;
-      outline: none;
-      transition: 0.3s;
+      border-radius: 10px;
+      border: 1.5px solid #ccc;
+      width: 100%;
       font-size: 1rem;
     }
-    input:focus, select:focus {
-      border-color: var(--primary);
-      background: #fff;
-    }
     .submit-btn {
-      background: linear-gradient(135deg, var(--secondary), var(--primary));
-      border: none;
-      border-radius: 30px;
+      background: var(--primary);
       color: white;
-      font-weight: 600;
-      padding: 15px;
-      font-size: 1.2rem;
+      border: none;
+      padding: 14px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s;
     }
     .submit-btn:hover {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-    }
-    .hint {
-      font-size: 0.85rem;
-      color: #666;
-      margin-top: 5px;
+      background: var(--secondary);
     }
     .links-section {
-      margin-top: 30px;
+      display: none;
       text-align: center;
+      margin-top: 30px;
     }
     .link-btn {
       display: inline-block;
       background: var(--accent);
       color: #333;
-      font-weight: 600;
-      text-decoration: none;
-      padding: 12px 20px;
-      margin: 10px 5px;
+      padding: 10px 20px;
+      margin: 8px;
       border-radius: 20px;
-      transition: 0.3s;
-    }
-    .link-btn:hover {
-      background: #ffc107;
+      text-decoration: none;
+      font-weight: bold;
     }
     .share-section {
-      background: #e0f7fa;
       margin-top: 40px;
-      padding: 20px;
-      border-radius: 20px;
       text-align: center;
-    }
-    .share-section h2 {
-      color: #0077b6;
-      margin-bottom: 15px;
+      background: #e0f7fa;
+      padding: 20px;
+      border-radius: 15px;
     }
     .social-icons {
+      margin-top: 15px;
       display: flex;
       justify-content: center;
       gap: 15px;
@@ -142,22 +116,13 @@
     .social-icons a {
       background: #0077b6;
       color: white;
-      font-size: 24px;
       padding: 15px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 20px;
       text-decoration: none;
-      transition: background 0.3s;
     }
     .social-icons a:hover {
       background: #00b4d8;
-    }
-    @media screen and (max-width: 600px) {
-      .form-container {
-        padding: 20px;
-      }
     }
   </style>
 </head>
@@ -165,44 +130,66 @@
 
 <div class="form-container">
   <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation</h1>
-  <p class="subtitle">No sign-up needed. Just great travel deals.</p>
+  <p class="subtitle">No sign-up needed. Just amazing travel deals.</p>
 
   <form id="travelForm">
-    <div>
-      <label for="country">Country 🌍</label>
-      <input type="text" id="country" name="country" placeholder="e.g., Italy" required>
-      <div class="hint">Choose the country you want to visit</div>
-    </div>
-    <div>
-      <label for="city">City 🏙️</label>
-      <input type="text" id="city" name="city" placeholder="e.g., Rome" required>
-    </div>
-    <div>
-      <label for="departure">Check-in Date ✈️</label>
-      <input type="date" id="departure" required>
-    </div>
-    <div>
-      <label for="return">Check-out Date 🏠</label>
-      <input type="date" id="return" required>
-    </div>
-    <div>
-      <label for="budget">Budget ($) 💰</label>
-      <input type="number" id="budget" name="budget" placeholder="e.g., 2000" min="1" max="1000000" required>
-    </div>
-    <div>
-      <label for="hotel">Hotel Type 🏨</label>
-      <select id="hotel" name="hotel" required>
-        <option value="">-- Select --</option>
-        <option value="3 Stars">3 Stars</option>
-        <option value="4 Stars">4 Stars</option>
-        <option value="5 Stars">5 Stars</option>
-      </select>
-    </div>
-    <button type="submit" class="submit-btn">Show My Deals</button>
+    <label for="country">Country 🌍</label>
+    <input type="text" id="country" required placeholder="e.g., Italy">
+
+    <label for="city">City 🏙️</label>
+    <input type="text" id="city" required placeholder="e.g., Rome">
+
+    <label for="departure">Departure Date ✈️</label>
+    <input type="date" id="departure" required>
+
+    <label for="return">Return Date 🏡</label>
+    <input type="date" id="return" required>
+
+    <label for="budget">Budget ($) 💰</label>
+    <input type="number" id="budget" required min="1" max="1000000" placeholder="e.g., 1500">
+
+    <label for="hotel">Hotel Type 🏨</label>
+    <select id="hotel" required>
+      <option value="">-- Select --</option>
+      <option value="3 Stars">3 Stars</option>
+      <option value="4 Stars">4 Stars</option>
+      <option value="5 Stars">5 Stars</option>
+    </select>
+
+    <label for="room">Room Type 🛏️</label>
+    <select id="room" required>
+      <option value="">-- Select --</option>
+      <option value="Standard Room">Standard Room</option>
+      <option value="Suite">Suite</option>
+      <option value="Apartment">Apartment</option>
+    </select>
+
+    <label for="direct">Direct Flight? 🛫</label>
+    <select id="direct" required>
+      <option value="">-- Select --</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+
+    <label for="family">Traveling With 👨‍👩‍👧‍👦</label>
+    <select id="family" required>
+      <option value="">-- Select --</option>
+      <option value="Adults Only">Adults Only</option>
+      <option value="Family with Kids">Family with Kids</option>
+    </select>
+
+    <label for="tour">Guided Tours? 🗺️</label>
+    <select id="tour" required>
+      <option value="">-- Select --</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+
+    <button type="submit" class="submit-btn">Show Me My Deals</button>
   </form>
 
-  <div class="links-section" id="linksSection" style="display:none;">
-    <h2>Here are your customized vacation deals!</h2>
+  <div class="links-section" id="linksSection">
+    <h2>Your Personalized Deals</h2>
     <a id="bookingLink" class="link-btn" target="_blank">Booking.com</a>
     <a id="expediaLink" class="link-btn" target="_blank">Expedia</a>
     <a id="skyscannerLink" class="link-btn" target="_blank">Skyscanner</a>
@@ -210,17 +197,17 @@
 </div>
 
 <div class="share-section">
-  <h2>Share Your Journey</h2>
+  <h2>Share Your Trip</h2>
   <div class="social-icons">
-    <a href="https://wa.me/?text=Check%20out%20this%20amazing%20travel%20site:%20https://etayasher.github.io/my-travel-site" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/?text=Check%20out%20this%20travel%20site:%20https://etayasher.github.io/my-travel-site" target="_blank"><i class="fab fa-whatsapp"></i></a>
     <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
     <a href="https://www.facebook.com/sharer/sharer.php?u=https://etayasher.github.io/my-travel-site" target="_blank"><i class="fab fa-facebook-f"></i></a>
   </div>
 </div>
 
 <script>
-  document.getElementById('travelForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+  document.getElementById('travelForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
     const city = document.getElementById('city').value.trim();
     const checkin = document.getElementById('departure').value;
@@ -228,7 +215,7 @@
     const budget = document.getElementById('budget').value;
 
     if (!city || !checkin || !checkout || !budget) {
-      alert("Please fill in all required fields!");
+      alert("Please fill all required fields.");
       return;
     }
 
