@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ✅ SEO META TAGS -->
   <meta name="description" content="Plan your next vacation using TripWise AI – your personal AI travel assistant for flights, hotels, and experiences.">
@@ -15,10 +15,10 @@
   <meta property="og:url" content="https://etayasher.github.io/my-travel-site">
   <meta name="twitter:card" content="summary_large_image">
 
-  <title>TripWise AI – Find Your Perfect Vacation</title>
+  <title>TripWise AI – Plan Your Perfect Trip</title>
   <link rel="icon" href="earth-icon.png.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
   <style>
     :root {
@@ -49,15 +49,14 @@
       border-radius: 25px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       width: 100%;
-      max-width: 550px;
+      max-width: 650px;
       margin-top: 20px;
-      animation: fadeIn 1s ease;
     }
     h1 {
       text-align: center;
       color: var(--primary);
       margin-bottom: 10px;
-      font-size: 2rem;
+      font-size: 2.2rem;
     }
     .subtitle {
       text-align: center;
@@ -88,7 +87,7 @@
       background: #fff;
     }
     .submit-btn {
-      background: linear-gradient(135deg, #00b4d8, #0077b6);
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
       border: none;
       border-radius: 30px;
       color: white;
@@ -99,7 +98,12 @@
       transition: background 0.3s;
     }
     .submit-btn:hover {
-      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    .hint {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 5px;
     }
     .links-section {
       margin-top: 30px;
@@ -118,11 +122,6 @@
     }
     .link-btn:hover {
       background: #ffc107;
-    }
-    .hint {
-      font-size: 0.9rem;
-      color: #666;
-      margin-top: 5px;
     }
     .share-section {
       background: #e0f7fa;
@@ -155,10 +154,6 @@
     .social-icons a:hover {
       background: #00b4d8;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
     @media screen and (max-width: 600px) {
       .form-container {
         padding: 20px;
@@ -167,60 +162,55 @@
   </style>
 </head>
 <body>
+
 <div class="form-container">
-  <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation in Seconds</h1>
+  <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation</h1>
   <p class="subtitle">No sign-up needed. Just great travel deals.</p>
 
   <form id="travelForm">
     <div>
-      <label for="country">Country 🌎</label>
-      <input type="text" id="country" name="country" placeholder="e.g., Italy, Japan, USA" required>
-      <div class="hint">Choose the country you dream to visit!</div>
+      <label for="country">Country 🌍</label>
+      <input type="text" id="country" name="country" placeholder="e.g., Italy" required>
+      <div class="hint">Choose the country you want to visit</div>
     </div>
     <div>
       <label for="city">City 🏙️</label>
-      <input type="text" id="city" name="city" placeholder="e.g., Rome, Tokyo, New York" required>
-      <div class="hint">Which city are you planning to explore?</div>
+      <input type="text" id="city" name="city" placeholder="e.g., Rome" required>
     </div>
     <div>
-      <label for="departure">Departure Date ✈️</label>
-      <input type="date" id="departure" name="departure" required>
-      <div class="hint">When do you want your adventure to start?</div>
+      <label for="departure">Check-in Date ✈️</label>
+      <input type="date" id="departure" required>
     </div>
     <div>
-      <label for="return">Return Date 🏡</label>
-      <input type="date" id="return" name="return" required>
-      <div class="hint">When are you coming back?</div>
+      <label for="return">Check-out Date 🏠</label>
+      <input type="date" id="return" required>
     </div>
     <div>
-      <label for="budget">Your Budget ($) 💸</label>
-      <input type="number" id="budget" name="budget" placeholder="e.g., 1500" required>
-      <div class="hint">Let us find the best deals for your budget!</div>
+      <label for="budget">Budget ($) 💰</label>
+      <input type="number" id="budget" name="budget" placeholder="e.g., 2000" min="1" max="1000000" required>
     </div>
     <div>
-      <label for="hotel">Preferred Hotel Type 🏨</label>
+      <label for="hotel">Hotel Type 🏨</label>
       <select id="hotel" name="hotel" required>
         <option value="">-- Select --</option>
         <option value="3 Stars">3 Stars</option>
         <option value="4 Stars">4 Stars</option>
         <option value="5 Stars">5 Stars</option>
-        <option value="Luxury Suite">Luxury Suite</option>
       </select>
-      <div class="hint">Choose your preferred accommodation style!</div>
     </div>
-    <button type="submit" class="submit-btn">Show Me My Deals</button>
+    <button type="submit" class="submit-btn">Show My Deals</button>
   </form>
 
   <div class="links-section" id="linksSection" style="display:none;">
-    <h2>Here are your personalized, affordable, and perfect vacation deals!</h2>
-    <a id="bookingLink" class="link-btn" target="_blank">Booking.com Deals</a>
-    <a id="expediaLink" class="link-btn" target="_blank">Expedia.com Deals</a>
-    <a id="skyscannerLink" class="link-btn" target="_blank">Skyscanner Flights</a>
+    <h2>Here are your customized vacation deals!</h2>
+    <a id="bookingLink" class="link-btn" target="_blank">Booking.com</a>
+    <a id="expediaLink" class="link-btn" target="_blank">Expedia</a>
+    <a id="skyscannerLink" class="link-btn" target="_blank">Skyscanner</a>
   </div>
 </div>
 
 <div class="share-section">
-  <h2>Share your perfect trip with friends!</h2>
+  <h2>Share Your Journey</h2>
   <div class="social-icons">
     <a href="https://wa.me/?text=Check%20out%20this%20amazing%20travel%20site:%20https://etayasher.github.io/my-travel-site" target="_blank"><i class="fab fa-whatsapp"></i></a>
     <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -236,22 +226,21 @@
     const checkin = document.getElementById('departure').value;
     const checkout = document.getElementById('return').value;
     const budget = document.getElementById('budget').value;
-    const hotelRaw = document.getElementById('hotel').value;
 
-    let stars = '';
-    if (hotelRaw.includes('3')) stars = '3';
-    else if (hotelRaw.includes('4')) stars = '4';
-    else if (hotelRaw.includes('5')) stars = '5';
+    if (!city || !checkin || !checkout || !budget) {
+      alert("Please fill in all required fields!");
+      return;
+    }
 
     const destination = encodeURIComponent(city);
 
-    const bookingLink = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2${budget ? `&price_to=${budget}` : ''}${stars ? `&nflt=class%3D${stars}` : ''}`;
-    const expediaLink = `https://www.expedia.com/Hotel-Search?destination=${destination}&startDate=${checkin}&endDate=${checkout}&adults=2`;
-    const skyscannerLink = `https://www.skyscanner.com/transport/flights/?query=${destination}+${checkin}`;
+    const bookingURL = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2&price_to=${budget}`;
+    const expediaURL = `https://www.expedia.com/Hotel-Search?destination=${destination}&startDate=${checkin}&endDate=${checkout}&adults=2&maxPrice=${budget}`;
+    const skyscannerURL = `https://www.skyscanner.com/transport/flights/?query=${destination}+${checkin}`;
 
-    document.getElementById('bookingLink').href = bookingLink;
-    document.getElementById('expediaLink').href = expediaLink;
-    document.getElementById('skyscannerLink').href = skyscannerLink;
+    document.getElementById('bookingLink').href = bookingURL;
+    document.getElementById('expediaLink').href = expediaURL;
+    document.getElementById('skyscannerLink').href = skyscannerURL;
 
     document.getElementById('linksSection').style.display = 'block';
     document.getElementById('linksSection').scrollIntoView({ behavior: "smooth" });
@@ -260,3 +249,4 @@
 
 </body>
 </html>
+
