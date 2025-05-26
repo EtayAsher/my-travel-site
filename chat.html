@@ -68,7 +68,7 @@
       50% { transform: scale(1.02); }
       100% { transform: scale(1); }
     }
-    .quick-form {
+    form.quick-form {
       background: #ffffff;
       border-radius: 15px;
       padding: 30px;
@@ -77,11 +77,11 @@
       max-width: 500px;
       margin: 40px auto;
     }
-    .quick-form h2 {
+    form.quick-form h2 {
       margin-bottom: 20px;
       color: var(--primary-color);
     }
-    .quick-form input {
+    form.quick-form input {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
@@ -89,7 +89,7 @@
       border-radius: 8px;
       font-size: 16px;
     }
-    .quick-form button {
+    form.quick-form button {
       width: 100%;
       padding: 12px;
       background-color: var(--primary-color);
@@ -99,34 +99,41 @@
       font-size: 16px;
       cursor: pointer;
     }
-    .quick-form button:hover {
+    form.quick-form button:hover {
       background-color: var(--secondary-color);
     }
     .qa-section {
       background: #ffffff;
       border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 40px 30px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.15);
       max-width: 800px;
-      margin: 40px auto;
+      margin: 60px auto;
+      text-align: left;
     }
     .qa-section h3 {
       color: var(--primary-color);
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      text-align: center;
+      font-size: 1.8rem;
     }
     .qa-section .qa {
-      margin-bottom: 15px;
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
     .qa-section .qa strong {
+      display: block;
+      margin-bottom: 6px;
       color: var(--secondary-color);
     }
     @media screen and (max-width: 600px) {
-      .quick-form, .qa-section {
+      form.quick-form, .qa-section {
         width: 95%;
         padding: 20px;
       }
-      .quick-form input,
-      .quick-form button {
+      form.quick-form input,
+      form.quick-form button {
         font-size: 1rem;
         padding: 12px;
       }
@@ -144,19 +151,32 @@
     💥 AI Travel Special: Find your perfect vacation in seconds – personalized just for you!
   </div>
 
-  <div class="quick-form" data-aos="fade-up">
+  <form class="quick-form" data-aos="fade-up">
     <h2>Let's Plan Your Trip</h2>
-    <input type="text" placeholder="Where do you want to go?">
-    <input type="text" placeholder="When? (e.g., August 5–10)">
-    <input type="text" placeholder="What’s your budget? (e.g., up to $1000)">
-    <button onclick="window.location.href='chat.html'">Find My Vacation</button>
-  </div>
+    <input type="text" placeholder="Where do you want to go?" name="destination" required>
+    <input type="text" placeholder="When? (e.g., August 5–10)" name="dates" required>
+    <input type="text" placeholder="What’s your budget? (e.g., up to $1000)" name="budget" required>
+    <button type="submit">Find My Vacation</button>
+  </form>
 
   <div class="qa-section" data-aos="fade-up">
-    <h3>What Travelers Usually Ask</h3>
-    <div class="qa"><strong>Q:</strong> Can I use this without signing up?<br><strong>A:</strong> Yes! No sign-up needed.</div>
-    <div class="qa"><strong>Q:</strong> How does the AI work?<br><strong>A:</strong> It learns from your answers to offer the best trip deals.</div>
-    <div class="qa"><strong>Q:</strong> Is it really cheaper?<br><strong>A:</strong> In most cases – yes. You get personalized offers.</div>
+    <h3>Frequently Asked Questions</h3>
+    <div class="qa">
+      <strong>Q: Can I use this without signing up?</strong>
+      A: Absolutely! No sign-up is required. Just enter your details and explore.
+    </div>
+    <div class="qa">
+      <strong>Q: How does the AI find my trip?</strong>
+      A: It analyzes your preferences to search top platforms like Booking.com, Expedia, and Skyscanner.
+    </div>
+    <div class="qa">
+      <strong>Q: Is it cheaper than searching myself?</strong>
+      A: In many cases, yes. You get smarter filters and limited-time deals.
+    </div>
+    <div class="qa">
+      <strong>Q: Can I trust the deals shown?</strong>
+      A: 100%. We only show verified links directly from official partners.
+    </div>
   </div>
 
 </div>
