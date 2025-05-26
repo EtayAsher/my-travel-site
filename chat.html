@@ -3,24 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- ✅ SEO META TAGS -->
-  <meta name="description" content="Plan your next vacation using TripWise AI – your personal AI travel assistant for flights, hotels, and experiences.">
-  <meta name="keywords" content="AI travel planner, smart vacation, AI vacation deals, book trip with AI, hotel and flight deals, travel assistant AI">
-  <meta name="robots" content="index, follow">
+  <meta name="description" content="Plan your next vacation using TripWise AI – your personal AI travel assistant.">
+  <meta name="keywords" content="travel planner, AI travel, book vacation, hotels, flights">
   <meta name="author" content="Etay Asher">
-  <meta property="og:title" content="TripWise AI – Your Smart Travel Companion">
-  <meta property="og:description" content="Discover the future of travel with AI. Book smarter, faster, and cheaper.">
-  <meta property="og:image" content="https://etayasher.github.io/my-travel-site/preview-image.jpg">
+  <meta property="og:title" content="TripWise AI – Plan Your Dream Vacation">
+  <meta property="og:description" content="Find the perfect trip with the help of smart AI.">
   <meta property="og:url" content="https://etayasher.github.io/my-travel-site">
+  <meta property="og:image" content="preview-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
-
-  <title>TripWise AI - Find Your Perfect Vacation</title>
+  <title>TripWise AI – Vacation Deals</title>
   <link rel="icon" href="earth-icon.png.png" type="image/png">
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
   <style>
     :root {
       --primary: #0077b6;
@@ -175,11 +169,9 @@
   </style>
 </head>
 <body>
-
 <div class="form-container">
   <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation in Seconds</h1>
   <p class="subtitle">No sign-up needed. Just great travel deals.</p>
-
   <form id="travelForm">
     <div>
       <label for="country">Country 🌎</label>
@@ -206,57 +198,8 @@
       <input type="number" id="budget" name="budget" placeholder="e.g., 1500" required>
       <div class="hint">Let us find the best deals for your budget!</div>
     </div>
-    <div>
-      <label for="hotel">Preferred Hotel Type 🏨</label>
-      <select id="hotel" name="hotel" required>
-        <option value="">-- Select --</option>
-        <option value="3 Stars">3 Stars</option>
-        <option value="4 Stars">4 Stars</option>
-        <option value="5 Stars">5 Stars</option>
-        <option value="Luxury Suite">Luxury Suite</option>
-      </select>
-      <div class="hint">Choose your preferred accommodation style!</div>
-    </div>
-    <div>
-      <label for="direct">Prefer Direct Flight? ✈️</label>
-      <select id="direct" name="direct" required>
-        <option value="">-- Select --</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-      <div class="hint">Faster or cheaper? It's your choice!</div>
-    </div>
-    <div>
-      <label for="room">Room Type 🛏️</label>
-      <select id="room" name="room" required>
-        <option value="">-- Select --</option>
-        <option value="Standard Room">Standard Room</option>
-        <option value="Suite">Suite</option>
-        <option value="Apartment">Apartment</option>
-      </select>
-      <div class="hint">Pick the room that fits your trip!</div>
-    </div>
-    <div>
-      <label for="family">Traveling With 🧑‍🤝‍🧑</label>
-      <select id="family" name="family" required>
-        <option value="">-- Select --</option>
-        <option value="Adults Only">Adults Only</option>
-        <option value="Family with Kids">Family with Kids</option>
-      </select>
-      <div class="hint">Tell us who's coming with you!</div>
-    </div>
-    <div>
-      <label for="tour">Interested in Guided Tours? 🗺️</label>
-      <select id="tour" name="tour" required>
-        <option value="">-- Select --</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-      <div class="hint">Add more adventures to your journey!</div>
-    </div>
     <button type="submit" class="submit-btn">Show Me My Deals</button>
   </form>
-
   <div class="links-section" id="linksSection" style="display:none;">
     <h2>Here are your personalized, affordable, and perfect vacation deals!</h2>
     <a id="bookingLink" class="link-btn" target="_blank">Booking.com Deals</a>
@@ -264,7 +207,6 @@
     <a id="skyscannerLink" class="link-btn" target="_blank">Skyscanner Flights</a>
   </div>
 </div>
-
 <div class="share-section">
   <h2>Share your perfect trip with friends!</h2>
   <div class="social-icons">
@@ -273,35 +215,28 @@
     <a href="https://www.facebook.com/sharer/sharer.php?u=https://etayasher.github.io/my-travel-site" target="_blank"><i class="fab fa-facebook-f"></i></a>
   </div>
 </div>
-
 <script>
-  document.getElementById('travelForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const country = document.getElementById('country').value.trim();
-    const city = document.getElementById('city').value.trim();
-    const departure = document.getElementById('departure').value;
-    const retDate = document.getElementById('return').value;
-
-    if (!country || !city || !departure || !retDate) {
-      alert("Please fill all fields!");
-      return;
-    }
-
-    const checkin = departure;
-    const checkout = retDate;
-    const destination = encodeURIComponent(city);
-
-    const bookingLink = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2`;
-    const expediaLink = `https://www.expedia.com/Hotel-Search?destination=${destination}&startDate=${checkin}&endDate=${checkout}&adults=2`;
-    const skyscannerLink = `https://www.skyscanner.com/transport/flights/?query=${destination}+${checkin}`;
-
-    document.getElementById('bookingLink').href = bookingLink;
-    document.getElementById('expediaLink').href = expediaLink;
-    document.getElementById('skyscannerLink').href = skyscannerLink;
-
-    document.getElementById('linksSection').style.display = 'block';
-    document.getElementById('linksSection').scrollIntoView({ behavior: "smooth" });
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('travelForm');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const country = document.getElementById('country').value.trim();
+      const city = document.getElementById('city').value.trim();
+      const departure = document.getElementById('departure').value;
+      const retDate = document.getElementById('return').value;
+      if (!country || !city || !departure || !retDate) {
+        alert("Please fill all fields!");
+        return;
+      }
+      const checkin = departure;
+      const checkout = retDate;
+      const destination = encodeURIComponent(city);
+      document.getElementById('bookingLink').href = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2`;
+      document.getElementById('expediaLink').href = `https://www.expedia.com/Hotel-Search?destination=${destination}&startDate=${checkin}&endDate=${checkout}&adults=2`;
+      document.getElementById('skyscannerLink').href = `https://www.skyscanner.com/transport/flights/?query=${destination}+${checkin}`;
+      document.getElementById('linksSection').style.display = 'block';
+      document.getElementById('linksSection').scrollIntoView({ behavior: "smooth" });
+    });
   });
 </script>
 </body>
