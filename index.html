@@ -55,203 +55,49 @@
     header p {
       font-size: 1.5rem;
     }
-    section {
-      padding: 60px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .quick-form {
-      background: #ffffff;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 500px;
-      margin: 40px auto;
-    }
-    .quick-form h2 {
-      margin-bottom: 20px;
-      color: var(--primary-color);
-    }
-    .quick-form input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-    .quick-form button {
-      width: 100%;
-      padding: 12px;
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .quick-form button:hover {
-      background-color: var(--secondary-color);
-    }
-    .about {
-      background: linear-gradient(135deg, #d4f1f9, #ffffff);
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      padding: 40px;
-      margin-bottom: 60px;
-    }
-    .about h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: var(--primary-color);
-    }
-    .about p {
-      text-align: center;
-      font-size: 1.2rem;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      background: linear-gradient(135deg, var(--accent-color), #ffffff);
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      padding: 40px;
-      margin-bottom: 60px;
-    }
-    .feature {
-      background: #ffffff;
-      border-radius: 15px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .feature:hover {
-      transform: translateY(-5px);
-    }
-    .feature h3 {
-      color: var(--primary-color);
-      margin-bottom: 10px;
-    }
-    .timeline {
-      position: relative;
-      margin: 60px 0;
-      background: linear-gradient(135deg, #edf6f9, #d9f9ff);
-      border-radius: 20px;
-      padding: 40px 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: var(--primary-color);
-      transform: translateX(-50%);
-    }
-    .timeline-item {
-      position: relative;
-      width: 50%;
-      padding: 20px 40px;
-      box-sizing: border-box;
-    }
-    .timeline-item.left {
-      left: 0;
-      text-align: right;
-    }
-    .timeline-item.right {
-      left: 50%;
-      text-align: left;
-    }
-    .timeline-content {
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 15px;
-      position: relative;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .timeline-item::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: var(--secondary-color);
-      border: 4px solid white;
-      border-radius: 50%;
-      top: 20px;
-      z-index: 1;
-    }
-    .timeline-item.left::after {
-      right: -10px;
-    }
-    .timeline-item.right::after {
-      left: -10px;
-    }
-    .testimonials {
-      background: var(--yellow-pastel);
-      padding: 60px 20px;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      margin-top: 60px;
-      margin-bottom: 60px;
-    }
-    .testimonials h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      color: var(--primary-color);
-    }
-    .testimonial {
-      background: white;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .cta {
-      text-align: center;
-      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-      color: white;
-      padding: 60px 20px;
-      border-radius: 20px;
-      margin: 60px 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-    .cta h2 {
-      margin-bottom: 20px;
-      font-size: 2.5rem;
-    }
-    .cta a {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 15px 30px;
-      background: white;
-      color: var(--primary-color);
-      border-radius: 10px;
-      text-decoration: none;
+    .promo-banner {
+      background: #ffd166;
+      color: #333;
       font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: pulse 2s infinite;
+      margin: 20px auto;
+      max-width: 600px;
     }
-    @media screen and (max-width: 768px) {
-      .timeline::before {
-        left: 20px;
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    .testimonial-inline {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin: 40px auto;
+      max-width: 500px;
+      padding: 20px;
+      text-align: center;
+      font-style: italic;
+      color: #444;
+    }
+    .testimonial-inline span {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    @media screen and (max-width: 600px) {
+      .quick-form {
+        width: 95%;
+        padding: 20px;
       }
-      .timeline-item {
-        width: 100%;
-        padding-left: 60px;
-        padding-right: 20px;
-        margin-bottom: 40px;
-      }
-      .timeline-item.right {
-        left: 0;
-      }
-      .timeline-item.left {
-        left: 0;
-      }
-      .timeline-item::after {
-        left: 0px;
+      .quick-form input,
+      .quick-form button {
+        font-size: 1rem;
+        padding: 12px;
       }
     }
   </style>
@@ -263,12 +109,21 @@
     <p>We connect you with the best travel experiences worldwide.</p>
   </header>
 
-  <div class="quick-form" data-aos="fade-up">
+  <div class="promo-banner">
+    💥 AI Travel Special: Find your perfect vacation in seconds – personalized just for you!
+  </div>
+
+  <form class="quick-form" data-aos="fade-up" onsubmit="event.preventDefault(); window.location.href='chat.html';">
     <h2>Let's Plan Your Trip</h2>
-    <input type="text" placeholder="Where do you want to go?">
-    <input type="text" placeholder="When? (e.g., August 5–10)">
-    <input type="text" placeholder="What’s your budget? (e.g., up to $1000)">
-    <button onclick="window.location.href='chat.html'">Find My Vacation</button>
+    <input type="text" placeholder="Where do you want to go?" required>
+    <input type="text" placeholder="When? (e.g., August 5–10)" required>
+    <input type="text" placeholder="What’s your budget? (e.g., up to $1000)" required>
+    <button type="submit">Find My Vacation</button>
+  </form>
+
+  <div class="testimonial-inline" data-aos="zoom-in">
+    "TripWise AI showed me 3 vacation options I didn’t even think of – in 30 seconds!"
+    <span>– Daniel R., Tel Aviv</span>
   </div>
 
   <section class="about" data-aos="fade-up">
@@ -341,3 +196,4 @@
 </script>
 </body>
 </html>
+
