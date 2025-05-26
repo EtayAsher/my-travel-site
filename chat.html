@@ -79,7 +79,6 @@
       font-size: 1rem;
       width: 100%;
       max-width: 100%;
-      box-sizing: border-box;
     }
     input:focus, select:focus {
       border-color: var(--primary);
@@ -97,7 +96,6 @@
       transition: background 0.3s;
       width: 100%;
       max-width: 100%;
-      box-sizing: border-box;
     }
     .submit-btn:hover {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -198,6 +196,54 @@
       <input type="number" id="budget" name="budget" placeholder="e.g., 1500" required>
       <div class="hint">Let us find the best deals for your budget!</div>
     </div>
+    <div>
+      <label for="hotel">Preferred Hotel Type 🏨</label>
+      <select id="hotel" name="hotel" required>
+        <option value="">-- Select --</option>
+        <option value="3 Stars">3 Stars</option>
+        <option value="4 Stars">4 Stars</option>
+        <option value="5 Stars">5 Stars</option>
+        <option value="Luxury Suite">Luxury Suite</option>
+      </select>
+      <div class="hint">Choose your preferred accommodation style!</div>
+    </div>
+    <div>
+      <label for="direct">Prefer Direct Flight? ✈️</label>
+      <select id="direct" name="direct" required>
+        <option value="">-- Select --</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+      <div class="hint">Faster or cheaper? It's your choice!</div>
+    </div>
+    <div>
+      <label for="room">Room Type 🛏️</label>
+      <select id="room" name="room" required>
+        <option value="">-- Select --</option>
+        <option value="Standard Room">Standard Room</option>
+        <option value="Suite">Suite</option>
+        <option value="Apartment">Apartment</option>
+      </select>
+      <div class="hint">Pick the room that fits your trip!</div>
+    </div>
+    <div>
+      <label for="family">Traveling With 🧑‍🤝‍🧑</label>
+      <select id="family" name="family" required>
+        <option value="">-- Select --</option>
+        <option value="Adults Only">Adults Only</option>
+        <option value="Family with Kids">Family with Kids</option>
+      </select>
+      <div class="hint">Tell us who's coming with you!</div>
+    </div>
+    <div>
+      <label for="tour">Interested in Guided Tours? 🗺️</label>
+      <select id="tour" name="tour" required>
+        <option value="">-- Select --</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+      <div class="hint">Add more adventures to your journey!</div>
+    </div>
     <button type="submit" class="submit-btn">Show Me My Deals</button>
   </form>
   <div class="links-section" id="linksSection" style="display:none;">
@@ -219,11 +265,10 @@
   document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('travelForm').addEventListener('submit', function(event) {
       event.preventDefault();
-      const country = document.getElementById('country').value.trim();
       const city = document.getElementById('city').value.trim();
       const departure = document.getElementById('departure').value;
       const retDate = document.getElementById('return').value;
-      if (!country || !city || !departure || !retDate) {
+      if (!city || !departure || !retDate) {
         alert("Please fill all fields!");
         return;
       }
