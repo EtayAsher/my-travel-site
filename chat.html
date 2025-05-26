@@ -3,33 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- ✅ SEO META TAGS -->
   <meta name="description" content="Plan your next vacation using TripWise AI – your personal AI travel assistant for flights, hotels, and experiences.">
   <meta name="keywords" content="AI travel planner, smart vacation, AI vacation deals, book trip with AI, hotel and flight deals, travel assistant AI">
-  <meta name="robots" content="index, follow">
   <meta name="author" content="Etay Asher">
   <meta property="og:title" content="TripWise AI – Your Smart Travel Companion">
   <meta property="og:description" content="Discover the future of travel with AI. Book smarter, faster, and cheaper.">
   <meta property="og:image" content="https://etayasher.github.io/my-travel-site/preview-image.jpg">
   <meta property="og:url" content="https://etayasher.github.io/my-travel-site">
   <meta name="twitter:card" content="summary_large_image">
-
   <title>TripWise AI - Find Your Perfect Vacation</title>
   <link rel="icon" href="earth-icon.png.png" type="image/png">
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
   <style>
-    :root {
-      --primary: #0077b6;
-      --secondary: #00b4d8;
-      --background: linear-gradient(135deg, #0077b6, #00b4d8);
-      --white: #ffffff;
-      --gray: #f1f1f1;
-      --accent: #ffd166;
-    }
     * {
       box-sizing: border-box;
       margin: 0;
@@ -37,26 +23,41 @@
       font-family: 'Poppins', sans-serif;
     }
     body {
-      background: var(--background);
+      background: linear-gradient(to bottom, #0077b6, #00b4d8);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 20px;
     }
+    .promo-banner {
+      background: #ffd166;
+      color: #333;
+      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 30px;
+      margin-top: 15px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
     .form-container {
-      background: var(--white);
+      background: white;
       padding: 30px;
       border-radius: 25px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       width: 100%;
       max-width: 600px;
       margin-top: 20px;
-      animation: fadeIn 1s ease;
     }
     h1 {
       text-align: center;
-      color: var(--primary);
+      color: #0077b6;
       margin-bottom: 10px;
       font-size: 2.2rem;
     }
@@ -78,18 +79,18 @@
     input, select {
       padding: 12px;
       border-radius: 15px;
-      border: 2px solid var(--gray);
+      border: 2px solid #f1f1f1;
       background: #fafafa;
       outline: none;
       transition: 0.3s;
       font-size: 1rem;
     }
     input:focus, select:focus {
-      border-color: var(--primary);
+      border-color: #0077b6;
       background: #fff;
     }
     .submit-btn {
-      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
       border: none;
       border-radius: 30px;
       color: white;
@@ -97,10 +98,9 @@
       padding: 15px;
       font-size: 1.2rem;
       cursor: pointer;
-      transition: background 0.3s;
     }
     .submit-btn:hover {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
     }
     .links-section {
       margin-top: 30px;
@@ -108,22 +108,17 @@
     }
     .link-btn {
       display: inline-block;
-      background: var(--accent);
+      background: #ffd166;
       color: #333;
       font-weight: 600;
       text-decoration: none;
       padding: 12px 20px;
       margin: 10px 5px;
       border-radius: 20px;
-      transition: 0.3s;
-    }
-    .link-btn:hover {
-      background: #ffc107;
     }
     .hint {
       font-size: 0.9rem;
       color: #666;
-      margin-top: 5px;
     }
     .share-section {
       background: #e0f7fa;
@@ -131,10 +126,6 @@
       padding: 20px;
       border-radius: 20px;
       text-align: center;
-    }
-    .share-section h2 {
-      color: #0077b6;
-      margin-bottom: 15px;
     }
     .social-icons {
       display: flex;
@@ -147,61 +138,34 @@
       font-size: 24px;
       padding: 15px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       text-decoration: none;
-      transition: background 0.3s;
     }
-    .social-icons a:hover {
-      background: #00b4d8;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @media screen and (max-width: 600px) {
-      .form-container {
-        padding: 20px;
-      }
-    }
-    .promo-banner {
-      background: var(--accent);
-      color: #333;
-      font-weight: 600;
-      padding: 12px 20px;
-      border-radius: 30px;
-      margin-top: 15px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-      100% { transform: scale(1); }
+    .faq-box {
+      margin-top: 40px;
+      max-width: 700px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     }
   </style>
 </head>
 <body>
-
 <div class="promo-banner">
   💥 AI Travel Special: Find your perfect vacation in seconds – personalized just for you!
 </div>
-
 <div class="form-container">
   <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation in Seconds</h1>
   <p class="subtitle">No sign-up needed. Just great travel deals.</p>
-
   <form id="travelForm">
     <div>
       <label for="country">Country 🌎</label>
-      <input type="text" id="country" name="country" placeholder="e.g., Italy, Japan, USA" required>
+      <input type="text" id="country" name="country" required>
       <div class="hint">Choose the country you dream to visit!</div>
     </div>
     <div>
       <label for="city">City 🏙️</label>
-      <input type="text" id="city" name="city" placeholder="e.g., Rome, Tokyo, New York" required>
+      <input type="text" id="city" name="city" required>
       <div class="hint">Which city are you planning to explore?</div>
     </div>
     <div>
@@ -216,125 +180,46 @@
     </div>
     <div>
       <label for="budget">Your Budget ($) 💸</label>
-      <input type="number" id="budget" name="budget" placeholder="e.g., 1500" required>
+      <input type="number" id="budget" name="budget" required>
       <div class="hint">Let us find the best deals for your budget!</div>
-    </div>
-    <div>
-      <label for="hotel">Preferred Hotel Type 🏨</label>
-      <select id="hotel" name="hotel" required>
-        <option value="">-- Select --</option>
-        <option value="3 Stars">3 Stars</option>
-        <option value="4 Stars">4 Stars</option>
-        <option value="5 Stars">5 Stars</option>
-        <option value="Luxury Suite">Luxury Suite</option>
-      </select>
-      <div class="hint">Choose your preferred accommodation style!</div>
-    </div>
-    <div>
-      <label for="direct">Prefer Direct Flight? ✈️</label>
-      <select id="direct" name="direct" required>
-        <option value="">-- Select --</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-      <div class="hint">Faster or cheaper? It's your choice!</div>
-    </div>
-    <div>
-      <label for="room">Room Type 🛏️</label>
-      <select id="room" name="room" required>
-        <option value="">-- Select --</option>
-        <option value="Standard Room">Standard Room</option>
-        <option value="Suite">Suite</option>
-        <option value="Apartment">Apartment</option>
-      </select>
-      <div class="hint">Pick the room that fits your trip!</div>
-    </div>
-    <div>
-      <label for="family">Traveling With 🧑‍🤝‍🧑</label>
-      <select id="family" name="family" required>
-        <option value="">-- Select --</option>
-        <option value="Adults Only">Adults Only</option>
-        <option value="Family with Kids">Family with Kids</option>
-      </select>
-      <div class="hint">Tell us who's coming with you!</div>
-    </div>
-    <div>
-      <label for="tour">Interested in Guided Tours? 🗺️</label>
-      <select id="tour" name="tour" required>
-        <option value="">-- Select --</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-      <div class="hint">Add more adventures to your journey!</div>
     </div>
     <button type="submit" class="submit-btn">Show Me My Deals</button>
   </form>
-
   <div class="links-section" id="linksSection" style="display:none;">
-    <h2>Here are your personalized, affordable, and perfect vacation deals!</h2>
-    <a id="bookingLink" class="link-btn" target="_blank">Booking.com Deals</a>
-    <a id="expediaLink" class="link-btn" target="_blank">Expedia.com Deals</a>
-    <a id="skyscannerLink" class="link-btn" target="_blank">Skyscanner Flights</a>
+    <h2>Here are your personalized vacation deals!</h2>
+    <a id="bookingLink" class="link-btn" target="_blank">Booking.com</a>
+    <a id="expediaLink" class="link-btn" target="_blank">Expedia</a>
+    <a id="skyscannerLink" class="link-btn" target="_blank">Skyscanner</a>
   </div>
 </div>
-
-<div class="testimonial-box" style="background: white; color: #333; padding: 20px; margin-top: 30px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); max-width: 600px; text-align: center;">
-  <p style="font-style: italic;">"TripWise AI showed me 3 vacation options I didn’t even think of – in 30 seconds!"</p>
-  <span style="font-weight: bold; color: #0077b6;">– Daniel R., Tel Aviv</span>
-</div>
-
-<div class="faq-box" style="margin-top: 40px; max-width: 700px; background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);">
-  <h3 style="color: #0077b6; margin-bottom: 15px; font-size: 1.4rem;">❓ Frequently Asked Questions</h3>
-  <ul style="list-style-type: none; padding-left: 0;">
+<div class="faq-box">
+  <h3>❓ Frequently Asked Questions</h3>
+  <ul>
     <li><strong>Q:</strong> Do I need to sign up?<br><strong>A:</strong> Nope. Just fill the form and get instant deals.</li>
     <li><strong>Q:</strong> Is this really AI-based?<br><strong>A:</strong> Yes! Our system adapts to your inputs to give better results.</li>
     <li><strong>Q:</strong> What if I don’t know the exact dates?<br><strong>A:</strong> Try choosing a rough estimate – you can always adjust later!</li>
   </ul>
 </div>
-
 <div class="share-section">
   <h2>Share your perfect trip with friends!</h2>
   <div class="social-icons">
-    <a href="https://wa.me/?text=Check%20out%20this%20amazing%20travel%20site:%20https://etayasher.github.io/my-travel-site" target="_blank"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https://etayasher.github.io/my-travel-site" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
   </div>
 </div>
-
-<div id="successMessage" style="display:none; margin-top:25px; padding:15px; background:#00c896; color:white; font-weight:600; border-radius:15px; text-align:center; animation:fadeIn 0.6s ease;">
-  ✅ Your trip is loading... AI is finding the best options for you!
-</div>
-
 <script>
   document.getElementById('travelForm').addEventListener('submit', function(event) {
     event.preventDefault();
-
-    const country = document.getElementById('country').value.trim();
-    const city = document.getElementById('city').value.trim();
-    const departure = document.getElementById('departure').value;
-    const retDate = document.getElementById('return').value;
-
-    if (!country || !city || !departure || !retDate) {
-      alert("Please fill all fields!");
-      return;
-    }
-
-    const checkin = departure;
-    const checkout = retDate;
-    const destination = encodeURIComponent(city);
-
-    const bookingLink = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2`;
-    const expediaLink = `https://www.expedia.com/Hotel-Search?destination=${destination}&startDate=${checkin}&endDate=${checkout}&adults=2`;
-    const skyscannerLink = `https://www.skyscanner.com/transport/flights/?query=${destination}+${checkin}`;
-
-    document.getElementById('bookingLink').href = bookingLink;
-    document.getElementById('expediaLink').href = expediaLink;
-    document.getElementById('skyscannerLink').href = skyscannerLink;
-
+    const city = encodeURIComponent(document.getElementById('city').value);
+    const checkin = document.getElementById('departure').value;
+    const checkout = document.getElementById('return').value;
+    document.getElementById('bookingLink').href = `https://www.booking.com/searchresults.html?ss=${city}&checkin=${checkin}&checkout=${checkout}&group_adults=2`;
+    document.getElementById('expediaLink').href = `https://www.expedia.com/Hotel-Search?destination=${city}&startDate=${checkin}&endDate=${checkout}&adults=2`;
+    document.getElementById('skyscannerLink').href = `https://www.skyscanner.com/transport/flights/?query=${city}+${checkin}`;
     document.getElementById('linksSection').style.display = 'block';
-    document.getElementById('linksSection').scrollIntoView({ behavior: "smooth" });
-    document.getElementById("successMessage").style.display = "block";
   });
 </script>
 </body>
 </html>
+
