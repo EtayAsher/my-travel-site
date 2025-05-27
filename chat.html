@@ -1,27 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Plan your next vacation using TripWise AI – your personal AI travel assistant for flights, hotels, and experiences." />
-  <meta name="keywords" content="AI travel planner, smart vacation, AI vacation deals, book trip with AI, hotel and flight deals, travel assistant AI" />
-  <meta name="author" content="Etay Asher" />
-  <meta property="og:title" content="TripWise AI – Your Smart Travel Companion" />
-  <meta property="og:description" content="Discover the future of travel with AI. Book smarter, faster, and cheaper." />
-  <meta property="og:image" content="https://etayasher.github.io/my-travel-site/preview-image.jpg" />
-  <meta property="og:url" content="https://etayasher.github.io/my-travel-site" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plan your next vacation using TripWise AI – your personal AI travel assistant for flights, hotels, and experiences.">
+  <meta name="keywords" content="AI travel planner, smart vacation, AI vacation deals, book trip with AI, hotel and flight deals, travel assistant AI">
+  <meta name="author" content="Etay Asher">
+  <meta property="og:title" content="TripWise AI – Your Smart Travel Companion">
+  <meta property="og:description" content="Discover the future of travel with AI. Book smarter, faster, and cheaper.">
+  <meta property="og:image" content="https://etayasher.github.io/my-travel-site/preview-image.jpg">
+  <meta property="og:url" content="https://etayasher.github.io/my-travel-site">
+  <meta name="twitter:card" content="summary_large_image">
   <title>TripWise AI - Find Your Perfect Vacation</title>
-  <link rel="icon" href="earth-icon.png.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="icon" href="earth-icon.png.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
     body {
       background: linear-gradient(to bottom, #0077b6, #00b4d8);
       min-height: 100vh;
@@ -31,19 +26,19 @@
     }
     .main-wrapper {
       display: flex;
-      flex-direction: row;
-      gap: 40px;
-      max-width: 1200px;
+      flex-direction: column;
+      align-items: center;
       width: 100%;
-      flex-wrap: wrap;
+      max-width: 1200px;
     }
     .form-container {
       background: white;
       padding: 30px;
       border-radius: 25px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      flex: 1;
-      min-width: 300px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 700px;
+      margin-bottom: 30px;
     }
     h1 {
       text-align: center;
@@ -57,24 +52,11 @@
       font-size: 1rem;
       margin-bottom: 20px;
     }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    label {
-      font-weight: 600;
-      color: #333;
-    }
-    input,
-    select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 15px;
-      border: 2px solid #f1f1f1;
-      background: #fafafa;
-      outline: none;
-      font-size: 1rem;
+    form { display: flex; flex-direction: column; gap: 20px; }
+    label { font-weight: 600; color: #333; }
+    input, select {
+      width: 100%; padding: 12px; border-radius: 15px; border: 2px solid #f1f1f1;
+      background: #fafafa; outline: none; font-size: 1rem;
     }
     .submit-btn {
       background: linear-gradient(135deg, #00b4d8, #0077b6);
@@ -86,96 +68,119 @@
       font-size: 1.2rem;
       cursor: pointer;
     }
-    .links-section {
-      margin-top: 30px;
-      text-align: center;
-    }
-    .link-btn {
-      background-color: #0077b6;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 25px;
-      display: inline-block;
-      text-decoration: none;
-      font-weight: 600;
-      margin: 5px;
-    }
-    .faq-box {
+    .faq-box, .chatbot-container {
       background: white;
       padding: 20px;
       border-radius: 20px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-      flex: 0 1 350px;
-      max-width: 100%;
-    }
-    .chatbot-container {
-      background: white;
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-      max-width: 320px;
       width: 100%;
+      max-width: 700px;
+      margin-bottom: 30px;
     }
-    .chatbot-container h3 {
+    .faq-box h3, .chatbot-container h3 {
       color: #0077b6;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      font-size: 1.4rem;
     }
     .tripbot-chat {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: #333;
-      max-height: 220px;
-      overflow-y: auto;
-      margin-bottom: 15px;
+      font-size: 0.95rem; line-height: 1.5; color: #333;
+      max-height: 220px; overflow-y: auto; margin-bottom: 15px;
     }
     .tripbot-options button {
-      background-color: #00b4d8;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 12px;
-      margin: 4px 2px;
-      cursor: pointer;
-      font-size: 0.9rem;
+      background-color: #00b4d8; color: white; border: none; border-radius: 10px;
+      padding: 10px 12px; margin: 4px 2px; cursor: pointer; font-size: 0.9rem;
     }
-    .tripbot-options button:hover {
-      background-color: #0077b6;
-    }
-    @media screen and (max-width: 768px) {
-      .main-wrapper {
-        flex-direction: column;
-        align-items: center;
-      }
-      .chatbot-container,
-      .faq-box {
-        max-width: 100%;
-      }
-    }
+    .tripbot-options button:hover { background-color: #0077b6; }
   </style>
 </head>
 <body>
-  <div class="main-wrapper">
-    <div class="form-container">
-      <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation in Seconds</h1>
-      <p class="subtitle">No sign-up needed. Just great travel deals.</p>
-      <!-- כאן נטען מחדש את כל הטופס והשדות המקוריים כולל הסקריפט -->
-      <!-- וכמובן נוסיף את השאלות והלוגיקה לשחזור -->
-      <!-- ... -->
-    </div>
-    <div class="faq-box">
-      <h3>❓ Frequently Asked Questions</h3>
-      <ul style="list-style-type: none; padding-left: 0;">
-        <li><strong>Q:</strong> Do I need to sign up?<br /><strong>A:</strong> Nope. Just fill the form and get instant deals.</li>
-        <li><strong>Q:</strong> Is this really AI-based?<br /><strong>A:</strong> Yes! Our system adapts to your inputs to give better results.</li>
-        <li><strong>Q:</strong> What if I don’t know the exact dates?<br /><strong>A:</strong> Try choosing a rough estimate – you can always adjust later!</li>
-      </ul>
-    </div>
-    <div class="chatbot-container">
-      <h3>🤖 TripBot – Your Smart AI Travel Assistant</h3>
-      <div id="tripbot-chat" class="tripbot-chat"></div>
-      <div id="tripbot-options" class="tripbot-options"></div>
-    </div>
+<div class="main-wrapper">
+  <div class="form-container">
+    <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation in Seconds</h1>
+    <p class="subtitle">No sign-up needed. Just great travel deals.</p>
+    <form id="travelForm">
+      <label for="country">Country 🌎</label>
+      <input type="text" id="country" name="country" placeholder="e.g., Italy, Japan, USA" required>
+      <label for="city">City 🏙️</label>
+      <input type="text" id="city" name="city" placeholder="e.g., Rome, Tokyo, New York" required>
+      <label for="departure">Departure Date ✈️</label>
+      <input type="date" id="departure" name="departure" required>
+      <label for="return">Return Date 🏡</label>
+      <input type="date" id="return" name="return" required>
+      <label for="budget">Your Budget ($) 💸</label>
+      <input type="number" id="budget" name="budget" placeholder="e.g., 1500" required>
+      <button type="submit" class="submit-btn">Show Me My Deals</button>
+    </form>
   </div>
+
+  <div class="faq-box">
+    <h3>❓ Frequently Asked Questions</h3>
+    <ul style="list-style-type: none; padding-left: 0;">
+      <li><strong>Q:</strong> Do I need to sign up?<br><strong>A:</strong> Nope. Just fill the form and get instant deals.</li>
+      <li><strong>Q:</strong> Is this really AI-based?<br><strong>A:</strong> Yes! Our system adapts to your inputs to give better results.</li>
+      <li><strong>Q:</strong> What if I don’t know the exact dates?<br><strong>A:</strong> Try choosing a rough estimate – you can always adjust later!</li>
+    </ul>
+  </div>
+
+  <div class="chatbot-container">
+    <h3>🤖 TripBot – Your Smart AI Travel Assistant</h3>
+    <div id="tripbot-chat" class="tripbot-chat"></div>
+    <div id="tripbot-options" class="tripbot-options"></div>
+  </div>
+</div>
+
+<script>
+  const chatEl = document.getElementById('tripbot-chat');
+  const optionsEl = document.getElementById('tripbot-options');
+  let step = 0;
+  let userAnswers = {};
+
+  function botSpeak(msg) {
+    const p = document.createElement('p');
+    p.textContent = msg;
+    chatEl.appendChild(p);
+    chatEl.scrollTop = chatEl.scrollHeight;
+  }
+
+  function setOptions(options) {
+    optionsEl.innerHTML = '';
+    options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.textContent = opt;
+      btn.onclick = () => handleResponse(opt);
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function handleResponse(value) {
+    const userLine = document.createElement('p');
+    userLine.innerHTML = `🧑 You: ${value}`;
+    chatEl.appendChild(userLine);
+    chatEl.scrollTop = chatEl.scrollHeight;
+
+    if (step === 0) {
+      userAnswers.group = value;
+      botSpeak("Great! What kind of vacation are you dreaming of?");
+      setOptions(["Beach 🏖️", "Adventure ⛰️", "City break 🏙️"]);
+      step++;
+    } else if (step === 1) {
+      userAnswers.vibe = value;
+      botSpeak("Awesome! And what’s your ideal hotel type?");
+      setOptions(["Luxury 💎", "Standard 💼", "Budget 💵"]);
+      step++;
+    } else if (step === 2) {
+      userAnswers.hotel = value;
+      botSpeak("Perfect! ✨ Our smart system is now working to match you with the best vacation deals...");
+      botSpeak("👉 To get your customized trip, fill out the full form above and receive links tailored just for you!");
+      setOptions([]);
+      step++;
+    }
+  }
+
+  botSpeak("Hi! I'm TripBot, your personal AI travel buddy 🌍");
+  botSpeak("To get started, who are you traveling with?");
+  setOptions(["Solo", "With Partner", "Family", "Friends"]);
+</script>
 </body>
 </html>
 
