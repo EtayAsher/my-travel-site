@@ -301,11 +301,30 @@
       document.getElementById('expediaLink').href = expediaLink;
       document.getElementById('skyscannerLink').href = skyscannerLink;
 
+      // שדרוג טקסטים שיווקיים לפי הקלט
+      const bookingText = `🏨 Top Hotels in ${city} – ${checkin} to ${checkout}`;
+      const expediaText = `🛏️ Great ${hotel} Deals in ${city}`;
+      const skyscannerText = `✈️ Flights to ${city} from Your Location`;
+
+      document.getElementById('bookingLink').textContent = bookingText;
+      document.getElementById('expediaLink').textContent = expediaText;
+      document.getElementById('skyscannerLink').textContent = skyscannerText;
+
+      // טקסט שיווקי מתחת לקישורים
+      const marketingText = document.createElement('p');
+      marketingText.innerHTML = `✨ These deals were matched by AI based on your budget and travel dates.<br>⏱️ Click fast – prices update every minute!`;
+      marketingText.style.marginTop = '15px';
+      marketingText.style.color = '#333';
+      marketingText.style.fontSize = '1rem';
+      marketingText.style.fontWeight = '500';
+      marketingText.style.maxWidth = '90%';
+      marketingText.style.marginInline = 'auto';
+      document.getElementById('linksSection').appendChild(marketingText);
+
       document.getElementById('linksSection').style.display = 'block';
       document.getElementById('linksSection').scrollIntoView({ behavior: "smooth" });
     });
   </script>
 </body>
 </html>
-
 
