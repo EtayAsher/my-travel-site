@@ -98,22 +98,44 @@
   <div class="form-container">
     <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation in Seconds</h1>
     <p class="subtitle">No sign-up needed. Just great travel deals.</p>
-    <form>
-      <div><label>Country 🌎</label><input type="text" placeholder="e.g., Italy, Japan, USA"></div>
-      <div><label>City 🏙️</label><input type="text" placeholder="e.g., Rome, Tokyo, New York"></div>
-      <div><label>Departure Date ✈️</label><input type="date"></div>
-      <div><label>Return Date 🏡</label><input type="date"></div>
-      <div><label>Your Budget ($) 💸</label><input type="number" placeholder="e.g., 1500"></div>
-      <div><label>Preferred Hotel Type 🏨</label><select><option>-- Select --</option><option>3 Stars</option><option>4 Stars</option><option>5 Stars</option><option>Luxury Suite</option></select></div>
-      <div><label>Prefer Direct Flight? ✈️</label><select><option>-- Select --</option><option>Yes</option><option>No</option></select></div>
-      <div><label>Room Type 🛏️</label><select><option>-- Select --</option><option>Standard Room</option><option>Suite</option><option>Apartment</option></select></div>
-      <div><label>Traveling With 🧑‍🤝‍🧑</label><select><option>-- Select --</option><option>Adults Only</option><option>Family with Kids</option></select></div>
-      <div><label>Interested in Guided Tours? 🗺️</label><select><option>-- Select --</option><option>Yes</option><option>No</option></select></div>
-      <button class="submit-btn">Show Me My Deals</button>
-    </form>
-    <div style="margin-top:20px; padding:15px; background:#00c896; color:white; font-weight:600; border-radius:15px; text-align:center;">
-      ✅ Your trip is loading... AI is finding the best options for you!
+    <form id="travelForm">
+$1
+</form>
+
+<div class="links-section" id="linksSection" style="display:none; margin-top:25px;">
+  <h2 style="color:white; text-align:center; margin-bottom:20px; font-size:1.4rem;">🌟 Your Personalized Travel Offers:</h2>
+  <div style="text-align:center;">
+    <div style="margin-bottom: 10px;">
+      <a id="bookingLink" class="submit-btn" href="#" target="_blank" style="display:inline-block; margin: 5px;">
+        🏨 Discover the best-rated hotels just for you – via Booking.com
+      </a>
+      <button onclick="copyLink('bookingLink')" style="margin-left:5px; padding: 10px 15px; border: none; background: #ffd166; border-radius: 10px; cursor: pointer; font-weight: 600;">Copy</button>
     </div>
+    <div style="margin-bottom: 10px;">
+      <a id="expediaLink" class="submit-btn" href="#" target="_blank" style="display:inline-block; margin: 5px;">
+        💼 Top hotel deals with exclusive discounts – powered by Expedia
+      </a>
+      <button onclick="copyLink('expediaLink')" style="margin-left:5px; padding: 10px 15px; border: none; background: #ffd166; border-radius: 10px; cursor: pointer; font-weight: 600;">Copy</button>
+    </div>
+    <div>
+      <a id="skyscannerLink" class="submit-btn" href="#" target="_blank" style="display:inline-block; margin: 5px;">
+        ✈️ Best flights to your dream destination – check Skyscanner now
+      </a>
+      <button onclick="copyLink('skyscannerLink')" style="margin-left:5px; padding: 10px 15px; border: none; background: #ffd166; border-radius: 10px; cursor: pointer; font-weight: 600;">Copy</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function copyLink(id) {
+    const link = document.getElementById(id).href;
+    navigator.clipboard.writeText(link).then(() => {
+      alert('Link copied to clipboard!');
+    });
+  }
+</script>
+</div>
+</div>
     <div style="margin-top: 25px; background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);">
       <h3 style="color: #0077b6; margin-bottom: 15px; font-size: 1.4rem;">❓ Frequently Asked Questions</h3>
       <ul style="list-style-type: none; padding-left: 0;">
@@ -183,6 +205,32 @@
   botSpeak("Hi! I'm TripBot, your personal AI travel buddy 🌍");
   botSpeak("To get started, who are you traveling with?");
   setOptions(["Solo", "With Partner", "Family", "Friends"]);
+// Show Me My Deals logic
+  document.getElementById('travelForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const city = document.querySelector('input[placeholder*="Rome"]').value.trim();
+    const checkin = document.querySelector('input[type="date"]')?.value;
+    const checkout = document.querySelectorAll('input[type="date"]')[1]?.value;
+
+    if (!city || !checkin || !checkout) {
+      alert("Please complete the city and date fields to generate links.");
+      return;
+    }
+
+    const destination = encodeURIComponent(city);
+    const bookingLink = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2`;
+    const expediaLink = `https://www.expedia.com/Hotel-Search?destination=${destination}&startDate=${checkin}&endDate=${checkout}&adults=2`;
+    const skyscannerLink = `https://www.skyscanner.com/transport/flights/?query=${destination}+${checkin}`;
+
+    document.getElementById('bookingLink').href = bookingLink;
+    document.getElementById('expediaLink').href = expediaLink;
+    document.getElementById('skyscannerLink').href = skyscannerLink;
+
+    document.getElementById('linksSection').style.display = 'block';
+    document.getElementById('linksSection').scrollIntoView({ behavior: "smooth" });
+  });
 </script>
 </body>
 </html>
+
