@@ -323,8 +323,93 @@
 
       document.getElementById('linksSection').style.display = 'block';
       document.getElementById('linksSection').scrollIntoView({ behavior: "smooth" });
+
+      // 🧠 TripBot Chat Insertion
+      const botBox = document.createElement('div');
+      botBox.id = 'tripBotBox';
+      botBox.style.background = '#fff';
+      botBox.style.borderRadius = '20px';
+      botBox.style.padding = '20px';
+      botBox.style.marginTop = '40px';
+      botBox.style.boxShadow = '0 6px 16px rgba(0,0,0,0.15)';
+      botBox.style.maxWidth = '600px';
+      botBox.style.marginInline = 'auto';
+      botBox.innerHTML = `
+        <h3 style="color:#0077b6; margin-bottom:10px">🤖 TripBot: Smart Travel Assistant</h3>
+        <div id="botMessages" style="font-size:1rem; line-height:1.6; color:#333;"></div>
+        <input type="text" id="botInput" placeholder="Type your answer here..." style="width:100%; margin-top:15px; padding:12px; border-radius:10px; border:1px solid #ccc; font-size:1rem;" />
+      `;
+      document.body.appendChild(botBox);
+
+      const botMessages = document.getElementById('botMessages');
+      const botInput = document.getElementById('botInput');
+      let step = 0;
+      let userData = {};
+
+      function botSay(text) {
+        const p = document.createElement('p');
+        p.textContent = text;
+        botMessages.appendChild(p);
+        botMessages.scrollTop = botMessages.scrollHeight;
+      }
+
+      function nextBotStep(input) {
+        if (step === 0) {
+          botSay("Great! Let's refine your trip. Are you traveling solo, as a couple, or with family?");
+          step++;
+        } else if (step === 1) {
+          userData.group = input.toLowerCase();
+          botSay("Got it. What kind of vibe do you want? Relaxing beach 🏖️, adventure 🧗, or culture/museums 🏛️?");
+          step++;
+        } else if (step === 2) {
+          userData.vibe = input.toLowerCase();
+          botSay("Awesome. Would you prefer a luxury hotel 🏨 or something budget-friendly 💵?");
+          step++;
+        } else if (step === 3) {
+          userData.hotelType = input.toLowerCase();
+          botSay("Perfect! Based on your vibe, I’d recommend exploring: ");
+          botSay(`✅ Top ${userData.hotelType} hotels for ${userData.group} who love ${userData.vibe}`);
+          botSay("👉 Click on the Booking or Expedia link above to match your results.");
+          botSay("Would you like me to email or WhatsApp this to you?");
+          step++;
+        } else if (step === 4) {
+          const contact = input.toLowerCase();
+          if (contact.includes('@') || contact.includes('gmail')) {
+            botSay("✅ Got your email! We’ll send the deals there shortly.");
+          } else if (contact.includes('05')) {
+            botSay("✅ Got your WhatsApp! We’ll send the trip info to you there.");
+          } else {
+            botSay("Okay! You can always come back to continue. Safe travels ✈️");
+          }
+          step++;
+        }
+      }
+
+      botSay("Hey there! Want help choosing the best deal out of the 3 above?");
+      botSay("Type 'yes' to begin or 'no' to skip.");
+
+      botInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          const input = botInput.value.trim();
+          if (!input) return;
+          const userReply = document.createElement('p');
+          userReply.textContent = `👤 You: ${input}`;
+          userReply.style.fontWeight = 'bold';
+          userReply.style.marginTop = '10px';
+          botMessages.appendChild(userReply);
+          botInput.value = '';
+
+          if (step === 0 && input.toLowerCase() === 'no') {
+            botSay("No problem! You can browse the links above. Have a great trip! 🌍");
+            botInput.disabled = true;
+            return;
+          }
+          nextBotStep(input);
+        }
+      });
     });
   </script>
 </body>
 </html>
+
 
