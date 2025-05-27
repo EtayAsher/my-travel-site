@@ -135,6 +135,7 @@
   const chatEl = document.getElementById('tripbot-chat');
   const optionsEl = document.getElementById('tripbot-options');
   let step = 0;
+  let userAnswers = {};
 
   function botSpeak(msg) {
     const p = document.createElement('p');
@@ -160,26 +161,28 @@
     chatEl.scrollTop = chatEl.scrollHeight;
 
     if (step === 0) {
-      botSpeak("Cool! What's your vacation type?");
-      setOptions(["Beach 🏖️", "Adventure ⛰️", "City life 🏙️"]);
+      userAnswers.group = value;
+      botSpeak("Great! What kind of vacation are you dreaming of?");
+      setOptions(["Beach 🏖️", "Adventure ⛰️", "City break 🏙️"]);
       step++;
     } else if (step === 1) {
-      botSpeak("Nice! And your hotel style?");
+      userAnswers.vibe = value;
+      botSpeak("Awesome! And what’s your ideal hotel type?");
       setOptions(["Luxury 💎", "Standard 💼", "Budget 💵"]);
       step++;
     } else if (step === 2) {
-      botSpeak("Great! Want us to send your trip to email or WhatsApp?");
-      setOptions(["Email 📧", "WhatsApp 📱", "No thanks"]);
-      step++;
-    } else {
-      botSpeak("Thanks! You can check the deals now 🧳");
+      userAnswers.hotel = value;
+      botSpeak("Perfect! ✨ Our smart system is now working to match you with the best vacation deals...");
+      botSpeak("👉 Just fill out the full form on the left, and you'll instantly receive personalized booking links based on everything you've told me!");
       setOptions([]);
+      step++;
     }
   }
 
-  botSpeak("Hi! I'm TripBot, your personal AI assistant.");
-  botSpeak("Want me to help you find the perfect vacation?");
-  setOptions(["Yes, let's go!", "Not now"]);
+  // Start
+  botSpeak("Hi! I'm TripBot, your personal AI travel buddy 🌍");
+  botSpeak("To get started, who are you traveling with?");
+  setOptions(["Solo", "With Partner", "Family", "Friends"]);
 </script>
 </body>
 </html>
