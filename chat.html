@@ -26,19 +26,19 @@
     }
     .main-wrapper {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
+      flex-direction: row;
+      gap: 40px;
       max-width: 1200px;
+      width: 100%;
+      flex-wrap: wrap;
     }
-    .form-container {
+    .form-container, .chatbot-container {
       background: white;
       padding: 30px;
       border-radius: 25px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-      width: 100%;
-      max-width: 700px;
-      margin-bottom: 30px;
+      flex: 1;
+      min-width: 300px;
     }
     h1 {
       text-align: center;
@@ -68,29 +68,39 @@
       font-size: 1.2rem;
       cursor: pointer;
     }
-    .faq-box, .chatbot-container {
-      background: white;
-      padding: 20px;
+    .results-box {
+      margin-top: 25px;
+      background: #fff;
       border-radius: 20px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 700px;
-      margin-bottom: 30px;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
-    .faq-box h3, .chatbot-container h3 {
+    .result-card {
+      background: #e0f7fa;
+      margin-bottom: 15px;
+      padding: 15px 20px;
+      border-radius: 15px;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .result-card a {
+      text-decoration: none;
+      color: #0077b6;
+      font-weight: 600;
+    }
+    .faq-section {
+      margin-top: 40px;
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+    }
+    .faq-section h2 {
       color: #0077b6;
       margin-bottom: 15px;
-      font-size: 1.4rem;
     }
-    .tripbot-chat {
-      font-size: 0.95rem; line-height: 1.5; color: #333;
-      max-height: 220px; overflow-y: auto; margin-bottom: 15px;
+    .faq-section p {
+      margin-bottom: 10px;
     }
-    .tripbot-options button {
-      background-color: #00b4d8; color: white; border: none; border-radius: 10px;
-      padding: 10px 12px; margin: 4px 2px; cursor: pointer; font-size: 0.9rem;
-    }
-    .tripbot-options button:hover { background-color: #0077b6; }
   </style>
 </head>
 <body>
@@ -99,90 +109,105 @@
     <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation in Seconds</h1>
     <p class="subtitle">No sign-up needed. Just great travel deals.</p>
     <form id="travelForm">
-      <label for="country">Country 🌎</label>
+      <label for="country">Country 🌍</label>
       <input type="text" id="country" name="country" placeholder="e.g., Italy, Japan, USA" required>
+
       <label for="city">City 🏙️</label>
       <input type="text" id="city" name="city" placeholder="e.g., Rome, Tokyo, New York" required>
+
       <label for="departure">Departure Date ✈️</label>
       <input type="date" id="departure" name="departure" required>
+
       <label for="return">Return Date 🏡</label>
       <input type="date" id="return" name="return" required>
+
       <label for="budget">Your Budget ($) 💸</label>
       <input type="number" id="budget" name="budget" placeholder="e.g., 1500" required>
+
+      <label for="hotel">Preferred Hotel Type 🏨</label>
+      <select id="hotel" name="hotel" required>
+        <option value="">-- Select --</option>
+        <option value="3 Stars">3 Stars</option>
+        <option value="4 Stars">4 Stars</option>
+        <option value="5 Stars">5 Stars</option>
+        <option value="Luxury Suite">Luxury Suite</option>
+      </select>
+
+      <label for="direct">Prefer Direct Flight? ✈️</label>
+      <select id="direct" name="direct" required>
+        <option value="">-- Select --</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+
+      <label for="room">Room Type 🛏️</label>
+      <select id="room" name="room" required>
+        <option value="">-- Select --</option>
+        <option value="Standard Room">Standard Room</option>
+        <option value="Suite">Suite</option>
+        <option value="Apartment">Apartment</option>
+      </select>
+
+      <label for="family">Traveling With 🧑‍🤝‍🧑</label>
+      <select id="family" name="family" required>
+        <option value="">-- Select --</option>
+        <option value="Adults Only">Adults Only</option>
+        <option value="Family with Kids">Family with Kids</option>
+      </select>
+
+      <label for="tour">Interested in Guided Tours? 🗺️</label>
+      <select id="tour" name="tour" required>
+        <option value="">-- Select --</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+
       <button type="submit" class="submit-btn">Show Me My Deals</button>
     </form>
+    <div id="results" class="results-box" style="display:none">
+      <div class="result-card" id="bookingCard"></div>
+      <div class="result-card" id="expediaCard"></div>
+      <div class="result-card" id="skyscannerCard"></div>
+    </div>
   </div>
-
-  <div class="faq-box">
-    <h3>❓ Frequently Asked Questions</h3>
-    <ul style="list-style-type: none; padding-left: 0;">
-      <li><strong>Q:</strong> Do I need to sign up?<br><strong>A:</strong> Nope. Just fill the form and get instant deals.</li>
-      <li><strong>Q:</strong> Is this really AI-based?<br><strong>A:</strong> Yes! Our system adapts to your inputs to give better results.</li>
-      <li><strong>Q:</strong> What if I don’t know the exact dates?<br><strong>A:</strong> Try choosing a rough estimate – you can always adjust later!</li>
-    </ul>
-  </div>
-
   <div class="chatbot-container">
-    <h3>🤖 TripBot – Your Smart AI Travel Assistant</h3>
-    <div id="tripbot-chat" class="tripbot-chat"></div>
-    <div id="tripbot-options" class="tripbot-options"></div>
+    <h2>🤖 TripBot – Your Smart AI Travel Assistant</h2>
+    <p>Hi! I'm TripBot, your personal AI travel buddy 🌍</p>
+    <p><strong>Q:</strong> Where do you want to go?</p>
+    <p><strong>Q:</strong> When do you plan to travel?</p>
+    <p><strong>Q:</strong> What's your budget range?</p>
+    <p><strong>Q:</strong> Any preference for hotel or room type?</p>
+    <p><strong>✅</strong> Awesome! I’m crunching the data. Please complete the full form to unlock your dream vacation links!</p>
   </div>
 </div>
-
+<div class="faq-section">
+  <h2>❓ Frequently Asked Questions</h2>
+  <p><strong>Q:</strong> Do I need to sign up?</p>
+  <p><strong>A:</strong> Nope! Just fill in your info and get deals instantly.</p>
+  <p><strong>Q:</strong> Can I book directly?</p>
+  <p><strong>A:</strong> Yes. You’ll be redirected to our trusted travel partners.</p>
+</div>
 <script>
-  const chatEl = document.getElementById('tripbot-chat');
-  const optionsEl = document.getElementById('tripbot-options');
-  let step = 0;
-  let userAnswers = {};
-
-  function botSpeak(msg) {
-    const p = document.createElement('p');
-    p.textContent = msg;
-    chatEl.appendChild(p);
-    chatEl.scrollTop = chatEl.scrollHeight;
-  }
-
-  function setOptions(options) {
-    optionsEl.innerHTML = '';
-    options.forEach(opt => {
-      const btn = document.createElement('button');
-      btn.textContent = opt;
-      btn.onclick = () => handleResponse(opt);
-      optionsEl.appendChild(btn);
-    });
-  }
-
-  function handleResponse(value) {
-    const userLine = document.createElement('p');
-    userLine.innerHTML = `🧑 You: ${value}`;
-    chatEl.appendChild(userLine);
-    chatEl.scrollTop = chatEl.scrollHeight;
-
-    if (step === 0) {
-      userAnswers.group = value;
-      botSpeak("Great! What kind of vacation are you dreaming of?");
-      setOptions(["Beach 🏖️", "Adventure ⛰️", "City break 🏙️"]);
-      step++;
-    } else if (step === 1) {
-      userAnswers.vibe = value;
-      botSpeak("Awesome! And what’s your ideal hotel type?");
-      setOptions(["Luxury 💎", "Standard 💼", "Budget 💵"]);
-      step++;
-    } else if (step === 2) {
-      userAnswers.hotel = value;
-      botSpeak("Perfect! ✨ Our smart system is now working to match you with the best vacation deals...");
-      botSpeak("👉 To get your customized trip, fill out the full form above and receive links tailored just for you!");
-      setOptions([]);
-      step++;
+  document.getElementById('travelForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const city = document.getElementById('city').value.trim();
+    const checkin = document.getElementById('departure').value;
+    const checkout = document.getElementById('return').value;
+    if (!city || !checkin || !checkout) {
+      alert("Please complete all fields");
+      return;
     }
-  }
-
-  botSpeak("Hi! I'm TripBot, your personal AI travel buddy 🌍");
-  botSpeak("To get started, who are you traveling with?");
-  setOptions(["Solo", "With Partner", "Family", "Friends"]);
+    const destination = encodeURIComponent(city);
+    const bookingLink = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2`;
+    const expediaLink = `https://www.expedia.com/Hotel-Search?destination=${destination}&startDate=${checkin}&endDate=${checkout}&adults=2`;
+    const skyscannerLink = `https://www.skyscanner.com/transport/flights/?query=${destination}+${checkin}`;
+    document.getElementById("results").style.display = "block";
+    document.getElementById("bookingCard").innerHTML = `🌟 Looking for a dreamy hotel stay? <a href="${bookingLink}" target="_blank">Click to discover stunning deals!</a>`;
+    document.getElementById("expediaCard").innerHTML = `🏨 Prefer exclusive offers? <a href="${expediaLink}" target="_blank">Your perfect room is a click away!</a>`;
+    document.getElementById("skyscannerCard").innerHTML = `✈️ Cheapest flights? <a href="${skyscannerLink}" target="_blank">Let’s fly smarter – see flight options!</a>`;
+  });
 </script>
 </body>
 </html>
-
 
 
