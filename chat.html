@@ -26,25 +26,26 @@
     }
     .main-wrapper {
       display: flex;
-      flex-direction: row;
-      gap: 40px;
-      max-width: 1200px;
-      width: 100%;
       flex-wrap: wrap;
+      max-width: 1300px;
+      width: 100%;
+      gap: 20px;
+      justify-content: center;
     }
-    .form-container, .chatbot-container {
+    .form-container, .chatbot-container, .faq-section {
       background: white;
       padding: 30px;
       border-radius: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-      flex: 1;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      flex: 1 1 300px;
       min-width: 300px;
+      max-width: 400px;
     }
     h1 {
       text-align: center;
       color: #0077b6;
       margin-bottom: 10px;
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
     .subtitle {
       text-align: center;
@@ -88,125 +89,78 @@
       color: #0077b6;
       font-weight: 600;
     }
-    .faq-section {
-      margin-top: 40px;
-      background: white;
-      border-radius: 20px;
-      padding: 20px;
-    }
-    .faq-section h2 {
-      color: #0077b6;
-      margin-bottom: 15px;
-    }
-    .faq-section p {
+    .chatbot-container p, .faq-section p {
       margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+    .faq-section h2, .chatbot-container h2 {
+      color: #0077b6;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
     }
   </style>
 </head>
 <body>
-<div class="main-wrapper">
-  <div class="form-container">
-    <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation in Seconds</h1>
-    <p class="subtitle">No sign-up needed. Just great travel deals.</p>
-    <form id="travelForm">
-      <label for="country">Country 🌍</label>
-      <input type="text" id="country" name="country" placeholder="e.g., Italy, Japan, USA" required>
-
-      <label for="city">City 🏙️</label>
-      <input type="text" id="city" name="city" placeholder="e.g., Rome, Tokyo, New York" required>
-
-      <label for="departure">Departure Date ✈️</label>
-      <input type="date" id="departure" name="departure" required>
-
-      <label for="return">Return Date 🏡</label>
-      <input type="date" id="return" name="return" required>
-
-      <label for="budget">Your Budget ($) 💸</label>
-      <input type="number" id="budget" name="budget" placeholder="e.g., 1500" required>
-
-      <label for="hotel">Preferred Hotel Type 🏨</label>
-      <select id="hotel" name="hotel" required>
-        <option value="">-- Select --</option>
-        <option value="3 Stars">3 Stars</option>
-        <option value="4 Stars">4 Stars</option>
-        <option value="5 Stars">5 Stars</option>
-        <option value="Luxury Suite">Luxury Suite</option>
-      </select>
-
-      <label for="direct">Prefer Direct Flight? ✈️</label>
-      <select id="direct" name="direct" required>
-        <option value="">-- Select --</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-
-      <label for="room">Room Type 🛏️</label>
-      <select id="room" name="room" required>
-        <option value="">-- Select --</option>
-        <option value="Standard Room">Standard Room</option>
-        <option value="Suite">Suite</option>
-        <option value="Apartment">Apartment</option>
-      </select>
-
-      <label for="family">Traveling With 🧑‍🤝‍🧑</label>
-      <select id="family" name="family" required>
-        <option value="">-- Select --</option>
-        <option value="Adults Only">Adults Only</option>
-        <option value="Family with Kids">Family with Kids</option>
-      </select>
-
-      <label for="tour">Interested in Guided Tours? 🗺️</label>
-      <select id="tour" name="tour" required>
-        <option value="">-- Select --</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-
-      <button type="submit" class="submit-btn">Show Me My Deals</button>
-    </form>
-    <div id="results" class="results-box" style="display:none">
-      <div class="result-card" id="bookingCard"></div>
-      <div class="result-card" id="expediaCard"></div>
-      <div class="result-card" id="skyscannerCard"></div>
+  <div class="main-wrapper">
+    <div class="form-container">
+      <h1><i class="fas fa-plane-departure"></i> Plan Your Dream Vacation in Seconds</h1>
+      <p class="subtitle">No sign-up needed. Just great travel deals.</p>
+      <form id="travelForm">
+        <label for="country">Country 🌍</label>
+        <input type="text" id="country" name="country" placeholder="e.g., Italy, Japan, USA" required>
+        <label for="city">City 🏙️</label>
+        <input type="text" id="city" name="city" placeholder="e.g., Rome, Tokyo, New York" required>
+        <label for="departure">Departure Date ✈️</label>
+        <input type="date" id="departure" name="departure" required>
+        <label for="return">Return Date 🏡</label>
+        <input type="date" id="return" name="return" required>
+        <label for="budget">Your Budget ($) 💸</label>
+        <input type="number" id="budget" name="budget" placeholder="e.g., 1500" required>
+        <button type="submit" class="submit-btn">Show Me My Deals</button>
+      </form>
+      <div id="results" class="results-box" style="display:none">
+        <div class="result-card" id="bookingCard"></div>
+        <div class="result-card" id="expediaCard"></div>
+        <div class="result-card" id="skyscannerCard"></div>
+      </div>
+    </div>
+    <div class="chatbot-container">
+      <h2>🤖 TripBot – Your Smart AI Travel Assistant</h2>
+      <p>Hi! I'm TripBot, your personal AI travel buddy 🌍</p>
+      <p><strong>Q:</strong> Where do you want to go?</p>
+      <p><strong>Q:</strong> When do you plan to travel?</p>
+      <p><strong>Q:</strong> What's your budget range?</p>
+      <p><strong>Q:</strong> Any preference for hotel or room type?</p>
+      <p>✅ Awesome! I’m crunching the data. Please complete the full form to unlock your dream vacation links!</p>
+    </div>
+    <div class="faq-section">
+      <h2>❓ Frequently Asked Questions</h2>
+      <p><strong>Q:</strong> Do I need to sign up?</p>
+      <p><strong>A:</strong> Nope! Just fill in your info and get deals instantly.</p>
+      <p><strong>Q:</strong> Can I book directly?</p>
+      <p><strong>A:</strong> Yes. You’ll be redirected to our trusted travel partners.</p>
     </div>
   </div>
-  <div class="chatbot-container">
-    <h2>🤖 TripBot – Your Smart AI Travel Assistant</h2>
-    <p>Hi! I'm TripBot, your personal AI travel buddy 🌍</p>
-    <p><strong>Q:</strong> Where do you want to go?</p>
-    <p><strong>Q:</strong> When do you plan to travel?</p>
-    <p><strong>Q:</strong> What's your budget range?</p>
-    <p><strong>Q:</strong> Any preference for hotel or room type?</p>
-    <p><strong>✅</strong> Awesome! I’m crunching the data. Please complete the full form to unlock your dream vacation links!</p>
-  </div>
-</div>
-<div class="faq-section">
-  <h2>❓ Frequently Asked Questions</h2>
-  <p><strong>Q:</strong> Do I need to sign up?</p>
-  <p><strong>A:</strong> Nope! Just fill in your info and get deals instantly.</p>
-  <p><strong>Q:</strong> Can I book directly?</p>
-  <p><strong>A:</strong> Yes. You’ll be redirected to our trusted travel partners.</p>
-</div>
-<script>
-  document.getElementById('travelForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const city = document.getElementById('city').value.trim();
-    const checkin = document.getElementById('departure').value;
-    const checkout = document.getElementById('return').value;
-    if (!city || !checkin || !checkout) {
-      alert("Please complete all fields");
-      return;
-    }
-    const destination = encodeURIComponent(city);
-    const bookingLink = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2`;
-    const expediaLink = `https://www.expedia.com/Hotel-Search?destination=${destination}&startDate=${checkin}&endDate=${checkout}&adults=2`;
-    const skyscannerLink = `https://www.skyscanner.com/transport/flights/?query=${destination}+${checkin}`;
-    document.getElementById("results").style.display = "block";
-    document.getElementById("bookingCard").innerHTML = `🌟 Looking for a dreamy hotel stay? <a href="${bookingLink}" target="_blank">Click to discover stunning deals!</a>`;
-    document.getElementById("expediaCard").innerHTML = `🏨 Prefer exclusive offers? <a href="${expediaLink}" target="_blank">Your perfect room is a click away!</a>`;
-    document.getElementById("skyscannerCard").innerHTML = `✈️ Cheapest flights? <a href="${skyscannerLink}" target="_blank">Let’s fly smarter – see flight options!</a>`;
-  });
-</script>
+  <script>
+    document.getElementById('travelForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const city = document.getElementById('city').value.trim();
+      const checkin = document.getElementById('departure').value;
+      const checkout = document.getElementById('return').value;
+      if (!city || !checkin || !checkout) {
+        alert("Please complete all fields");
+        return;
+      }
+      const destination = encodeURIComponent(city);
+      const bookingLink = `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${checkin}&checkout=${checkout}&group_adults=2`;
+      const expediaLink = `https://www.expedia.com/Hotel-Search?destination=${destination}&startDate=${checkin}&endDate=${checkout}&adults=2`;
+      const skyscannerLink = `https://www.skyscanner.com/transport/flights/?query=${destination}+${checkin}`;
+      document.getElementById("results").style.display = "block";
+      document.getElementById("bookingCard").innerHTML = `🌟 Looking for a dreamy hotel stay? <a href="${bookingLink}" target="_blank">Click to discover stunning deals!</a>`;
+      document.getElementById("expediaCard").innerHTML = `🏨 Prefer exclusive offers? <a href="${expediaLink}" target="_blank">Your perfect room is a click away!</a>`;
+      document.getElementById("skyscannerCard").innerHTML = `✈️ Cheapest flights? <a href="${skyscannerLink}" target="_blank">Let’s fly smarter – see flight options!</a>`;
+    });
+  </script>
 </body>
 </html>
 
