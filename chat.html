@@ -2,146 +2,119 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TripWise AI – Smart Travel Planner</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TripWise AI – Plan Your Dream Trip</title>
+  <meta name="description" content="Plan smarter vacations with TripWise AI. Discover personalized travel deals for flights, hotels, and experiences.">
+  <meta name="keywords" content="AI travel assistant, smart trip planner, personalized vacation, hotel and flight deals">
+  <meta name="author" content="Etay Asher">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary: #0077b6;
-      --secondary: #00b4d8;
-      --accent: #ffd166;
-      --light-bg: #f9f9f9;
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-    }
+    * {box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif;}
     body {
-      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+      background: linear-gradient(to bottom, #00b4d8, #90e0ef);
       color: #333;
       padding: 20px;
     }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-    }
     .section {
+      max-width: 900px;
+      margin: 0 auto 40px;
       background: white;
       border-radius: 20px;
       padding: 30px;
-      margin-bottom: 40px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.1);
     }
-    h1, h2 {
-      text-align: center;
-      color: var(--primary);
-      margin-bottom: 20px;
+    h1, h2, h3 {
+      color: #0077b6;
+      margin-bottom: 10px;
     }
-    .bot-chat, .form-section, .results, .faq {
-      margin-top: 30px;
-    }
-    .chat-box {
-      background: #e6f8ff;
-      padding: 20px;
+    .bot-box {
+      background: #e0f7fa;
+      padding: 25px;
       border-radius: 15px;
+      margin-bottom: 30px;
     }
     .chat-message {
-      margin-bottom: 12px;
+      margin: 10px 0;
+      font-weight: bold;
     }
-    .chat-message strong {
-      color: var(--primary);
-    }
-    .chat-buttons button {
-      background: var(--secondary);
+    .chat-options button {
+      background: #00b4d8;
       color: white;
+      border: none;
+      border-radius: 30px;
       padding: 10px 20px;
       margin: 5px;
-      border: none;
-      border-radius: 20px;
       cursor: pointer;
       transition: 0.3s;
     }
-    .chat-buttons button:hover {
-      background: var(--primary);
+    .chat-options button:hover {
+      background: #0077b6;
     }
-    form label {
-      display: block;
-      margin: 15px 0 5px;
+    .hidden { display: none; }
+
+    label {
       font-weight: 600;
+      display: block;
+      margin-top: 20px;
     }
-    form input, form select {
+    input, select {
       width: 100%;
       padding: 12px;
+      margin-top: 8px;
       border-radius: 10px;
       border: 1px solid #ccc;
     }
     .submit-btn {
-      margin-top: 20px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
       color: white;
-      font-weight: 600;
       padding: 15px;
-      border: none;
-      border-radius: 30px;
       width: 100%;
       font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      margin-top: 25px;
       cursor: pointer;
     }
+
     .result-card {
-      background: #f0faff;
-      border-left: 5px solid var(--primary);
+      background: #f1faff;
       padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 10px;
+      margin-top: 15px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
-    .result-card a {
-      text-decoration: none;
-      color: var(--secondary);
-      font-weight: bold;
-    }
+
     .faq p {
-      margin: 10px 0;
+      margin: 12px 0;
+      line-height: 1.6;
     }
-    @media screen and (max-width: 768px) {
-      .chat-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
+
+    @media (max-width: 600px) {
+      .chat-options button {width: 100%;}
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="section">
-    <h1>🌍 TripWise AI – Plan Your Dream Vacation</h1>
-    <p style="text-align:center">Let our smart travel bot guide you step by step to the perfect trip.</p>
-  </div>
-
-  <!-- Bot Interaction -->
-  <div class="section bot-chat">
-    <h2>🤖 TripBot – Your Smart AI Travel Assistant</h2>
-    <div class="chat-box" id="chatBox">
-      <div class="chat-message"><strong>AI:</strong> How do you want to travel?</div>
-      <div class="chat-buttons" id="chatButtons">
-        <button onclick="nextBotStep('Solo')">Solo</button>
-        <button onclick="nextBotStep('With Partner')">With Partner</button>
-        <button onclick="nextBotStep('With Family')">With Family</button>
-        <button onclick="nextBotStep('With Friends')">With Friends</button>
-      </div>
+  <div class="section bot-box">
+    <h2>🚀 TripBot – Your Smart AI Travel Buddy</h2>
+    <div class="chat-message" id="question">How do you want to travel?</div>
+    <div class="chat-options" id="options">
+      <button onclick="nextQuestion('Solo')">Solo</button>
+      <button onclick="nextQuestion('With Partner')">With Partner</button>
+      <button onclick="nextQuestion('With Family')">With Family</button>
+      <button onclick="nextQuestion('With Friends')">With Friends</button>
+    </div>
+    <div id="finalMessage" class="hidden" style="margin-top:20px; font-weight: bold;">
+      🎯 Great! TripWise AI is now scanning exclusive deals tailored to you.<br>
+      Just complete the short form below to unlock your personalized trip offers!
     </div>
   </div>
 
-  <!-- Form -->
-  <div class="section form-section">
-    <h2>📝 Complete Your Travel Details</h2>
+  <div class="section">
+    <h2>📝 Plan Your Dream Vacation</h2>
     <form id="travelForm">
-      <label for="country">Country 🌎</label>
+      <label for="country">Destination Country 🌍</label>
       <input type="text" id="country" name="country" placeholder="e.g., Italy, Japan, USA" required>
 
       <label for="city">City 🏙️</label>
@@ -153,90 +126,106 @@
       <label for="return">Return Date 🏡</label>
       <input type="date" id="return" name="return" required>
 
-      <label for="budget">Your Budget ($) 💸</label>
-      <input type="number" id="budget" name="budget" placeholder="e.g., 1500" required>
+      <label for="budget">Estimated Budget 💵</label>
+      <input type="number" id="budget" name="budget" placeholder="USD" required>
 
-      <label for="hotel">Preferred Hotel Type 🏨</label>
-      <select id="hotel" name="hotel" required>
-        <option value="">-- Select --</option>
-        <option value="3 Stars">3 Stars</option>
-        <option value="4 Stars">4 Stars</option>
-        <option value="5 Stars">5 Stars</option>
-        <option value="Luxury Suite">Luxury Suite</option>
+      <label for="hotelType">Preferred Hotel Type 🛏️</label>
+      <select id="hotelType" name="hotelType">
+        <option>Luxury</option>
+        <option>Mid-Range</option>
+        <option>Budget</option>
+        <option>Villa / Apartment</option>
       </select>
 
-      <label for="flight">Preferred Flight Type ✈️</label>
-      <select id="flight" name="flight" required>
-        <option value="">-- Select --</option>
-        <option value="Direct">Direct</option>
-        <option value="With Stopovers">With Stopovers</option>
-        <option value="No Preference">No Preference</option>
+      <label for="flightClass">Flight Class ✈️</label>
+      <select id="flightClass" name="flightClass">
+        <option>Economy</option>
+        <option>Premium Economy</option>
+        <option>Business</option>
+        <option>First Class</option>
       </select>
 
-      <label for="style">Vacation Style 🌴</label>
-      <select id="style" name="style" required>
-        <option value="">-- Select --</option>
-        <option value="Adventure">Adventure</option>
-        <option value="Relaxing">Relaxing</option>
-        <option value="Family Friendly">Family Friendly</option>
-        <option value="Romantic">Romantic</option>
+      <label for="travelStyle">Travel Style 🎒</label>
+      <select id="travelStyle" name="travelStyle">
+        <option>Relaxing / Resort</option>
+        <option>Adventure / Hiking</option>
+        <option>City Tours / Culture</option>
+        <option>Theme Parks / Fun</option>
+      </select>
+
+      <label for="groupSize">How many people? 👨‍👩‍👧‍👦</label>
+      <input type="number" id="groupSize" name="groupSize" placeholder="e.g., 2, 4, 6" required>
+
+      <label for="guidedTours">Interested in Guided Tours? 🚍</label>
+      <select id="guidedTours" name="guidedTours">
+        <option>Yes</option>
+        <option>No</option>
+        <option>Maybe</option>
       </select>
 
       <button type="submit" class="submit-btn">Show Me My Deals</button>
     </form>
 
-    <div class="results" id="results" style="display:none;">
-      <div class="result-card" id="card1"></div>
-      <div class="result-card" id="card2"></div>
-      <div class="result-card" id="card3"></div>
+    <div id="results">
+      <div class="result-card" id="dealCard"></div>
     </div>
   </div>
 
-  <!-- FAQ -->
   <div class="section faq">
-    <h2>❓ Frequently Asked Questions</h2>
-    <p><strong>Q:</strong> Do I need to sign up?<br><strong>A:</strong> Nope! Just fill the form and get your deals instantly.</p>
-    <p><strong>Q:</strong> Are the links real?<br><strong>A:</strong> Yes! We are official travel partners and generate personalized smart links based on your preferences.</p>
-    <p><strong>Q:</strong> Can I customize later?<br><strong>A:</strong> Definitely. The links open to real pages where you can tweak anything.</p>
-    <p><strong>Q:</strong> What if I travel with kids?<br><strong>A:</strong> No problem! Just select the right option in the form and we’ll adjust everything.</p>
+    <h3>📌 Frequently Asked Questions</h3>
+    <p><strong>Q:</strong> Do I need to register?<br><strong>A:</strong> Not at all! Just fill the form and get your deals.</p>
+    <p><strong>Q:</strong> Are the deals personalized?<br><strong>A:</strong> Yes! Based on your preferences, we generate the best results.</p>
+    <p><strong>Q:</strong> What kind of links are these?<br><strong>A:</strong> These are exclusive smart affiliate links – our AI selects the best hidden offers.</p>
+    <p><strong>Q:</strong> Can I book directly?<br><strong>A:</strong> Absolutely. Our links take you to our trusted partners for secure booking.</p>
+    <p><strong>Q:</strong> What if I travel with kids or elderly?<br><strong>A:</strong> No worries – just mention it in your preferences!</p>
+    <p><strong>Q:</strong> Can I get kosher/halal options?<br><strong>A:</strong> Yes, just specify it under special requests and we’ll match it.</p>
   </div>
-</div>
 
-<!-- Script -->
-<script>
-  const steps = [
-    "Where would you love to go?",
-    "When do you plan to travel?",
-    "What’s your budget range?",
-    "Do you prefer adventure, relaxing, or family vacations?",
-    "Any preference for hotel or flight type?"
-  ];
-  let currentStep = 0;
-  const chatBox = document.getElementById("chatBox");
+  <script>
+    let currentStep = 0;
+    const questions = [
+      { q: "How do you want to travel?", a: ["Solo", "With Partner", "With Family", "With Friends"] },
+      { q: "What type of vacation do you prefer?", a: ["Relaxing", "Adventure", "City Tour", "Theme Parks"] },
+      { q: "What’s your budget range?", a: ["< $1000", "$1000–$3000", "$3000–$5000", "$5000+"] },
+      { q: "Any hotel preference?", a: ["Luxury", "Budget", "Apartment", "Doesn’t Matter"] },
+      { q: "Do you prefer direct flights?", a: ["Yes", "No", "Doesn’t Matter"] }
+    ];
 
-  function nextBotStep(answer) {
-    chatBox.innerHTML += `<div class="chat-message"><strong>You:</strong> ${answer}</div>`;
-    if (currentStep < steps.length) {
-      chatBox.innerHTML += `<div class="chat-message"><strong>AI:</strong> ${steps[currentStep]}</div>`;
+    function nextQuestion(answer) {
       currentStep++;
-    } else {
-      chatBox.innerHTML += `<div class="chat-message"><strong>AI:</strong> ✅ Our smart system is scanning the best travel deals for you. Please complete the form below to unlock your personalized links!</div>`;
-      document.getElementById("chatButtons").style.display = "none";
+      if (currentStep >= questions.length) {
+        document.getElementById("question").style.display = "none";
+        document.getElementById("options").style.display = "none";
+        document.getElementById("finalMessage").classList.remove("hidden");
+        return;
+      }
+      const qData = questions[currentStep];
+      document.getElementById("question").innerText = qData.q;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      qData.a.forEach(option => {
+        const btn = document.createElement("button");
+        btn.innerText = option;
+        btn.onclick = () => nextQuestion(option);
+        optionsDiv.appendChild(btn);
+      });
     }
-  }
 
-  document.getElementById("travelForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const city = document.getElementById("city").value.trim();
-    const checkin = document.getElementById("departure").value;
-    const checkout = document.getElementById("return").value;
-    const dest = encodeURIComponent(city);
-    document.getElementById("card1").innerHTML = `🌟 Exclusive hotel picks tailored to your taste. <a href="https://www.booking.com/searchresults.html?ss=${dest}&checkin=${checkin}&checkout=${checkout}" target="_blank">Discover your top stays</a>`;
-    document.getElementById("card2").innerHTML = `✈️ Smart flight options await you. <a href="https://www.skyscanner.com/transport/flights/?query=${dest}+${checkin}" target="_blank">View flight deals</a>`;
-    document.getElementById("card3").innerHTML = `🏖️ Curated vacation packages designed for your style. <a href="https://www.expedia.com/Hotel-Search?destination=${dest}&startDate=${checkin}&endDate=${checkout}" target="_blank">Unlock travel packages</a>`;
-    document.getElementById("results").style.display = "block";
-  });
-</script>
+    document.getElementById("travelForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const city = document.getElementById("city").value;
+      const checkin = document.getElementById("departure").value;
+      const checkout = document.getElementById("return").value;
+      const destination = encodeURIComponent(city);
+      const hotelLink = `https://example.com/hotels?city=${destination}&checkin=${checkin}&checkout=${checkout}`;
+      const flightLink = `https://example.com/flights?to=${destination}&depart=${checkin}`;
+      document.getElementById("dealCard").innerHTML = `
+        <h3>🎁 Your Exclusive Travel Deals Are Ready:</h3>
+        <p><strong>Hotels:</strong> <a href="${hotelLink}" target="_blank">View personalized hotel deals</a></p>
+        <p><strong>Flights:</strong> <a href="${flightLink}" target="_blank">View best flight options</a></p>
+      `;
+    });
+  </script>
 </body>
 </html>
 
