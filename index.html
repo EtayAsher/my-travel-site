@@ -341,3 +341,151 @@
 </script>
 </body>
 </html>
+<script src="https://unpkg.com/did-you-mean"></script>
+
+<script>
+  const cities = [
+    // USA
+    "New York City","Los Angeles","Chicago","Houston","Phoenix","Philadelphia","San Antonio","San Diego","Dallas","San Jose",
+    "Austin","Jacksonville","Fort Worth","Columbus","Charlotte","San Francisco","Indianapolis","Seattle","Denver","Washington D.C.",
+    "Boston","Nashville","El Paso","Detroit","Memphis","Portland","Oklahoma City","Las Vegas","Louisville","Baltimore","Milwaukee",
+    "Albuquerque","Tucson","Fresno","Sacramento","Kansas City","Mesa","Atlanta","Omaha","Colorado Springs","Raleigh","Miami",
+    "Long Beach","Virginia Beach","Oakland","Minneapolis","Tulsa","Arlington","Tampa","New Orleans",
+
+    // Canada
+    "Toronto","Vancouver","Montreal","Calgary","Ottawa","Edmonton","Winnipeg","Quebec City","Hamilton","Victoria",
+
+    // Mexico
+    "Mexico City","Cancun","Guadalajara","Monterrey","Tijuana","Puebla",
+
+    // UK
+    "London","Birmingham","Manchester","Liverpool","Leeds","Glasgow","Edinburgh","Bristol","Newcastle","Sheffield",
+
+    // France
+    "Paris","Marseille","Lyon","Toulouse","Nice","Nantes","Strasbourg","Montpellier","Bordeaux","Lille",
+
+    // Germany
+    "Berlin","Munich","Hamburg","Frankfurt","Cologne","Stuttgart","Düsseldorf","Dortmund","Essen","Leipzig",
+
+    // Italy
+    "Rome","Milan","Naples","Turin","Palermo","Genoa","Bologna","Florence","Bari","Venice",
+
+    // Spain
+    "Madrid","Barcelona","Valencia","Seville","Zaragoza","Málaga","Murcia","Palma","Las Palmas","Bilbao",
+
+    // Russia
+    "Moscow","Saint Petersburg","Novosibirsk","Yekaterinburg","Kazan","Nizhny Novgorod","Chelyabinsk","Samara","Omsk","Rostov-on-Don",
+
+    // China
+    "Beijing","Shanghai","Guangzhou","Shenzhen","Chengdu","Chongqing","Wuhan","Xi'an","Hangzhou","Nanjing",
+
+    // Japan
+    "Tokyo","Yokohama","Osaka","Nagoya","Sapporo","Fukuoka","Kobe","Kyoto","Kawasaki","Hiroshima",
+
+    // South Korea
+    "Seoul","Busan","Incheon","Daegu","Daejeon","Gwangju",
+
+    // India
+    "Mumbai","Delhi","Bangalore","Hyderabad","Ahmedabad","Chennai","Kolkata","Surat","Pune","Jaipur","Goa",
+
+    // Australia
+    "Sydney","Melbourne","Brisbane","Perth","Adelaide","Gold Coast","Canberra","Newcastle","Hobart","Darwin",
+
+    // Brazil
+    "São Paulo","Rio de Janeiro","Brasília","Salvador","Fortaleza","Belo Horizonte","Manaus","Curitiba","Recife","Porto Alegre",
+    "Belém","Goiânia","Campinas","São Luís","Maceió","Natal","Teresina","João Pessoa","Campo Grande","Cuiabá",
+
+    // Argentina
+    "Buenos Aires","Córdoba","Rosario","Mendoza","La Plata","Mar del Plata","San Miguel de Tucumán","Salta","Santa Fe","San Juan",
+
+    // Chile
+    "Santiago","Valparaíso","Concepción","La Serena","Antofagasta","Temuco","Rancagua","Iquique","Talca","Arica",
+
+    // Peru
+    "Lima","Arequipa","Cusco","Trujillo","Chiclayo","Piura","Iquitos","Puno","Tacna","Huancayo",
+
+    // Colombia
+    "Bogotá","Medellín","Cali","Barranquilla","Cartagena","Bucaramanga","Cúcuta","Pereira","Santa Marta","Manizales",
+
+    // Uruguay
+    "Montevideo","Punta del Este","Salto","Paysandú","Rivera",
+
+    // Paraguay
+    "Asunción","Ciudad del Este","Encarnación","San Lorenzo","Luque",
+
+    // Bolivia
+    "La Paz","Santa Cruz de la Sierra","Cochabamba","Sucre","Oruro","Tarija","Potosí","Trinidad",
+
+    // Ecuador
+    "Quito","Guayaquil","Cuenca","Santo Domingo","Machala","Manta","Portoviejo","Loja",
+
+    // Venezuela
+    "Caracas","Maracaibo","Valencia","Barquisimeto","Maracay","Ciudad Guayana","Maturín","San Cristóbal",
+
+    // Morocco
+    "Casablanca","Marrakesh","Rabat","Tangier","Agadir","Fes","Meknes",
+
+    // Tunisia
+    "Tunis","Sousse","Sfax","Kairouan","Bizerte",
+
+    // Egypt
+    "Cairo","Alexandria","Giza","Luxor","Aswan","Sharm El Sheikh","Hurghada",
+
+    // UAE
+    "Dubai","Abu Dhabi","Sharjah","Ajman","Fujairah","Ras Al Khaimah","Al Ain",
+
+    // Saudi Arabia
+    "Riyadh","Jeddah","Mecca","Medina","Dammam","Khobar","Abha",
+
+    // Qatar
+    "Doha","Al Rayyan","Al Wakrah",
+
+    // Oman
+    "Muscat","Salalah","Sohar","Nizwa",
+
+    // Kuwait
+    "Kuwait City","Al Ahmadi","Hawalli",
+
+    // Lebanon
+    "Beirut","Tripoli","Sidon","Tyre","Zahle",
+
+    // Jordan
+    "Amman","Aqaba","Irbid","Zarqa","Madaba","Petra",
+
+    // Turkey
+    "Istanbul","Ankara","Izmir","Bursa","Antalya","Konya","Gaziantep",
+
+    // Israel
+    "Jerusalem","Tel Aviv","Haifa","Eilat","Beersheba","Nazareth","Tiberias",
+
+    // Iraq
+    "Baghdad","Basra","Erbil","Mosul","Najaf",
+
+    // Iran
+    "Tehran","Mashhad","Isfahan","Shiraz","Tabriz","Qom",
+
+    // Pakistan
+    "Karachi","Lahore","Islamabad","Rawalpindi","Peshawar",
+
+    // Bangladesh
+    "Dhaka","Chittagong","Khulna","Rajshahi","Sylhet",
+
+    // Nepal
+    "Kathmandu","Pokhara","Lalitpur","Bhaktapur"
+  ];
+
+  window.onload = function(){
+    const cityInput = document.getElementById("cityInput");
+    if(cityInput){
+      cityInput.addEventListener("blur", function(){
+        const userInput = this.value.trim();
+        const suggestion = didYouMean(userInput, cities);
+
+        if(suggestion && suggestion.toLowerCase() !== userInput.toLowerCase()){
+          this.value = suggestion;
+          alert(`City corrected to: ${suggestion}`);
+        }
+      });
+    }
+  };
+</script>
