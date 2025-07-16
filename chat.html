@@ -1,257 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TripWise AI</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TripWise AI – Smart Travel Planner</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0077b6, #90e0ef);
+      background: linear-gradient(to bottom right, #f0f8ff, #e0f7fa);
       color: #333;
     }
     .container {
-      max-width: 900px;
-      margin: 40px auto;
-      background: #fff;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
     }
     h1 {
-      color: #0077b6;
-      font-size: 32px;
-      margin-bottom: 10px;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #2c3e50;
     }
-    p.subheading {
-      font-size: 16px;
-      color: #444;
-      margin-bottom: 30px;
+    .subheading {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 40px;
     }
-    .question {
-      margin-top: 30px;
-      font-weight: 600;
-      font-size: 18px;
-    }
-    .options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .option-btn {
-      background: #00b4d8;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: 0.3s;
-    }
-    .option-btn:hover {
-      background: #0077b6;
-    }
-    .bot-summary {
-      display: none;
-      margin-top: 30px;
-      background: #e3f6fd;
+    .chat-section {
+      background-color: #ffffff;
       padding: 20px;
       border-radius: 12px;
-      font-weight: 500;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    .chat-section p {
+      margin-bottom: 10px;
     }
     form {
-      display: none;
-      margin-top: 40px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    form h2 {
+      margin-top: 0;
+      color: #2c3e50;
     }
     label {
-      font-weight: 600;
-      margin-top: 20px;
       display: block;
+      margin: 15px 0 5px;
+      font-weight: 600;
     }
     input, select {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       border: 1px solid #ccc;
-      border-radius: 12px;
-      margin-top: 5px;
+      border-radius: 8px;
     }
     .submit-btn {
-      margin-top: 30px;
-      width: 100%;
-      background: #0077b6;
+      display: block;
+      margin: 20px auto 0;
+      background-color: #0077b6;
       color: white;
+      padding: 12px 25px;
       border: none;
-      padding: 14px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 16px;
+      border-radius: 8px;
+      font-size: 1rem;
       cursor: pointer;
+    }
+    .submit-btn:hover {
+      background-color: #005f87;
     }
     .cards {
       display: none;
-      margin-top: 40px;
+      margin-top: 30px;
+    }
+    .cards h3 {
+      text-align: center;
+      color: #2c3e50;
     }
     .card {
-      background: #f0f0f0;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .card h3 {
-      color: #0077b6;
-      margin: 0 0 10px;
+      background-color: #ffffff;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
     .card a {
-      color: #00b4d8;
-      font-weight: 600;
       text-decoration: none;
+      font-weight: bold;
+      color: #0077b6;
     }
     .faq {
-      margin-top: 60px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
     .faq h2 {
-      color: #0077b6;
-      font-size: 22px;
-    }
-    .faq-item {
+      text-align: center;
       margin-bottom: 20px;
     }
-    .faq-item h4 {
-      margin: 0;
-      font-weight: 600;
+    .faq-item {
+      margin-bottom: 15px;
     }
-    .faq-item p {
-      margin: 4px 0 0;
-      color: #555;
+    .faq-item strong {
+      display: block;
+      margin-bottom: 5px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>TripWise AI</h1>
-    <p class="subheading">Your smart assistant to book the best vacation – tailored by AI, driven by your preferences.</p>
+    <p class="subheading">Your smart assistant to plan the perfect trip – based on your style, budget and travel dreams.</p>
 
-    <div id="bot">
-      <div class="question">How are you planning to travel?</div>
-      <div class="options">
-        <button class="option-btn">Solo</button>
-        <button class="option-btn">With Partner</button>
-        <button class="option-btn">Family</button>
-        <button class="option-btn">Friends</button>
-      </div>
-    </div>
-
-    <div class="bot-summary" id="summary">
-      Thank you for choosing your preferences! Our smart AI is processing your dream vacation. Just one step left – fill out the quick form below to finalize your request.
+    <div class="chat-section">
+      <p>Where would you like to travel?</p>
+      <p>What dates are you planning to go?</p>
+      <p>Who are you traveling with?</p>
+      <p>What kind of experience are you looking for?</p>
     </div>
 
     <form id="travel-form">
-      <h2>📝 Travel Details Form</h2>
-      <label>Destination Country</label>
-      <input type="text" placeholder="e.g. Italy">
-      <label>Destination City</label>
-      <input type="text" placeholder="e.g. Rome">
-      <label>Departure Date</label>
-      <input type="date">
-      <label>Return Date</label>
-      <input type="date">
-      <label>Budget ($)</label>
-      <input type="number" placeholder="e.g. 3000">
-      <label>Hotel Preferences</label>
-      <select>
-        <option>Luxury</option>
-        <option>5 Stars</option>
-        <option>4 Stars</option>
+      <h2>Tell us more about your dream trip</h2>
+      <label for="destination">Destination (City)</label>
+      <input type="text" id="destination" name="destination" placeholder="e.g. Rome">
+
+      <label for="dates">Travel Dates</label>
+      <input type="text" id="dates" name="dates" class="date-range" placeholder="Select your trip range">
+
+      <label for="budget">Estimated Budget ($)</label>
+      <input type="text" id="budget" name="budget" placeholder="$1000 – $3000">
+
+      <label for="hotel">Preferred Hotel Type</label>
+      <select id="hotel" name="hotel">
+        <option>Any</option>
         <option>3 Stars</option>
-        <option>Any</option>
+        <option>4 Stars</option>
+        <option>5 Stars</option>
+        <option>Luxury Resort</option>
       </select>
-      <label>Flight Type</label>
-      <select>
+
+      <label for="flight">Flight Preference</label>
+      <select id="flight" name="flight">
+        <option>Any</option>
         <option>Direct Only</option>
-        <option>1 Stop</option>
-        <option>Any</option>
+        <option>1 Stop OK</option>
       </select>
-      <label>Vacation Type</label>
-      <select>
-        <option>Relaxing</option>
-        <option>Adventure</option>
-        <option>Romantic</option>
-        <option>Urban</option>
-        <option>Nature</option>
+
+      <label for="tours">Interested in Guided Tours?</label>
+      <select id="tours" name="tours">
+        <option>No preference</option>
+        <option>Yes</option>
+        <option>No</option>
       </select>
-      <button class="submit-btn" type="submit">Show Me My Deals</button>
+
+      <button type="submit" class="submit-btn">Show Me My Deals</button>
     </form>
 
-    <div class="cards" id="cards">
-      <div class="card">
-        <h3>Top Hotel Deals</h3>
-        <p><a href="https://www.booking.com" target="_blank">See the best-rated hotels matching your vibe</a></p>
-      </div>
-      <div class="card">
-        <h3>Recommended Flights</h3>
-        <p><a href="https://www.skyscanner.com" target="_blank">Browse optimized flight options</a></p>
-      </div>
-      <div class="card">
-        <h3>Bundled Vacations</h3>
-        <p><a href="https://www.expedia.com" target="_blank">Explore ready-to-go packages for your style</a></p>
-      </div>
+    <div class="cards" id="deals">
+      <h3>Your Personalized Travel Deals:</h3>
+      <div id="deals-content"></div>
     </div>
 
     <div class="faq">
-      <h2>❓ Frequently Asked Questions</h2>
+      <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
-        <h4>Do I need to register?</h4>
-        <p>No, just fill your trip info and get instant deals.</p>
+        <strong>Is this service free?</strong>
+        <span>Yes! TripWise is 100% free to use and always will be.</span>
       </div>
       <div class="faq-item">
-        <h4>Is this really AI-powered?</h4>
-        <p>100%! Our engine analyzes preferences and generates live options.</p>
+        <strong>How accurate are the recommendations?</strong>
+        <span>We use AI to match deals with your preferences, offering highly relevant options.</span>
       </div>
       <div class="faq-item">
-        <h4>Can I trust the links?</h4>
-        <p>Yes! We’re official partners with major booking sites – these aren’t random links!</p>
+        <strong>Can I book directly through the links?</strong>
+        <span>Yes – our links connect you to real-time deals on trusted platforms.</span>
       </div>
       <div class="faq-item">
-        <h4>What if I’m not sure about dates?</h4>
-        <p>Choose an estimate – you can update later.</p>
+        <strong>Do I need to register?</strong>
+        <span>No sign-up required to get started.</span>
       </div>
       <div class="faq-item">
-        <h4>Can I plan for family or solo trips?</h4>
-        <p>Yes! The system adapts to your group type.</p>
-      </div>
-      <div class="faq-item">
-        <h4>Does this work for international trips?</h4>
-        <p>Of course – we support global destinations and currencies.</p>
+        <strong>Can I modify my preferences later?</strong>
+        <span>Absolutely – just return to the form and submit new details.</span>
       </div>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
-    const bot = document.querySelector('#bot');
-    const summary = document.querySelector('#summary');
-    const form = document.querySelector('#travel-form');
-    const deals = document.querySelector('#cards');
-
-    document.querySelectorAll('.option-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        bot.style.display = 'none';
-        summary.style.display = 'block';
-        form.style.display = 'block';
-        window.scrollTo({ top: form.offsetTop, behavior: 'smooth' });
-      });
+    flatpickr(".date-range", {
+      mode: "range",
+      dateFormat: "Y-m-d",
+      minDate: "today",
     });
 
-    form.addEventListener('submit', e => {
+    document.getElementById("travel-form").addEventListener("submit", function(e) {
       e.preventDefault();
-      deals.style.display = 'block';
-      window.scrollTo({ top: deals.offsetTop, behavior: 'smooth' });
+
+      const destination = document.getElementById("destination").value.trim();
+      const dateRange = document.getElementById("dates").value.split(" to ");
+      const checkIn = dateRange[0];
+      const checkOut = dateRange[1] || dateRange[0];
+
+      const bookingURL = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(destination)}&checkin_year_month_monthday=${checkIn}&checkout_year_month_monthday=${checkOut}`;
+      const skyscannerURL = `https://www.skyscanner.com/transport/flights?query=${encodeURIComponent(destination)}`;
+      const expediaURL = `https://www.expedia.com/Hotel-Search?destination=${encodeURIComponent(destination)}&startDate=${checkIn}&endDate=${checkOut}`;
+
+      document.getElementById("deals-content").innerHTML = `
+        <div class="card"><a href="${bookingURL}" target="_blank">🏨 Booking Deals for ${destination}</a></div>
+        <div class="card"><a href="${skyscannerURL}" target="_blank">✈️ Flights to ${destination}</a></div>
+        <div class="card"><a href="${expediaURL}" target="_blank">🏝 Expedia Hotels from ${checkIn} to ${checkOut}</a></div>
+      `;
+
+      document.getElementById("deals").style.display = "block";
+      window.scrollTo({ top: document.getElementById("deals").offsetTop, behavior: 'smooth' });
     });
   </script>
 </body>
 </html>
-
 
