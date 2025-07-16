@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Travel Planner</title>
+  <title>TripWise AI – Your Smart Travel Assistant</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -14,7 +14,7 @@
       color: #333;
     }
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 60px auto;
       background: #fff;
       border-radius: 18px;
@@ -36,6 +36,7 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 20px;
+      display: none;
     }
     .bot-option {
       background-color: #00b4d8;
@@ -50,15 +51,46 @@
     .bot-option:hover {
       background-color: #0077b6;
     }
-    .result-text {
+    #summary {
       display: none;
-      margin-top: 20px;
+      margin-top: 30px;
       font-weight: 500;
       font-size: 16px;
+      background: #e0f7fa;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    form {
+      display: none;
+      margin-top: 30px;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 6px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+    .submit-btn {
+      margin-top: 30px;
+      background: #0077b6;
+      color: white;
+      padding: 14px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
     }
     .deals {
       display: none;
-      margin-top: 30px;
+      margin-top: 40px;
     }
     .card {
       background: #f1f1f1;
@@ -88,24 +120,12 @@
     .faq-item h4 {
       margin-bottom: 6px;
     }
-    .show-deals-btn {
-      display: none;
-      margin-top: 20px;
-      background: #0077b6;
-      color: white;
-      padding: 14px 20px;
-      font-size: 16px;
-      font-weight: 600;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      width: 100%;
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>AI Travel Planner</h1>
+    <h1>TripWise AI</h1>
+
     <div id="chat">
       <div class="bot-question" id="q1">Where do you want to go?</div>
       <div class="bot-options" id="a1">
@@ -130,93 +150,121 @@
         <button class="bot-option">Family</button>
         <button class="bot-option">Friends</button>
       </div>
-
-      <div class="bot-question" id="q4">What's your travel style?</div>
-      <div class="bot-options" id="a4">
-        <button class="bot-option">Luxury</button>
-        <button class="bot-option">Budget</button>
-        <button class="bot-option">Adventure</button>
-        <button class="bot-option">Relaxing</button>
-      </div>
-
-      <div class="bot-question" id="q5">Flight preference?</div>
-      <div class="bot-options" id="a5">
-        <button class="bot-option">Direct</button>
-        <button class="bot-option">1 Stop OK</button>
-        <button class="bot-option">Cheapest possible</button>
-      </div>
-
-      <div class="bot-question" id="q6">Do you want guided tours?</div>
-      <div class="bot-options" id="a6">
-        <button class="bot-option">Yes</button>
-        <button class="bot-option">No</button>
-        <button class="bot-option">Maybe</button>
-      </div>
-
-      <p class="result-text" id="result-text">Amazing! Fetching the best deals for you...</p>
-      <button class="show-deals-btn" id="show-deals">Show Me My Deals</button>
     </div>
+
+    <div id="summary">
+      Thank you for selecting your preferences! Our smart AI is processing your dream vacation... Just one step left – fill out the quick form below to finalize your request.
+    </div>
+
+    <form id="travel-form">
+      <label for="destination">Destination</label>
+      <input type="text" id="destination" placeholder="e.g. Rome, Thailand">
+
+      <label for="dates">Travel Dates</label>
+      <input type="text" id="dates" placeholder="e.g. August 5–12">
+
+      <label for="budget">Budget</label>
+      <input type="text" id="budget" placeholder="$2000–$5000">
+
+      <label for="hotel">Preferred Hotel Type</label>
+      <select id="hotel">
+        <option>Any</option>
+        <option>3 Stars</option>
+        <option>4 Stars</option>
+        <option>5 Stars</option>
+        <option>Luxury Resort</option>
+      </select>
+
+      <label for="flight">Preferred Flight Type</label>
+      <select id="flight">
+        <option>Any</option>
+        <option>Direct</option>
+        <option>1 Stop OK</option>
+      </select>
+
+      <label for="tours">Interested in Guided Tours?</label>
+      <select id="tours">
+        <option>No Preference</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+
+      <button type="submit" class="submit-btn">Show Me My Deals</button>
+    </form>
 
     <div class="deals" id="deals">
       <div class="card">
-        <h3>Top Hotel Options</h3>
-        <p><a href="https://www.booking.com" target="_blank">Explore curated hotels for your trip</a></p>
+        <h3>Hotel Deals</h3>
+        <p><a href="https://www.booking.com" target="_blank">Explore curated hotel options</a></p>
       </div>
       <div class="card">
         <h3>Flight Offers</h3>
-        <p><a href="https://www.skyscanner.com" target="_blank">Find the best flight options</a></p>
+        <p><a href="https://www.skyscanner.com" target="_blank">Find the best flights available</a></p>
       </div>
       <div class="card">
         <h3>Vacation Packages</h3>
-        <p><a href="https://www.expedia.com" target="_blank">View bundled vacation deals</a></p>
+        <p><a href="https://www.expedia.com" target="_blank">Discover bundled travel deals</a></p>
       </div>
     </div>
 
     <div class="faq">
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
-        <h4>Is this service really free?</h4>
-        <p>Yes! We earn a commission only if you book through our links – you pay nothing extra.</p>
+        <h4>Is this service free?</h4>
+        <p>Absolutely. We only earn a small commission when you book via our links – no extra cost for you.</p>
       </div>
       <div class="faq-item">
-        <h4>Are the deals updated in real-time?</h4>
-        <p>Yes, we connect to trusted platforms like Booking, Expedia and Skyscanner live.</p>
+        <h4>Do I need to sign up?</h4>
+        <p>No account needed. Just answer the questions and get your deals instantly.</p>
       </div>
       <div class="faq-item">
-        <h4>Do I have to sign up?</h4>
-        <p>Nope. You just answer the questions and get your deals – no login needed.</p>
+        <h4>Are the deals customized for me?</h4>
+        <p>Yes, our AI tailors results to match your preferences, travel style and budget.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Are flights and hotels real-time updated?</h4>
+        <p>Definitely. We fetch live prices from Booking, Skyscanner and Expedia.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Can I choose flexible dates?</h4>
+        <p>Sure! Just mention it in the form – we’ll show flexible options too.</p>
+      </div>
+      <div class="faq-item">
+        <h4>What if I need help?</h4>
+        <p>We’re always here. You can reach our team via email or the chatbot support below.</p>
       </div>
     </div>
   </div>
 
   <script>
-    const steps = ["q1", "q2", "q3", "q4", "q5", "q6"];
-    let currentStep = 0;
+    const steps = ["q1", "q2", "q3"];
+    let current = 0;
 
-    function showNextStep() {
-      currentStep++;
-      if (currentStep < steps.length) {
-        document.getElementById(steps[currentStep]).style.display = "block";
-        document.getElementById("a" + (currentStep + 1)).style.display = "flex";
+    function showNext() {
+      current++;
+      if (current < steps.length) {
+        document.getElementById(steps[current]).style.display = "block";
+        document.getElementById("a" + (current + 1)).style.display = "flex";
       } else {
-        document.getElementById("result-text").style.display = "block";
-        document.getElementById("show-deals").style.display = "block";
+        document.getElementById("summary").style.display = "block";
+        document.getElementById("travel-form").style.display = "block";
       }
     }
 
-    document.querySelectorAll(".bot-option").forEach(btn => {
-      btn.addEventListener("click", showNextStep);
+    steps.forEach((step, i) => {
+      document.getElementById(step).style.display = "block";
+      document.getElementById("a" + (i + 1)).style.display = "flex";
     });
 
-    document.getElementById("show-deals").addEventListener("click", () => {
+    document.querySelectorAll(".bot-option").forEach(btn => {
+      btn.addEventListener("click", showNext);
+    });
+
+    document.querySelector("#travel-form").addEventListener("submit", function(e) {
+      e.preventDefault();
       document.getElementById("deals").style.display = "block";
       window.scrollTo({ top: document.getElementById("deals").offsetTop, behavior: 'smooth' });
     });
-
-    // Show first question
-    document.getElementById("q1").style.display = "block";
-    document.getElementById("a1").style.display = "flex";
   </script>
 </body>
 </html>
-
